@@ -4,9 +4,8 @@ import org.springframework.http.ResponseEntity;
 
 import com.pms.common.entity.ApiResponse;
 
-public interface UserService {
-	
-	public  ResponseEntity<ApiResponse>  validateUser(String name,String password);
-	
+public interface MenuService {
+	public  ResponseEntity<ApiResponse>  getMenusByRoleId(Integer roleId);
+
 
 }

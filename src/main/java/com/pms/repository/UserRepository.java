@@ -22,6 +22,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 	 * @return the optional
 	 */
 	public Optional<UserEntity> findByFirstNameAndPassword(String name,String password);
-	
+
 	
 }
