@@ -20,22 +20,22 @@ import com.pms.service.UserService;
 
 public class LoginController {
 	
-	@Autowired
-	UserService userService;
-	
-	@Autowired
-	MenuService menuService;
-	
-	
-	@PostMapping("login")
-	public ResponseEntity<ApiResponse> Login(@RequestBody UserEntity user){
-		return this.userService.validateUser(user.getFirstName(), user.getPassword());
-	}
-	@PostMapping("menus")
-	public ResponseEntity<ApiResponse> getMenus(@RequestBody MenuEntity menu){
-		return this.menuService.getMenusByRoleId(menu.getRoleId());
-
-	}
+//	@Autowired
+//	UserService userService;
+//	
+//	@Autowired
+//	MenuService menuService;
+//	
+//	
+//	@PostMapping("login")
+//	public ResponseEntity<ApiResponse> Login(@RequestBody UserEntity user){
+//		return this.userService.validateUser(user.getFirstName(), user.getPassword());
+//	}
+//	@PostMapping("menus")
+//	public ResponseEntity<ApiResponse> getMenus(@RequestBody MenuEntity menu){
+//		return this.menuService.getMenusByRoleId(menu.getRoleId());
+//
+//	}
 	
 	
 

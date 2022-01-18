@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pms.entity.UserEntity;
 
@@ -21,7 +20,15 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 	 * @param password the password
 	 * @return the optional
 	 */
+
 	public Optional<UserEntity> findByFirstNameAndPassword(String name,String password);
 
+	//public Optional<UserEntity> findByFirstNameAndPassword(String name,String password);
 	
+	public Optional<UserEntity> findByUserId(Integer id);
+	
+//	@Query("select u from users u where u.email = :email")
+	public Optional<UserEntity> findByEmailId(String emailId);
+	
+
 }
