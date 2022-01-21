@@ -1,18 +1,12 @@
 package com.pms.service;
 
-
-import org.springframework.http.ResponseEntity;
-
-import com.pms.common.entity.ApiResponse;
+import com.pms.common.exception.CustomException;
 import com.pms.entity.UserEntity;
 
-
 public interface UserService {
-		
 
-	public ResponseEntity<ApiResponse> getUserById(Integer id);
-    
-	public ResponseEntity<ApiResponse> saveUser(UserEntity user);
-	
-	public ResponseEntity<ApiResponse> findByEmailId(String emailId);
+	public UserEntity saveUser(UserEntity user) throws CustomException;
+
+	public UserEntity findByEmailId(String emailId);
+
 }

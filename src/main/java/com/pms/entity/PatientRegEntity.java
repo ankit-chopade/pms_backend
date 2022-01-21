@@ -17,19 +17,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 
 public class PatientRegEntity {
 	/**
@@ -38,63 +31,60 @@ public class PatientRegEntity {
 
 	/** The user id. */
 	@Id
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
-	
+
 	/** The title. */
-	@Column(name="title")
+	@Column(name = "title")
 	@NotBlank(message = "title can't be empty")
 	private String title;
 
 	/** The first name. */
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	@NotBlank(message = "first name can't be empty")
 	private String firstName;
-	
+
 	/** The last name. */
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
-	
+
 	/** The email. */
-	@Column(name="email_id")
-	@Email(message = "Email is not valid", 
-	       regexp = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\"
-	       		+ "x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-	       		+ "|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\"
-	       		+ "x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
+	@Column(name = "email_id")
+	@Email(message = "Email is not valid", regexp = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\"
+			+ "x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+			+ "|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\"
+			+ "x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
 	@NotEmpty(message = "Email can't be empty")
 	private String emailId;
-	
+
 	/** The dob. */
-	@Column(name="dob")
+	@Column(name = "dob")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@JsonFormat(pattern = "yyyy/MM/dd")
 	private Date dob;
-	
+
 	/** The role id. */
-	@Column(name="role_id")
+	@Column(name = "role_id")
 	private Integer roleId;
-	
+
 	/** The employee id. */
-	@Column(name="employee_id")
+	@Column(name = "employee_id")
 	private Integer employeeId;
-	
+
 	/** The contact no. */
-	@Column(name="contact_no")
+	@Column(name = "contact_no")
 	@NotBlank(message = "mobile Number is required")
-	@Size(min = 10, max = 10 ,message = "must have 10 digit")
+	@Size(min = 10, max = 10, message = "must have 10 digit")
 	private Long contactNo;
 
 	/** The password. */
-	@Column(name="password")
+	@Column(name = "password")
 	private String password;
-	
+
 	/** The active. */
-	@Column(name="active")
+	@Column(name = "active")
 	private Integer active;
-	
-	
 
 	public Long getUserId() {
 		return userId;
@@ -183,7 +173,5 @@ public class PatientRegEntity {
 	public void setActive(Integer active) {
 		this.active = active;
 	}
-	
-	
 
 }

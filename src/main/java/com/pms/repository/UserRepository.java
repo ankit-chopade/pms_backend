@@ -12,22 +12,13 @@ import com.pms.entity.UserEntity;
  */
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> { 
-	
-	/**
-	 * Find by first name and password.
-	 *
-	 * @param name the name
-	 * @param password the password
-	 * @return the optional
-	 */
 
-	public Optional<UserEntity> findByFirstNameAndPassword(String name,String password);
 
-	//public Optional<UserEntity> findByFirstNameAndPassword(String name,String password);
+
 	
 	public Optional<UserEntity> findByUserId(Integer id);
 	
-//	@Query("select u from users u where u.email = :email")
+
 	public Optional<UserEntity> findByEmailId(String emailId);
 	
 

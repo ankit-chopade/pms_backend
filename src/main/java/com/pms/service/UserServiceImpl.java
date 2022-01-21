@@ -1,119 +1,88 @@
 package com.pms.service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import org.springframework.stereotype.Service;
 
-import com.pms.common.entity.ApiResponse;
-import com.pms.common.util.ResponseUtil;
+import com.pms.common.exception.CustomException;
+import com.pms.common.util.ErrorResponse;
+import com.pms.entity.RoleEntity;
 import com.pms.entity.UserEntity;
-import com.pms.repository.UserRepository;
-
-
+import com.pms.repository.RoleRepository;
+import com.pms.repository.UserRepository;	
+import com.pms.util.MailService;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService{
+public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private UserRepository repository;
-	
-	 @Autowired
-	 private BCryptPasswordEncoder pwdEncoder;
 
+	@Autowired
+	private RoleRepository roleRepository;
 
-	//@Override
+	@Autowired
+	private BCryptPasswordEncoder pwdEncoder;
 
-//	public ResponseEntity<ApiResponse> validateUser(String name, String password) {
-//		Optional<UserEntity> optional = userRepo.findByFirstNameAndPassword(name, password);
-//	}
-	public ResponseEntity<ApiResponse> getUserById(Integer id) {
-		Optional<UserEntity> optional = repository.findByUserId(id);
+	@Autowired
+	private MailService mailService;
 
-		UserEntity user = null;
-		if (optional.isPresent()) {
-			user = optional.get();
-			return ResponseUtil.getResponse(HttpStatus.OK,"Login Successful",user);
-		
-		}
-		else {
-			return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "Login Failed",null);
-		
+	@Override
+	public UserEntity saveUser(UserEntity user) throws CustomException {
+		try {
+			user.setPassword(pwdEncoder.encode(user.getPassword()));
+			UserEntity saveUser = repository.save(user);
+			this.sendMail(saveUser);
+			return saveUser;
+		} catch (Exception ex) {
+			throw new CustomException(ErrorResponse.RECORDNOTFOUND);
 		}
 	}
-//-------------WITH SECURITY---------------------------------------------------------------------------------------------//
-	@Override
-	public ResponseEntity<ApiResponse> saveUser(UserEntity user) {
-		user.setPassword(
-				pwdEncoder.encode
-				  (user.getPassword())
-				);
-		return   ResponseUtil.getResponse(HttpStatus.OK,"user registered Successfully",repository.save(user).getUserId());  
-	}
-	
-	@Override
-	public ResponseEntity<ApiResponse> findByEmailId(String emailId) {
-		
-		return  ResponseUtil.getResponse(HttpStatus.OK,"Login Successful",repository.findByEmailId(emailId));         
-	}
-	
-	//By using Api Response//
 
-
-	/*
-	 * 
-	 * @Override
-	public ResponseEntity<ApiResponse> findByEmailId(String emailId) {
-		 
+	@Override
+	public UserEntity findByEmailId(String emailId) {
 		Optional<UserEntity> optional = repository.findByEmailId(emailId);
-		UserEntity user = null;
-		   if(optional.isPresent()){
-			   user = optional.get();
-			   return ResponseUtil.getResponse(HttpStatus.OK,"Login Successful",user);
-		   }
-		   else 
-				return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "Login Failed",null);
-			
-			
+		if (!optional.isPresent())
+			throw new UsernameNotFoundException("Email ID dose not exist");
+		UserEntity user = optional.get();
+		return user;
 	}
-	 * 
-	 * 	
-	*/	
-	
+
 	@Override
-	public UserDetails loadUserByUsername(String emailId)
-			throws UsernameNotFoundException {
-		  Optional<UserEntity> optional=repository.findByEmailId(emailId);
-		  
-		 
-		  
-		  if(optional.isEmpty())
-			  throw new UsernameNotFoundException("Email ID dose not exist");
-		  
-		  //read user form DB
-		  UserEntity user=optional.get();
-		return new org.springframework.security.core.userdetails.User(
-				emailId,
-				user.getPassword(),
-				user.getRoles().stream()
-			   .map(role->new SimpleGrantedAuthority(role))
-			   .collect(Collectors.toList())
-			 );
+	public UserDetails loadUserByUsername(String emailId) throws UsernameNotFoundException {
+		Optional<UserEntity> optional = repository.findByEmailId(emailId);
+		
+		if (!optional.isPresent())
+			throw new UsernameNotFoundException("Email ID dose not exist");
+
+		UserEntity user = optional.get();
+		Set<String> roles = new HashSet<String>();
+		RoleEntity roleEntity = roleRepository.findByRoleId(user.getRoleId());
+		roles.add(roleEntity.getRoleName());
+		return new User(emailId, user.getPassword(),
+				roles.stream().map(role -> new SimpleGrantedAuthority(role)).collect(Collectors.toList()));
 	}
-	
-	
-	
-    
+
+	private void sendMail(UserEntity user) {
+		String recipient = user.getEmailId();
+		String subject = "PMS Registration.";
+		String message = "<HTML><head><body>" + "<div style=' border:black ; padding :10px ; border-style:outset ;'>"
+				+ "<h2>Welcome to the PMS Application.</h2><hr>" + "<h3> Hello " + user.getTitle() + " "
+				+ user.getFirstName() + " " + user.getLastName() + "</h3> </br>"
+				+ "<p> Welcome to the PMS Application : </br>" + "your registration has been successfully completed."
+				+ "</div>" + "<HTML><head><body>";
+		;
+		mailService.sendMail(recipient, subject, message);
+	}
 
 }

@@ -13,55 +13,48 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import com.pms.filter.SecurityFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
-    @Autowired
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
 	private UserDetailsService userDetailsService;
-    
-    @Autowired
-	private BCryptPasswordEncoder  passwordEncoder;
-    
-    @Autowired
-    private InvalidUserAuthEntryPoint authenticationEntryPoint;
-    
-    @Autowired
-    private SecurityFilter securityFilter;
-    
-    @Override
-    @Bean
-    protected AuthenticationManager authenticationManager() throws Exception {
-    	
-    	return super.authenticationManager();
-    }
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
+	private InvalidUserAuthEntryPoint authenticationEntryPoint;
+
+	@Autowired
+	private SecurityFilter securityFilter;
+
+	@Override
+	@Bean
+	protected AuthenticationManager authenticationManager() throws Exception {
+
+		return super.authenticationManager();
+	}
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-	    auth
-	        .userDetailsService(userDetailsService)
-	        .passwordEncoder(passwordEncoder);
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
+
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		
-		http
-    	     .csrf().disable()
-		    .authorizeRequests()
-		    .antMatchers("/registration","/login","/check").permitAll()
-				
-		    .anyRequest().authenticated()
-		    .and()
-		    .exceptionHandling()
-		    .authenticationEntryPoint(authenticationEntryPoint)
-		    .and()
-		    .sessionManagement()
-		    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		    .and()
-		    //register filter for 2nd request onwords
-		    .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-		     ;
-		
+		http.cors();
+		http.csrf().disable().authorizeRequests().antMatchers("/registration", "/login").permitAll()
+
+				.anyRequest().authenticated().and().exceptionHandling()
+				.authenticationEntryPoint(authenticationEntryPoint).and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				// register filter for 2nd request onwords
+				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+
 	}
+
 }
