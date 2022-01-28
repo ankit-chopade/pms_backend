@@ -1,8 +1,0 @@
-List<Student> students = Arrays.asList(
-				new Student("Ankit", 24, 96, 94),
-				new Student("Saurabh", 22, 75, 88),
-				new Student("Jack", 20, 40, 50),
-				new Student("Merry", 27, 66, 98),
-				new Student("James", 25, 78, 87));
-		
-		Stream<Student> studentStream=students.stream();

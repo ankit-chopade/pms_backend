@@ -42,6 +42,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		try {
 			user.setPassword(pwdEncoder.encode(user.getPassword()));
 			UserEntity saveUser = repository.save(user);
+			/**
+			 * Patient Reg 
+			 */
 			this.sendMail(saveUser);
 			return saveUser;
 		} catch (Exception ex) {
