@@ -85,7 +85,7 @@ public class PatientEntity implements Serializable {
 	private EmergencyContactEntity EmergencyContactEntity;
 
 	 @OneToMany(targetEntity=AllergyDetailsEntity.class, cascade = CascadeType.ALL)
-	  @JoinColumn(name="allergyDetails_id")
+	  @JoinColumn(name="allergydetails_id")
 	 private Set<AllergyDetailsEntity> allergyDetailsEntity;
 	 
 	 

@@ -8,8 +8,9 @@ import com.pms.entity.PatientEntity;
 
 public interface AllergyDetailsService {
 	
-	public AllergyDetailsEntity getAllergybyId(AllergyDetailsEntity entity);
+//	public AllergyDetailsEntity getAllergybyId(AllergyDetailsEntity entity);
 	public void save(Set<AllergyDetailsEntity> set);
 	public AllergyDetailsEntity getAllergyType(String type);
 	public AllergyDetailsEntity getAllergyName(String allergyName);
+	public List<AllergyDetailsEntity> getAllergyDetails();
 }

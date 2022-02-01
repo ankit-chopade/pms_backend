@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pms.common.entity.ApiResponse;
+import com.pms.common.util.ResponseUtil;
 import com.pms.entity.AllergyDetailsEntity;
 import com.pms.entity.PatientEntity;
 import com.pms.service.AllergyDetailsService;
@@ -43,5 +47,10 @@ public class AllergeyDetailsController {
 	@PostMapping("getallergyName")
 	public AllergyDetailsEntity getAllergyName(@RequestBody AllergyDetailsEntity allergy){
 		return this.allergeyDetailsservice.getAllergyName(allergy.getAllergyName());
+	}
+	
+	@GetMapping("getAllergyDetails")
+	public ResponseEntity<ApiResponse> getAllergyDetails(){
+		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.allergeyDetailsservice.getAllergyDetails());
 	}
 }

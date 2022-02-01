@@ -12,14 +12,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="allergyDetails")
+@Table(name="allergydetails")
 @Data
 
 public class AllergyDetailsEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="allergyDetails_id")
-	private Integer allergyDetailsId;
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="allergydetails_id")
+	private String allergyDetailsId;
 	
 	
 	@Column(name="allergy_name")
@@ -32,14 +32,14 @@ public class AllergyDetailsEntity {
 	@Column(name="allergy_description")
 	private String allergyDescription;
 	
-	@Column(name="allergy_clinicalInfo")
+	@Column(name="allergy_clinicalinfo")
 	private String allergyClinicalInfo;
 
-	public Integer getAllergyDetailsId() {
+	public String getAllergyDetailsId() {
 		return allergyDetailsId;
 	}
 
-	public void setAllergyDetailsId(Integer allergyDetailsId) {
+	public void setAllergyDetailsId(String allergyDetailsId) {
 		this.allergyDetailsId = allergyDetailsId;
 	}
 
@@ -82,7 +82,7 @@ public class AllergyDetailsEntity {
 				+ ", allergyClinicalInfo=" + allergyClinicalInfo + "]";
 	}
 
-	public AllergyDetailsEntity(Integer allergyDetailsId, String allergyName, String allergyType,
+	public AllergyDetailsEntity(String allergyDetailsId, String allergyName, String allergyType,
 			String allergyDescription, String allergyClinicalInfo) {
 		super();
 		this.allergyDetailsId = allergyDetailsId;
