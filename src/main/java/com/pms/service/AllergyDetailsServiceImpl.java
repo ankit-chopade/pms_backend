@@ -15,19 +15,17 @@ public class AllergyDetailsServiceImpl implements AllergyDetailsService{
 	@Autowired
 	AllergyDetailsRepo allergyrepo;
 	
-	public void save(Set<AllergyDetailsEntity>  allergyEntity) {
-		for(AllergyDetailsEntity allergyEntity1:allergyEntity)
-		{
-			allergyrepo.save(allergyEntity1);
-		}
+	public void save(AllergyDetailsEntity allergyEntity) {
+			allergyrepo.save(allergyEntity);
+		
 		
 	}
 
-	public AllergyDetailsEntity getAllergybyId(AllergyDetailsEntity entity) {
+	public List<AllergyDetailsEntity> getAllergybyId(AllergyDetailsEntity entity) {
 		Optional<AllergyDetailsEntity> optional = allergyrepo.findById(entity.getAllergyDetailsId());
-		AllergyDetailsEntity allergy = null;
+		List<AllergyDetailsEntity> allergy = null;
 		if (optional.isPresent()) {
-			allergy = optional.get();
+			allergy = (List<AllergyDetailsEntity>) optional.get();
 
 		}
 		return allergy;
@@ -42,7 +40,5 @@ public class AllergyDetailsServiceImpl implements AllergyDetailsService{
 		
 		return allergyrepo.findByallergyName(name);
 	}
-
-
 
 }

@@ -1,5 +1,6 @@
 package com.pms.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.pms.common.util.ResponseUtil;
+import com.pms.entity.AllergyDetailsEntity;
 import com.pms.entity.PatientEntity;
 import com.pms.entity.UserEntity;
 import com.pms.repository.PatientRepository;
@@ -23,13 +25,17 @@ public class PatientServiceImpl implements PatientService {
 	
 	@Autowired
 	AllergyDetailsService allergeyDetailsservice;
+	List<AllergyDetailsEntity> allergy;
 	
 	public Boolean save(PatientEntity patientEntity) {
 	
 	
 		PatientEntity  savePatient= patientRepo.save(patientEntity);
 		emergencyservice.save(patientEntity.getEmergencyContactEntity());
-		allergeyDetailsservice.save(patientEntity.getAllergyDetailsEntity());
+		  for(AllergyDetailsEntity allergy:patientEntity.getAllergyDetailsEntity())
+		  {
+			  allergeyDetailsservice.save(allergy);
+		  }
 		return true;
 		
 	}

@@ -1,6 +1,7 @@
 package com.pms.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class PatientEntity implements Serializable {
 	private String patientLastName;
 	
 	@Column(name="patient_dob")
-	private String patientDob;
+	private Date patientDob;
 
 	
 	@Column(name="patient_gender")
@@ -73,10 +74,9 @@ public class PatientEntity implements Serializable {
 	private String homeAddress;
 	
 	@Column(name="patient_contact")
-	private String patientContact;
+	private Long patientContact;
 	
-	@Column(name="user_id")
-	private Integer UserId;
+	
 	
 	@Column(name="isActive")
 	private int active;
@@ -86,7 +86,7 @@ public class PatientEntity implements Serializable {
 
 	 @OneToMany(targetEntity=AllergyDetailsEntity.class, cascade = CascadeType.ALL)
 	  @JoinColumn(name="allergyDetails_id")
-	 private Set<AllergyDetailsEntity> allergyDetailsEntity;
+	 private List<AllergyDetailsEntity> allergyDetailsEntity;
 	 
 	 
 	/*@OneToOne(cascade = CascadeType.ALL)
@@ -103,6 +103,17 @@ public class PatientEntity implements Serializable {
 
 	public Integer getPatientId() {
 		return patientId;
+	}
+
+	public PatientEntity(String patientTitle, String patientFirstName, String patientLastName, Date patientDob,
+			 String patientEmail, Long patientContact) {
+		super();
+		this.patientTitle = patientTitle;
+		this.patientFirstName = patientFirstName;
+		this.patientLastName = patientLastName;
+		this.patientDob = patientDob;
+		this.patientEmail = patientEmail;
+		this.patientContact = patientContact;
 	}
 
 	public void setPatientId(Integer patientId) {
@@ -133,14 +144,7 @@ public class PatientEntity implements Serializable {
 		this.patientLastName = patientLastName;
 	}
 
-	public String getPatientDob() {
-		return patientDob;
-	}
-
-	public void setPatientDob(String patientDob) {
-		this.patientDob = patientDob;
-	}
-
+	
 	public String getPatientGender() {
 		return patientGender;
 	}
@@ -198,14 +202,7 @@ public class PatientEntity implements Serializable {
 		this.homeAddress = homeAddress;
 	}
 
-	public String getPatientContact() {
-		return patientContact;
-	}
-
-	public void setPatientContact(String patientContact) {
-		this.patientContact = patientContact;
-	}
-
+	
 	public int getActive() {
 		return active;
 	}
@@ -221,18 +218,37 @@ public class PatientEntity implements Serializable {
 		EmergencyContactEntity = emergencyContactEntity;
 	}
 
-	public Set<AllergyDetailsEntity> getAllergyDetailsEntity() {
+	public List<AllergyDetailsEntity> getAllergyDetailsEntity() {
 		return allergyDetailsEntity;
 	}
 
-	public void setAllergyDetailsEntity(Set<AllergyDetailsEntity> allergyDetailsEntity) {
+	public void setAllergyDetailsEntity(List<AllergyDetailsEntity> allergyDetailsEntity) {
 		this.allergyDetailsEntity = allergyDetailsEntity;
 	}
 
-	public PatientEntity(Integer patientId, String patientTitle, String patientFirstName, String patientLastName,
-			String patientDob, String patientGender, String patientAge, String patientRace, String patientEthnicity,
-			String patientRelationship, String languagesKnown, String patientEmail, String homeAddress,
-			String patientContact, int active) {
+	
+
+public Date getPatientDob() {
+		return patientDob;
+	}
+
+	public void setPatientDob(Date patientDob) {
+		this.patientDob = patientDob;
+	}
+
+	public Long getPatientContact() {
+		return patientContact;
+	}
+
+	public void setPatientContact(Long patientContact) {
+		this.patientContact = patientContact;
+	}
+
+public PatientEntity(Integer patientId, String patientTitle, String patientFirstName, String patientLastName,
+			Date patientDob, String patientGender, String patientAge, String patientRace, String patientEthnicity,
+			String languagesKnown, String patientEmail, String homeAddress, Long patientContact, int active,
+			com.pms.entity.EmergencyContactEntity emergencyContactEntity,
+			List<AllergyDetailsEntity> allergyDetailsEntity) {
 		super();
 		this.patientId = patientId;
 		this.patientTitle = patientTitle;
@@ -248,6 +264,8 @@ public class PatientEntity implements Serializable {
 		this.homeAddress = homeAddress;
 		this.patientContact = patientContact;
 		this.active = active;
+		EmergencyContactEntity = emergencyContactEntity;
+		this.allergyDetailsEntity = allergyDetailsEntity;
 	}
 
 public PatientEntity() {

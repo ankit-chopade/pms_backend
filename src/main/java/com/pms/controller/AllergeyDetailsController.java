@@ -26,12 +26,12 @@ public class AllergeyDetailsController {
 	
 	
 	@PostMapping("saveallergy")
-	public void saveallergey(@RequestBody Set<AllergyDetailsEntity>  allergyDetailsEntity){
+	public void saveallergey(@RequestBody AllergyDetailsEntity  allergyDetailsEntity){
 	 this.allergeyDetailsservice.save(allergyDetailsEntity);
 	}
 	
 	@PostMapping("getallergyid")
-	public AllergyDetailsEntity getAllergybyId(@RequestBody AllergyDetailsEntity allergy){
+	public List<AllergyDetailsEntity> getAllergybyId(@RequestBody AllergyDetailsEntity allergy){
 		return this.allergeyDetailsservice.getAllergybyId(allergy);
 	}
 	
