@@ -22,7 +22,7 @@ public class AllergyDetailsServiceImpl implements AllergyDetailsService{
 	}
 
 	public List<AllergyDetailsEntity> getAllergybyId(AllergyDetailsEntity entity) {
-		Optional<AllergyDetailsEntity> optional = allergyrepo.findById(entity.getAllergyDetailsId());
+		Optional<List<AllergyDetailsEntity>> optional = allergyrepo.findallergyDetailsId(entity.getAllergyDetailsId());
 		List<AllergyDetailsEntity> allergy = null;
 		if (optional.isPresent()) {
 			allergy = (List<AllergyDetailsEntity>) optional.get();
@@ -30,6 +30,8 @@ public class AllergyDetailsServiceImpl implements AllergyDetailsService{
 		}
 		return allergy;
 	}
+
+
 
 	public AllergyDetailsEntity getAllergyType(String type) {
 		
@@ -40,5 +42,10 @@ public class AllergyDetailsServiceImpl implements AllergyDetailsService{
 		
 		return allergyrepo.findByallergyName(name);
 	}
+	
+	public List<AllergyDetailsEntity> getAllergyDetails() {
+		return allergyrepo.findAll();
+	}
+
 
 }

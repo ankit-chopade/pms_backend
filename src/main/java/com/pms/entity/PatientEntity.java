@@ -85,8 +85,11 @@ public class PatientEntity implements Serializable {
 	private EmergencyContactEntity EmergencyContactEntity;
 
 	 @OneToMany(targetEntity=AllergyDetailsEntity.class, cascade = CascadeType.ALL)
+
 	  @JoinColumn(name="allergyDetails_id")
 	 private List<AllergyDetailsEntity> allergyDetailsEntity;
+
+	  
 	 
 	 
 	/*@OneToOne(cascade = CascadeType.ALL)
