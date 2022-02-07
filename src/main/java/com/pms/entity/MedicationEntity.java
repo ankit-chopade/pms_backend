@@ -1,63 +1,68 @@
 package com.pms.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "Medications")
-public class Medications {
+public class MedicationEntity extends BaseEntity implements Serializable {
 
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "Medication_Id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer medicationId;
-	
+	private Long medicationId;
+
 	@Column(name = "Drug_Id")
 	private String drugId;
-	
+
 	@Column(name = "Drug_Name")
 	private String drugName;
-	
+
+	@Column(name = "Drug_Manufacturer_Name")
+	private String drugManufacturerName;
+
 	@Column(name = "Drug_Generic_Name")
 	private String drugGenericName;
-	
+
 	@Column(name = "Drug_Form")
 	private String drugForm;
-	
+
 	@Column(name = "Drug_Strength")
 	private String drugStrength;
-	
-	@ManyToOne
-	@JoinColumn(name = "FK_PatientVisitDetails", nullable = false)
-	private PatientVisitDetails patientVisitDetails;
 
-	public Medications(Integer medicationId, String drugId, String drugName, String drugGenericName, String drugForm,
-			String drugStrength, PatientVisitDetails patientVisitDetails) {
+	public MedicationEntity() {
+		super();
+	}
+	
+	public MedicationEntity(Long medicationId, String drugId, String drugName, String drugManufacturerName,
+			String drugGenericName, String drugForm, String drugStrength) {
 		super();
 		this.medicationId = medicationId;
 		this.drugId = drugId;
 		this.drugName = drugName;
+		this.drugManufacturerName = drugManufacturerName;
 		this.drugGenericName = drugGenericName;
 		this.drugForm = drugForm;
 		this.drugStrength = drugStrength;
-		this.patientVisitDetails = patientVisitDetails;
 	}
 
-	public Medications() {
-		super();
-	}
 
-	public Integer getMedicationId() {
+	public Long getMedicationId() {
 		return medicationId;
 	}
 
-	public void setMedicationId(Integer medicationId) {
+	public void setMedicationId(Long medicationId) {
 		this.medicationId = medicationId;
 	}
 
@@ -84,6 +89,15 @@ public class Medications {
 	public void setDrugGenericName(String drugGenericName) {
 		this.drugGenericName = drugGenericName;
 	}
+	
+
+	public String getDrugManufacturerName() {
+		return drugManufacturerName;
+	}
+
+	public void setDrugManufacturerName(String drugManufacturerName) {
+		this.drugManufacturerName = drugManufacturerName;
+	}
 
 	public String getDrugForm() {
 		return drugForm;
@@ -101,19 +115,13 @@ public class Medications {
 		this.drugStrength = drugStrength;
 	}
 
-	public PatientVisitDetails getPatientVisitDetails() {
-		return patientVisitDetails;
-	}
-
-	public void setPatientVisitDetails(PatientVisitDetails patientVisitDetails) {
-		this.patientVisitDetails = patientVisitDetails;
-	}
-
 	@Override
 	public String toString() {
-		return "Medications [medicationId=" + medicationId + ", drugId=" + drugId + ", drugName=" + drugName
-				+ ", drugGenericName=" + drugGenericName + ", drugForm=" + drugForm + ", drugStrength=" + drugStrength
-				+ ", patientVisitDetails=" + patientVisitDetails + "]";
+		return "MedicationEntity [medicationId=" + medicationId + ", drugId=" + drugId + ", drugName=" + drugName
+				+ ", drugManufacturerName=" + drugManufacturerName + ", drugGenericName=" + drugGenericName
+				+ ", drugForm=" + drugForm + ", drugStrength=" + drugStrength + "]";
 	}
 	
+	
+
 }
