@@ -12,5 +12,8 @@ public interface DiagnosisService {
 	public List<IdNameDto> getDetailsByDescription(String description);
 	
 	public List<DiagnosisDto> getAllDetails(); 
+	
+	public DiagnosisDto saveDiagnosis(DiagnosisDto dto);
+
 
 }

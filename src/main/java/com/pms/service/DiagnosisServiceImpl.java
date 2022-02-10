@@ -1,5 +1,6 @@
 package com.pms.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,9 +39,18 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
 	@Override
 	public List<DiagnosisDto> getAllDetails() {
-		List<DiagnosisEntity> dignosisList = repository.findAll();
-		return converter.toDto(dignosisList);
-
+		List<DiagnosisEntity> diagnosisList = repository.findAll();
+		List<DiagnosisEntity> diagnosisFilteredList = diagnosisList.stream()
+				.filter(d -> d.getDiagnosisDescription() != "Others").collect(Collectors.toList());
+		return converter.toDto(diagnosisFilteredList);
 	}
 
+	@Override
+	public DiagnosisDto saveDiagnosis(DiagnosisDto dto) {
+		DiagnosisEntity entity = converter.toEntity(dto);
+		entity.setActiveStatus(PmsConstant.ACTIVE_STATUS);
+		entity.setCreatedDate(new Date());
+		DiagnosisEntity savedEntity = repository.save(entity);
+		return converter.toDto(savedEntity);
+	}
 }

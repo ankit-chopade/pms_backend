@@ -33,6 +33,7 @@ public class DiagnosisEntity extends BaseEntity implements Serializable {
 	private Integer diagnosisIsDepricated;
 
 	
+	
 	public DiagnosisEntity() {
 		super();
 	}

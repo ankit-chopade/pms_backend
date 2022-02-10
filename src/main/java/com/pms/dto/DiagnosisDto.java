@@ -13,6 +13,17 @@ public class DiagnosisDto {
 	public DiagnosisDto() {
 		super();
 	}
+	
+	
+	public DiagnosisDto(Long diagnosisId, String diagnosisCode, String diagnosisDescription,
+			Integer diagnosisIsDepricated) {
+		super();
+		this.diagnosisId = diagnosisId;
+		this.diagnosisCode = diagnosisCode;
+		this.diagnosisDescription = diagnosisDescription;
+		this.diagnosisIsDepricated = diagnosisIsDepricated;
+	}
+
 
 	public Long getDiagnosisId() {
 		return diagnosisId;
