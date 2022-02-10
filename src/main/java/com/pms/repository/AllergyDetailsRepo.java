@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.pms.entity.AllergyDetailsEntity;
 
 @Repository
-public interface AllergyDetailsRepo extends JpaRepository<AllergyDetailsEntity, Integer>{
+public interface AllergyDetailsRepo extends JpaRepository<AllergyDetailsEntity, String>{
 	AllergyDetailsEntity findByallergyType(String allergytype);
 	AllergyDetailsEntity findByallergyName(String allergyName);
-	Optional<List<AllergyDetailsEntity>> findallergyDetailsId(String allergyId);
+	AllergyDetailsEntity findByAllergyDetailsId(String string);
 }

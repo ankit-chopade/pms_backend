@@ -21,16 +21,7 @@ public class AllergyDetailsServiceImpl implements AllergyDetailsService{
 		
 	}
 
-	public List<AllergyDetailsEntity> getAllergybyId(AllergyDetailsEntity entity) {
-		Optional<List<AllergyDetailsEntity>> optional = allergyrepo.findallergyDetailsId(entity.getAllergyDetailsId());
-		List<AllergyDetailsEntity> allergy = null;
-		if (optional.isPresent()) {
-			allergy = (List<AllergyDetailsEntity>) optional.get();
-
-		}
-		return allergy;
-	}
-
+	
 
 
 	public AllergyDetailsEntity getAllergyType(String type) {
@@ -45,6 +36,15 @@ public class AllergyDetailsServiceImpl implements AllergyDetailsService{
 	
 	public List<AllergyDetailsEntity> getAllergyDetails() {
 		return allergyrepo.findAll();
+	}
+
+
+
+
+	@Override
+	public AllergyDetailsEntity getAllergybyId(String id) {
+		
+		return allergyrepo.findByAllergyDetailsId(id);
 	}
 
 

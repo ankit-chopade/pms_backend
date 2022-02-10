@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pms.common.entity.ApiResponse;
@@ -30,13 +31,15 @@ public class AllergeyDetailsController {
 	
 	
 	@PostMapping("saveallergy")
-	public void saveallergey(@RequestBody AllergyDetailsEntity  allergyDetailsEntity){
-	 this.allergeyDetailsservice.save(allergyDetailsEntity);
+	public ResponseEntity<ApiResponse> saveallergey(@RequestBody AllergyDetailsEntity  allergyDetailsEntity){
+		this.allergeyDetailsservice.save(allergyDetailsEntity);
+	 return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful" );
 	}
 	
-	@PostMapping("getallergyid")
-	public List<AllergyDetailsEntity> getAllergybyId(@RequestBody AllergyDetailsEntity allergy){
-		return this.allergeyDetailsservice.getAllergybyId(allergy);
+	@GetMapping("getallergyid")
+	public ResponseEntity<ApiResponse> getAllergybyId(@RequestParam String allergyId){
+		this.allergeyDetailsservice.getAllergybyId(allergyId);
+		 return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful");
 	}
 	
 	@PostMapping("getallergyType")
@@ -49,7 +52,7 @@ public class AllergeyDetailsController {
 		return this.allergeyDetailsservice.getAllergyName(allergy.getAllergyName());
 	}
 	
-	@GetMapping("getAllergyDetails")
+	@GetMapping("/getAllergyDetails")
 	public ResponseEntity<ApiResponse> getAllergyDetails(){
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.allergeyDetailsservice.getAllergyDetails());
 	}

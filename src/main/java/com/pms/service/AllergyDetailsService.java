@@ -9,9 +9,9 @@ import com.pms.entity.PatientEntity;
 public interface AllergyDetailsService {
 	
 
-	public List<AllergyDetailsEntity> getAllergybyId(AllergyDetailsEntity entity);
+	
 	public void save(AllergyDetailsEntity allergyDetailsEntity);
-//	public AllergyDetailsEntity getAllergybyId(AllergyDetailsEntity entity);
+    public AllergyDetailsEntity getAllergybyId(String id);
 
 	public AllergyDetailsEntity getAllergyType(String type);
 	public AllergyDetailsEntity getAllergyName(String allergyName);

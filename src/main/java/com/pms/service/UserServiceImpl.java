@@ -47,9 +47,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		try {
 			user.setPassword(pwdEncoder.encode(user.getPassword()));
 			UserEntity saveUser = repository.save(user);
-			   PatientEntity entity=new PatientEntity(user.getTitle(),user.getFirstName(),user.getLastName(),user.getDob(),
-					   user.getEmailId()  , user.getContactNo());
-			   patientRepo.save(entity);
+
 			/**
 			 * Patient Reg 
 			 */
@@ -94,6 +92,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 				+ "</div>" + "<HTML><head><body>";
 		;
 		mailService.sendMail(recipient, subject, message);
+	}
+
+	@Override
+	public Optional<UserEntity> findByUserId(Long userId) {
+		
+		return repository.findById(userId);
 	}
 
 }

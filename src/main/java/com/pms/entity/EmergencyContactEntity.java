@@ -31,7 +31,7 @@ public class EmergencyContactEntity {
 	private String homeAddress;
 	
 	@Column(name="emergency_contact")
-	private String emergencyContact;
+	private Long emergencyContact;
 	
 	@Column(name="isActive")
 	private byte active;
@@ -73,11 +73,11 @@ public class EmergencyContactEntity {
 		this.homeAddress = homeAddress;
 	}
 
-	public String getEmergencyContact() {
+	public Long getEmergencyContact() {
 		return emergencyContact;
 	}
 
-	public void setEmergencyContact(String emergencyContact) {
+	public void setEmergencyContact(Long emergencyContact) {
 		this.emergencyContact = emergencyContact;
 	}
 
@@ -102,7 +102,7 @@ public class EmergencyContactEntity {
 	
 
 	public EmergencyContactEntity(Integer emergencyContactId, String emergencyContactName, String emergencyContactEmail,
-			String homeAddress, String emergencyContact, byte active, String patientRelationship) {
+			String homeAddress, Long emergencyContact, byte active, String patientRelationship) {
 		super();
 		this.emergencyContactId = emergencyContactId;
 		EmergencyContactName = emergencyContactName;

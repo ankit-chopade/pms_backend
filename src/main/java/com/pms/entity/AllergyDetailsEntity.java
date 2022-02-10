@@ -18,7 +18,7 @@ import lombok.Setter;
 public class AllergyDetailsEntity {
 	@Id
 	//@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="allergydetails_id")
+	@Column(name="allergDetails_id")
 	private String allergyDetailsId;
 	
 	

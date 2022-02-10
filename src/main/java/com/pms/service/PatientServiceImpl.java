@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.pms.common.util.ResponseUtil;
 import com.pms.entity.AllergyDetailsEntity;
+import com.pms.entity.AllergyIdEntity;
 import com.pms.entity.PatientEntity;
 import com.pms.entity.UserEntity;
 import com.pms.repository.PatientRepository;
@@ -25,23 +26,33 @@ public class PatientServiceImpl implements PatientService {
 	
 	@Autowired
 	AllergyDetailsService allergeyDetailsservice;
-	List<AllergyDetailsEntity> allergy;
+	
+	@Autowired
+	AllergyIdService allergyIdService;
+	
+	List<AllergyIdEntity> allergy;
 	
 	public Boolean save(PatientEntity patientEntity) {
 	
-	
+	System.out.println("save Patient");
 		PatientEntity  savePatient= patientRepo.save(patientEntity);
 		emergencyservice.save(patientEntity.getEmergencyContactEntity());
-		  for(AllergyDetailsEntity allergy:patientEntity.getAllergyDetailsEntity())
-		  {
-			  allergeyDetailsservice.save(allergy);
-		  }
+		 for(AllergyIdEntity allergyid : patientEntity.getAllergyDetailsId())
+		 {
+			 System.out.println(allergyid+"allergyId");
+			 allergyIdService.saveAllergyId(allergyid);
+		 }
+		
+//		  for(AllergyDetailsEntity allergy:patientEntity.getAllergyDetailsEntity())
+//		  {
+//			  allergeyDetailsservice.save(allergy);
+//		  }
 		return true;
 		
 	}
 
-	public PatientEntity getpatientbyId(Integer patientId) {
-		Optional<PatientEntity> optional = patientRepo.findById(patientId);
+	public PatientEntity getpatientbyId(Integer userid) {
+		Optional<PatientEntity> optional= patientRepo.findByUserId(userid);	
 		PatientEntity patient = null;
 		if (optional.isPresent()) {
 			patient = optional.get();
