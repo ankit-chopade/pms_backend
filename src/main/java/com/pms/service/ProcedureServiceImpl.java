@@ -3,12 +3,14 @@ package com.pms.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pms.converter.ProcedureConverter;
 import com.pms.dto.ProcedureDto;
 import com.pms.entity.ProcedureEntity;
 import com.pms.repository.ProcedureRepository;
 
+@Service
 public class ProcedureServiceImpl implements ProcedureService {
 
 	@Autowired

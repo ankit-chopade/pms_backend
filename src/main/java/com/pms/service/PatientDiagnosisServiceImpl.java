@@ -26,7 +26,7 @@ public class PatientDiagnosisServiceImpl implements PatientDiagnosisService {
 
 	@Override
 	public List<DiagnosisDto> getDetailByAppointmentId(Long appointmentId) {
-		List<Object[]> list = repository.findDiagnosisByAppointmentId(appointmentId);
+		List<Object[]> list = repository.findByAppointmentId(appointmentId);
 		List<DiagnosisDto> dto = list.stream().map(obj -> {
 			DiagnosisDto data = new DiagnosisDto(PmsUtil.convertObjectIntoLong(obj[0]),
 					PmsUtil.convertObjectIntoString(obj[1]), PmsUtil.convertObjectIntoString(obj[2]),

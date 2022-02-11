@@ -1,3 +1,4 @@
+
 package com.pms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,20 +12,22 @@ import com.pms.common.entity.ApiResponse;
 import com.pms.common.util.PmsConstant;
 import com.pms.common.util.PmsUrlConstants;
 import com.pms.common.util.ResponseUtil;
-import com.pms.service.MedicationService;
+import com.pms.service.ProcedureService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-public class MedicationController {
+public class ProcedureController {
 
 	@Autowired
-	private MedicationService service;
+	private ProcedureService service;
 
-	@GetMapping(PmsUrlConstants.URL_MEDICATION)
-	public ResponseEntity<ApiResponse> getAllDetails() {
+	@GetMapping(PmsUrlConstants.URL_PROCEDURE)
+	public ResponseEntity<ApiResponse> getAllDetails(){
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsConstant.PMS_RECORDS_FETCHED,
 				this.service.getAllDetails());
 	}
+	
 
+	
 	
 }

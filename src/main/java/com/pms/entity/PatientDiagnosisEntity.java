@@ -21,7 +21,7 @@ public class PatientDiagnosisEntity extends BaseEntity implements Serializable {
 	@Id
 	@Column(name = "Patient_Diagnosis_Id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userDiagnosisId;
+	private Long patientDiagnosisId;
 
 	@Column(name="Diagnosis_Id")
 	private Long diagnosisId;
@@ -32,12 +32,12 @@ public class PatientDiagnosisEntity extends BaseEntity implements Serializable {
 	@Column(name = "Appointment_Id")
 	private Long appointmentId;
 
-	public Long getUserDiagnosisId() {
-		return userDiagnosisId;
+	public Long getPatientDiagnosisId() {
+		return patientDiagnosisId;
 	}
 
-	public void setUserDiagnosisId(Long userDiagnosisId) {
-		this.userDiagnosisId = userDiagnosisId;
+	public void setpatientDiagnosisId(Long patientDiagnosisId) {
+		this.patientDiagnosisId = patientDiagnosisId;
 	}
 
 	public Long getDiagnosisId() {
@@ -67,9 +67,9 @@ public class PatientDiagnosisEntity extends BaseEntity implements Serializable {
 	public PatientDiagnosisEntity() {
 		super();
 	}
-	public PatientDiagnosisEntity(Long userDiagnosisId, Long diagnosisId, Long patientId, Long appointmentId) {
+	public PatientDiagnosisEntity(Long patientDiagnosisId, Long diagnosisId, Long patientId, Long appointmentId) {
 		super();
-		this.userDiagnosisId = userDiagnosisId;
+		this.patientDiagnosisId = patientDiagnosisId;
 		this.diagnosisId = diagnosisId;
 		this.patientId = patientId;
 		this.appointmentId = appointmentId;
@@ -77,7 +77,7 @@ public class PatientDiagnosisEntity extends BaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PatientDiagnosisEntity [userDiagnosisId=" + userDiagnosisId + ", diagnosisId=" + diagnosisId
+		return "PatientDiagnosisEntity [patientDiagnosisId=" + patientDiagnosisId + ", diagnosisId=" + diagnosisId
 				+ ", patientId=" + patientId + ", appointmentId=" + appointmentId + "]";
 	}
 	

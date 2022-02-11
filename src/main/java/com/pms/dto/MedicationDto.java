@@ -84,6 +84,19 @@ public class MedicationDto {
 	public void setDrugStrength(String drugStrength) {
 		this.drugStrength = drugStrength;
 	}
+
+	public MedicationDto(Long medicationId, String drugId, String drugName, String drugManufacturerName,
+			String drugGenericName, String drugForm, String drugStrength) {
+		super();
+		this.medicationId = medicationId;
+		this.drugId = drugId;
+		this.drugName = drugName;
+		this.drugManufacturerName = drugManufacturerName;
+		this.drugGenericName = drugGenericName;
+		this.drugForm = drugForm;
+		this.drugStrength = drugStrength;
+	}
+	
 	
 
 

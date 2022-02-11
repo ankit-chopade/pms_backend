@@ -19,6 +19,6 @@ public interface PatientDiagnosisRepository extends JpaRepository<PatientDiagnos
 			"	(SELECT patient_id	FROM pmsschema.patientappointment as pa where pa.appointment_id = :appointmentId ) " 
 			,nativeQuery = true)
 	
-	public  List<Object[]> findDiagnosisByAppointmentId(@Param("appointmentId") Long appointmentId);
+	public  List<Object[]> findByAppointmentId(@Param("appointmentId") Long appointmentId);
 	
 }
