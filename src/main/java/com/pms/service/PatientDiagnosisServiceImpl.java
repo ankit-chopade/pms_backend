@@ -30,7 +30,7 @@ public class PatientDiagnosisServiceImpl implements PatientDiagnosisService {
 		List<DiagnosisDto> dto = list.stream().map(obj -> {
 			DiagnosisDto data = new DiagnosisDto(PmsUtil.convertObjectIntoLong(obj[0]),
 					PmsUtil.convertObjectIntoString(obj[1]), PmsUtil.convertObjectIntoString(obj[2]),
-					PmsUtil.convertObjectIntoInteger(obj[3]));
+					PmsUtil.convertObjectIntoInteger(obj[3]),PmsUtil.convertObjectIntoLong(obj[4]),PmsUtil.convertObjectIntoString(obj[5])); 
 			return data;
 		}).collect(Collectors.toList());
 		return dto;
@@ -38,7 +38,6 @@ public class PatientDiagnosisServiceImpl implements PatientDiagnosisService {
 
 	@Override
 	public PatientDiagnosisDto savePatientDiagnosis(PatientDiagnosisDto dto) {
-		
 		//Long patientId = appointmentService.getDataByAppointmentId(dto.getAppointmentId());
 		Long patientId=19l;
 		
@@ -49,5 +48,11 @@ public class PatientDiagnosisServiceImpl implements PatientDiagnosisService {
 		PatientDiagnosisEntity savedEntity = repository.save(entity);
 		return converter.toDto(savedEntity);
 	}
+	
+	@Override
+	public void deleteById(Long patientDiagnosisId) {
+		repository.deleteById(patientDiagnosisId);
+	}
+	
 
 }

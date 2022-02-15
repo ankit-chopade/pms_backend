@@ -13,12 +13,13 @@ import com.pms.entity.PatientDiagnosisEntity;
 public interface PatientDiagnosisRepository extends JpaRepository<PatientDiagnosisEntity, Long> {
 	
 	@Query
-	(value="Select d.diagnosis_id, d.diagnosis_code,d.diagnosis_description,d.diagnosis_is_depricated from pmsschema.patient_diagnosis as pd " + 
+	(value="Select d.diagnosis_id, d.diagnosis_code,d.diagnosis_description,d.diagnosis_is_depricated , pd.appointment_id ,  pd.created_date from pmsschema.patient_diagnosis as pd " + 
 	"inner join  pmsschema.diagnosis as d on pd.diagnosis_id=d.diagnosis_id " + 
 			"	where pd.patient_id= " + 
 			"	(SELECT patient_id	FROM pmsschema.patientappointment as pa where pa.appointment_id = :appointmentId ) " 
 			,nativeQuery = true)
 	
 	public  List<Object[]> findByAppointmentId(@Param("appointmentId") Long appointmentId);
+	
 	
 }

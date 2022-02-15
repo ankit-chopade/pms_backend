@@ -1,5 +1,7 @@
 package com.pms.dto;
 
+import java.util.Date;
+
 public class DiagnosisDto {
 
 	private Long diagnosisId;
@@ -10,20 +12,24 @@ public class DiagnosisDto {
 
 	private Integer diagnosisIsDepricated;
 
+	private Long appointmentId;
+
+	private String createdDate;
+
 	public DiagnosisDto() {
 		super();
 	}
-	
-	
+
 	public DiagnosisDto(Long diagnosisId, String diagnosisCode, String diagnosisDescription,
-			Integer diagnosisIsDepricated) {
+			Integer diagnosisIsDepricated, Long appointmentId, String createdDate) {
 		super();
 		this.diagnosisId = diagnosisId;
 		this.diagnosisCode = diagnosisCode;
 		this.diagnosisDescription = diagnosisDescription;
 		this.diagnosisIsDepricated = diagnosisIsDepricated;
+		this.appointmentId = appointmentId;
+		this.createdDate = createdDate;
 	}
-
 
 	public Long getDiagnosisId() {
 		return diagnosisId;
@@ -55,6 +61,22 @@ public class DiagnosisDto {
 
 	public void setDiagnosisIsDepricated(Integer diagnosisIsDepricated) {
 		this.diagnosisIsDepricated = diagnosisIsDepricated;
+	}
+
+	public Long getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(Long appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
 	}
 
 }

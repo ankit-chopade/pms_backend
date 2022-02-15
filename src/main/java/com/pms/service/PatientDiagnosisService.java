@@ -11,4 +11,6 @@ public interface PatientDiagnosisService {
 	
 	public PatientDiagnosisDto savePatientDiagnosis(PatientDiagnosisDto dto);
 
+	public void deleteById(Long patientDiagnosisId);
+
 }
