@@ -31,12 +31,15 @@ public class PatientDiagnosisEntity extends BaseEntity implements Serializable {
 	
 	@Column(name = "Appointment_Id")
 	private Long appointmentId;
+	
+	@Column(name = "diagnosisDetails")
+	private String diagnosisDetails;
 
 	public Long getPatientDiagnosisId() {
 		return patientDiagnosisId;
 	}
 
-	public void setpatientDiagnosisId(Long patientDiagnosisId) {
+	public void setPatientDiagnosisId(Long patientDiagnosisId) {
 		this.patientDiagnosisId = patientDiagnosisId;
 	}
 
@@ -64,22 +67,19 @@ public class PatientDiagnosisEntity extends BaseEntity implements Serializable {
 		this.appointmentId = appointmentId;
 	}
 	
+	public String getDiagnosisDetails() {
+		return diagnosisDetails;
+	}
+
+	public void setDiagnosisDetails(String diagnosisDetails) {
+		this.diagnosisDetails = diagnosisDetails;
+	}
+
 	public PatientDiagnosisEntity() {
 		super();
 	}
-	public PatientDiagnosisEntity(Long patientDiagnosisId, Long diagnosisId, Long patientId, Long appointmentId) {
-		super();
-		this.patientDiagnosisId = patientDiagnosisId;
-		this.diagnosisId = diagnosisId;
-		this.patientId = patientId;
-		this.appointmentId = appointmentId;
-	}
+	
 
-	@Override
-	public String toString() {
-		return "PatientDiagnosisEntity [patientDiagnosisId=" + patientDiagnosisId + ", diagnosisId=" + diagnosisId
-				+ ", patientId=" + patientId + ", appointmentId=" + appointmentId + "]";
-	}
 	
 		
 	

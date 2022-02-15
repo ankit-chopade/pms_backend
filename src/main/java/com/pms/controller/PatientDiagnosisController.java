@@ -38,7 +38,7 @@ public class PatientDiagnosisController {
 	}
 
 	@DeleteMapping(PmsUrlConstants.URL_PATIENT_DIAGNOSIS)
-	public ResponseEntity<ApiResponse> savePatientDiagnosis(@RequestParam Long patientDiagnosisId) {
+	public ResponseEntity<ApiResponse> deleteDiagnosisById(@RequestParam Long patientDiagnosisId) {
 		this.service.deleteById(patientDiagnosisId);
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsConstant.PMS_RECORDS_FETCHED, null);
 	}

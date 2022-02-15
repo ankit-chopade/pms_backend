@@ -30,7 +30,8 @@ public class PatientDiagnosisServiceImpl implements PatientDiagnosisService {
 		List<DiagnosisDto> dto = list.stream().map(obj -> {
 			DiagnosisDto data = new DiagnosisDto(PmsUtil.convertObjectIntoLong(obj[0]),
 					PmsUtil.convertObjectIntoString(obj[1]), PmsUtil.convertObjectIntoString(obj[2]),
-					PmsUtil.convertObjectIntoInteger(obj[3]),PmsUtil.convertObjectIntoLong(obj[4]),PmsUtil.convertObjectIntoString(obj[5]),PmsUtil.convertObjectIntoLong(obj[6])); 
+					PmsUtil.convertObjectIntoInteger(obj[3]),PmsUtil.convertObjectIntoLong(obj[4]),
+					PmsUtil.convertObjectIntoString(obj[5]),PmsUtil.convertObjectIntoLong(obj[6]),PmsUtil.convertObjectIntoString(obj[7])); 
 			return data;
 		}).collect(Collectors.toList());
 		return dto;

@@ -15,16 +15,17 @@ public class DiagnosisDto {
 	private String createdDate;
 	
 	private Long patientDiagnosisId;
+	
+	private String diagnosisDetails; 
 
 
 	public DiagnosisDto() {
 		super();
 	}
 
-	
-
 	public DiagnosisDto(Long diagnosisId, String diagnosisCode, String diagnosisDescription,
-			Integer diagnosisIsDepricated, Long appointmentId, String createdDate, Long patientDiagnosisId) {
+			Integer diagnosisIsDepricated, Long appointmentId, String createdDate, Long patientDiagnosisId,
+			String diagnosisDetails) {
 		super();
 		this.diagnosisId = diagnosisId;
 		this.diagnosisCode = diagnosisCode;
@@ -33,9 +34,8 @@ public class DiagnosisDto {
 		this.appointmentId = appointmentId;
 		this.createdDate = createdDate;
 		this.patientDiagnosisId = patientDiagnosisId;
+		this.diagnosisDetails = diagnosisDetails;
 	}
-
-
 
 	public Long getDiagnosisId() {
 		return diagnosisId;
@@ -92,6 +92,12 @@ public class DiagnosisDto {
 	public void setPatientDiagnosisId(Long patientDiagnosisId) {
 		this.patientDiagnosisId = patientDiagnosisId;
 	}
-	
 
+	public String getDiagnosisDetails() {
+		return diagnosisDetails;
+	}
+
+	public void setDiagnosisDetails(String diagnosisDetails) {
+		this.diagnosisDetails = diagnosisDetails;
+	}
 }
