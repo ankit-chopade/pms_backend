@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 
 import com.pms.common.exception.CustomException;
 import com.pms.common.util.ErrorResponse;
+import com.pms.entity.PatientBasicDetail;
 import com.pms.entity.RoleEntity;
 import com.pms.entity.UserEntity;
+import com.pms.repository.PatientRepository;
 import com.pms.repository.RoleRepository;
 import com.pms.repository.UserRepository;	
 import com.pms.util.MailService;
@@ -27,7 +29,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private UserRepository repository;
-
+	
 	@Autowired
 	private RoleRepository roleRepository;
 
@@ -36,12 +38,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private MailService mailService;
-
+	
+	@Autowired
+	private PatientRepository patientRepo;
+	
 	@Override
 	public UserEntity saveUser(UserEntity user) throws CustomException {
 		try {
 			user.setPassword(pwdEncoder.encode(user.getPassword()));
 			UserEntity saveUser = repository.save(user);
+
 			/**
 			 * Patient Reg 
 			 */
@@ -86,6 +92,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 				+ "</div>" + "<HTML><head><body>";
 		;
 		mailService.sendMail(recipient, subject, message);
+	}
+
+	@Override
+	public Optional<UserEntity> findByUserId(Long userId) {
+		
+		return repository.findById(userId);
 	}
 
 }

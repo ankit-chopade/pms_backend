@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pms.entity.EmergencyContactEntity;
-import com.pms.entity.PatientEntity;
+import com.pms.entity.PatientBasicDetail;
 import com.pms.repository.EmergencyDetailsRepo;
 import com.pms.repository.PatientRepository;
 @Service

@@ -12,10 +12,13 @@ import com.pms.entity.UserEntity;
  * The Interface UserRepository.
  */
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Integer> { 
 	
+public interface UserRepository extends JpaRepository<UserEntity, Long> { 
+
 	public Optional<UserEntity> findByUserId(Long id);
+	
 	public Optional<UserEntity> findByEmailId(String emailId);
+	
 	public List<UserEntity> findByRoleId(Integer roleId);
 
 }

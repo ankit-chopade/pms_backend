@@ -7,47 +7,47 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pms.entity.AllergyDetailsEntity;
-import com.pms.entity.PatientEntity;
+import com.pms.entity.AllergyEntity;
+import com.pms.entity.PatientBasicDetail;
 import com.pms.repository.AllergyDetailsRepo;
 @Service
 public class AllergyDetailsServiceImpl implements AllergyDetailsService{
 	@Autowired
 	AllergyDetailsRepo allergyrepo;
 	
-	public void save(Set<AllergyDetailsEntity>  allergyEntity) {
-		for(AllergyDetailsEntity allergyEntity1:allergyEntity)
-		{
-			allergyrepo.save(allergyEntity1);
-		}
+	public void save(AllergyEntity allergyEntity) {
+			allergyrepo.save(allergyEntity);
+		
 		
 	}
 
-//	public AllergyDetailsEntity getAllergybyId(AllergyDetailsEntity entity) {
-//		Optional<AllergyDetailsEntity> optional = allergyrepo.findById(entity.getAllergyDetailsId());
-//		AllergyDetailsEntity allergy = null;
-//		if (optional.isPresent()) {
-//			allergy = optional.get();
-//
-//		}
-//		return allergy;
-//	}
-
-	public AllergyDetailsEntity getAllergyType(String type) {
+	public AllergyEntity getAllergyType(String type) {
 		
 		return allergyrepo.findByallergyType(type);
 	}
 
-	public AllergyDetailsEntity getAllergyName(String name) {
+	public AllergyEntity getAllergyName(String name) {
 		
 		return allergyrepo.findByallergyName(name);
 	}
 	
-	public List<AllergyDetailsEntity> getAllergyDetails() {
+	public List<AllergyEntity> getAllergyDetails() {
+		System.out.println(allergyrepo.findAll());
 		return allergyrepo.findAll();
 	}
 
 
+	@Override
+	public Optional<AllergyEntity> getAllergybyId(Integer id) {
+		System.out.println(allergyrepo.findById(id));
+		return allergyrepo.findById(id);
+	}
+
+	@Override
+	public AllergyEntity getbyAllergyCode(String allergyCode) {
+		
+		return allergyrepo.findByAllergyCode(allergyCode);
+	}
 
 
 }
