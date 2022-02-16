@@ -8,55 +8,46 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.pms.common.util.ResponseUtil;
-import com.pms.entity.AllergyDetailsEntity;
-import com.pms.entity.AllergyIdEntity;
-import com.pms.entity.PatientEntity;
+import com.pms.entity.AllergyEntity;
+import com.pms.entity.AllergyMapEntity;
+import com.pms.entity.PatientBasicDetail;
 import com.pms.entity.UserEntity;
+import com.pms.repository.AllergyMapRepo;
 import com.pms.repository.PatientRepository;
 import com.pms.repository.UserRepository;
 
 @Service
-public class PatientServiceImpl implements PatientService {
+public class PatientServiceImpl implements PatientBasicDetailService {
 
 	@Autowired
 	private PatientRepository patientRepo;
 
 	@Autowired
 	EmergencyContactService emergencyservice;
-	
+
 	@Autowired
-	AllergyDetailsService allergeyDetailsservice;
-	
+	AllergyMapService allergyMapService;
+
 	@Autowired
-	AllergyIdService allergyIdService;
-	
-	List<AllergyIdEntity> allergy;
-	
-	public Boolean save(PatientEntity patientEntity) {
-	
-	System.out.println("save Patient");
-		PatientEntity  savePatient= patientRepo.save(patientEntity);
+	AllergyMapRepo allergyMapRepo;
+
+	List<AllergyMapEntity> allergy;
+
+	public Boolean save(PatientBasicDetail patientEntity) {
+		System.out.println("save Patient");
+		PatientBasicDetail savePatient = patientRepo.save(patientEntity);
 		emergencyservice.save(patientEntity.getEmergencyContactEntity());
-		 for(AllergyIdEntity allergyid : patientEntity.getAllergyDetailsId())
-		 {
-			 System.out.println(allergyid+"allergyId");
-			 allergyIdService.saveAllergyId(allergyid);
-		 }
-		
-//		  for(AllergyDetailsEntity allergy:patientEntity.getAllergyDetailsEntity())
-//		  {
-//			  allergeyDetailsservice.save(allergy);
-//		  }
+		for (AllergyMapEntity allergyMapEntity : patientEntity.getAllergyMap()) {
+			allergyMapService.saveAllergyMap(allergyMapEntity);
+		}
 		return true;
-		
 	}
 
-	public PatientEntity getpatientbyId(Integer userid) {
-		Optional<PatientEntity> optional= patientRepo.findByUserId(userid);	
-		PatientEntity patient = null;
+	public PatientBasicDetail getpatientbyId(Integer userid) {
+		Optional<PatientBasicDetail> optional = patientRepo.findByUserId(userid);
+		PatientBasicDetail patient = null;
 		if (optional.isPresent()) {
 			patient = optional.get();
-
 		}
 		return patient;
 

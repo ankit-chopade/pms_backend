@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.pms.common.exception.CustomException;
 import com.pms.common.util.ErrorResponse;
-import com.pms.entity.PatientEntity;
+import com.pms.entity.PatientBasicDetail;
 import com.pms.entity.RoleEntity;
 import com.pms.entity.UserEntity;
 import com.pms.repository.PatientRepository;

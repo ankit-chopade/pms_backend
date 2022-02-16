@@ -7,40 +7,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
-@Table(name="allergydetails")
-@Data
+@Table(name = "allergy")
 
-public class AllergyDetailsEntity {
+public class AllergyEntity {
 	@Id
-	//@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="allergDetails_id")
-	private String allergyDetailsId;
-	
-	
-	@Column(name="allergy_name")
-	private String allergyName;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "allergy_id")
+	private Integer allergyId;
 
-	@Column(name="allergy_type")
+	@Column(name = "allergy_code")
+	private String allergyCode;
+
+	@Column(name = "allergy_name")
+	private String allergyName;
+
+	@Column(name = "allergy_type")
 	private String allergyType;
-	
-	@Column(name="allergy_description")
+
+	@Column(name = "allergy_description")
 	private String allergyDescription;
-	
-	@Column(name="allergy_clinicalinfo")
+
+	@Column(name = "allergy_clinicalinfo")
 	private String allergyClinicalInfo;
 
-	public String getAllergyDetailsId() {
-		return allergyDetailsId;
+	public Integer getAllergyId() {
+		return allergyId;
 	}
 
-	public void setAllergyDetailsId(String allergyDetailsId) {
-		this.allergyDetailsId = allergyDetailsId;
+	public void setAllergyId(Integer allergyId) {
+		this.allergyId = allergyId;
+	}
+
+	public String getAllergyCode() {
+		return allergyCode;
+	}
+
+	public void setAllergyCode(String allergyCode) {
+		this.allergyCode = allergyCode;
 	}
 
 	public String getAllergyName() {
@@ -75,27 +79,20 @@ public class AllergyDetailsEntity {
 		this.allergyClinicalInfo = allergyClinicalInfo;
 	}
 
-	@Override
-	public String toString() {
-		return "AllergyDetailsEntity [allergyDetailsId=" + allergyDetailsId + ", allergyName=" + allergyName
-				+ ", allergyType=" + allergyType + ", allergyDescription=" + allergyDescription
-				+ ", allergyClinicalInfo=" + allergyClinicalInfo + "]";
-	}
-
-	public AllergyDetailsEntity(String allergyDetailsId, String allergyName, String allergyType,
+	public AllergyEntity(Integer allergyId, String allergyCode, String allergyName, String allergyType,
 			String allergyDescription, String allergyClinicalInfo) {
 		super();
-		this.allergyDetailsId = allergyDetailsId;
+		this.allergyId = allergyId;
+		this.allergyCode = allergyCode;
 		this.allergyName = allergyName;
 		this.allergyType = allergyType;
 		this.allergyDescription = allergyDescription;
 		this.allergyClinicalInfo = allergyClinicalInfo;
 	}
 
-	public AllergyDetailsEntity() {
+	public AllergyEntity() {
 		super();
 	}
-	
-	
+
 	
 }

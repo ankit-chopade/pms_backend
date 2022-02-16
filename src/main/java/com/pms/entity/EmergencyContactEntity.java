@@ -21,11 +21,14 @@ public class EmergencyContactEntity {
 	private Integer emergencyContactId;
 	
 	
-	@Column(name="emergencyContact_name")
-	private String EmergencyContactName;
+	@Column(name="emergencyContact_fristName")
+	private String emergencyContactFristName;
+	
+	@Column(name="emergencyContact_lastName")
+	private String emergencyContactLastName;
 		
 	@Column(name="emergencyContact_email")
-	private String EmergencyContactEmail;
+	private String emergencyContactEmail;
 	
 	@Column(name="home_address")
 	private String homeAddress;
@@ -39,7 +42,8 @@ public class EmergencyContactEntity {
 	@Column(name="patientRelationship")
 	private String patientRelationship;
 	
-	
+	@Column(name="accessPatient_portal")
+	 private String accessPatientPortal;
 	 
 	public Integer getEmergencyContactId() {
 		return emergencyContactId;
@@ -49,20 +53,15 @@ public class EmergencyContactEntity {
 		this.emergencyContactId = emergencyContactId;
 	}
 
-	public String getEmergencyContactName() {
-		return EmergencyContactName;
-	}
+	
 
-	public void setEmergencyContactName(String emergencyContactName) {
-		EmergencyContactName = emergencyContactName;
-	}
-
+	
 	public String getEmergencyContactEmail() {
-		return EmergencyContactEmail;
+		return emergencyContactEmail;
 	}
 
 	public void setEmergencyContactEmail(String emergencyContactEmail) {
-		EmergencyContactEmail = emergencyContactEmail;
+		emergencyContactEmail = emergencyContactEmail;
 	}
 
 	public String getHomeAddress() {
@@ -99,37 +98,65 @@ public class EmergencyContactEntity {
 		this.patientRelationship = patientRelationship;
 	}
 
-	
-
-	public EmergencyContactEntity(Integer emergencyContactId, String emergencyContactName, String emergencyContactEmail,
-			String homeAddress, Long emergencyContact, byte active, String patientRelationship) {
-		super();
-		this.emergencyContactId = emergencyContactId;
-		EmergencyContactName = emergencyContactName;
-		EmergencyContactEmail = emergencyContactEmail;
-		this.homeAddress = homeAddress;
-		this.emergencyContact = emergencyContact;
-		this.active = active;
-		this.patientRelationship = patientRelationship;
+	public String getEmergencyContactFristName() {
+		return emergencyContactFristName;
 	}
+
+	public void setEmergencyContactFristName(String emergencyContactFristName) {
+		this.emergencyContactFristName = emergencyContactFristName;
+	}
+
+	public String getEmergencyContactLastName() {
+		return emergencyContactLastName;
+	}
+
+	public void setEmergencyContactLastName(String emergencyContactLastName) {
+		this.emergencyContactLastName = emergencyContactLastName;
+	}
+
+	
+	
+	
+	public String getAccessPatientPortal() {
+		return accessPatientPortal;
+	}
+
+	public void setAccessPatientPortal(String accessPatientPortal) {
+		this.accessPatientPortal = accessPatientPortal;
+	}
+
+	
 
 	public EmergencyContactEntity() {
 		super();
 	}
 
+	public EmergencyContactEntity(Integer emergencyContactId, String emergencyContactFristName,
+			String emergencyContactLastName, String emergencyContactEmail, String homeAddress, Long emergencyContact,
+			byte active, String patientRelationship, String accessPatientPortal) {
+		super();
+		this.emergencyContactId = emergencyContactId;
+		this.emergencyContactFristName = emergencyContactFristName;
+		this.emergencyContactLastName = emergencyContactLastName;
+		this.emergencyContactEmail = emergencyContactEmail;
+		this.homeAddress = homeAddress;
+		this.emergencyContact = emergencyContact;
+		this.active = active;
+		this.patientRelationship = patientRelationship;
+		this.accessPatientPortal = accessPatientPortal;
+	}
+
 	@Override
 	public String toString() {
-		return "EmergencyContactEntity [emergencyContactId=" + emergencyContactId + ", EmergencyContactName="
-				+ EmergencyContactName + ", EmergencyContactEmail=" + EmergencyContactEmail + ", homeAddress="
-				+ homeAddress + ", emergencyContact=" + emergencyContact + ", active=" + active
-				+ ", patientRelationship=" + patientRelationship + "]";
+		return "EmergencyContactEntity [emergencyContactId=" + emergencyContactId + ", emergencyContactFristName="
+				+ emergencyContactFristName + ", emergencyContactLastName=" + emergencyContactLastName
+				+ ", emergencyContactEmail=" + emergencyContactEmail + ", homeAddress=" + homeAddress
+				+ ", emergencyContact=" + emergencyContact + ", active=" + active + ", patientRelationship="
+				+ patientRelationship + ", accessPatientPortal=" + accessPatientPortal + "]";
 	}
-	
-	
-	
-//	 @OneToOne(mappedBy = "emergencyContact")
-//    private PatientEntity patientEntity;
-	
+
+
+
 	
 	
 }

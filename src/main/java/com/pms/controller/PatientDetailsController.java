@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pms.common.entity.ApiResponse;
 import com.pms.common.util.ResponseUtil;
-import com.pms.entity.PatientEntity;
+import com.pms.entity.PatientBasicDetail;
 import com.pms.entity.UserEntity;
 import com.pms.service.AllergyDetailsService;
 import com.pms.service.EmergencyContactService;
-import com.pms.service.PatientService;
+import com.pms.service.PatientBasicDetailService;
 import com.pms.service.UserService;
 
 @RestController
@@ -29,7 +29,7 @@ import com.pms.service.UserService;
 public class PatientDetailsController {
 
 	@Autowired
-	PatientService patientservice;
+	PatientBasicDetailService patientservice;
 	
 	@Autowired
 	EmergencyContactService emergencyservice;
@@ -41,7 +41,7 @@ public class PatientDetailsController {
 	UserService userservice;
 	
 	@PostMapping("/savepatientdetails")
-	public ResponseEntity<ApiResponse> savePatient(@RequestBody PatientEntity patientEntity){
+	public ResponseEntity<ApiResponse> savePatient(@RequestBody PatientBasicDetail patientEntity){
 			 
 	return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful", this.patientservice.save(patientEntity));
 	   

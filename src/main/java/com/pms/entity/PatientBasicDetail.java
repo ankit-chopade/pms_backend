@@ -23,9 +23,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="patient")
+@Table(name="patient_basic_detail")
 @Data
-public class PatientEntity implements Serializable {
+public class PatientBasicDetail implements Serializable {
 	
 	/**
 	 * 
@@ -34,8 +34,8 @@ public class PatientEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="patient_id")
-	private Integer patientId;
+	@Column(name="patient_basic_detail_id")
+	private Integer patientBasicDetailId;
 	
 	
 	
@@ -52,8 +52,8 @@ public class PatientEntity implements Serializable {
 	private String patientEthnicity ;
 	
 	
-	@Column(name="LanguagesKnown")
-	private String LanguagesKnown ;
+	@Column(name="languagesKnown")
+	private String languagesKnown ;
 	
 	
 	@Column(name="home_address ")
@@ -67,6 +67,9 @@ public class PatientEntity implements Serializable {
 	@Column(name="isActive")
 	private int active;
 	
+	@Column(name="patient_knowAllergy")
+	private String patientKnowAllergy;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	 @JoinColumn(name="emergency_id")
 	private EmergencyContactEntity EmergencyContactEntity;
@@ -75,167 +78,181 @@ public class PatientEntity implements Serializable {
 //	 private List<AllergyDetailsEntity> allergyDetailsEntity;
 	
 	
-	@OneToMany(targetEntity=AllergyIdEntity.class, cascade = CascadeType.ALL)
-	private List<AllergyIdEntity> allergyDetailsId;
+	@OneToMany(targetEntity=AllergyMapEntity.class, cascade = CascadeType.ALL)
+	 @JoinColumn(name="allergyMap")
+	private List<AllergyMapEntity> allergyMap;
 
 	 
-	 
-	 
-	 
-	public PatientEntity(Integer patientId, String patientGender, String patientAge, String patientRace,
-			String patientEthnicity, String languagesKnown, String homeAddress, Integer userId, int active,
-			com.pms.entity.EmergencyContactEntity emergencyContactEntity, List<AllergyIdEntity> allergyDetailsId) {
-		super();
-		this.patientId = patientId;
-		this.patientGender = patientGender;
-		this.patientAge = patientAge;
-		this.patientRace = patientRace;
-		this.patientEthnicity = patientEthnicity;
-		LanguagesKnown = languagesKnown;
-		this.homeAddress = homeAddress;
-		this.userId = userId;
-		this.active = active;
-		EmergencyContactEntity = emergencyContactEntity;
-		this.allergyDetailsId = allergyDetailsId;
-	}
 
-	public PatientEntity() {
+	public PatientBasicDetail() {
 		super();
 	}
 
-	
-	  public List<AllergyIdEntity> getAllergyDetailsId() { 
-		  return allergyDetailsId;
-	  }
-	  
-	  public void setAllergyDetailsId(List<AllergyIdEntity> allergyDetailsId) {
-	        this.allergyDetailsId = allergyDetailsId; 
-	  }
-	 
 
-	public Integer getPatientId() {
-		return patientId;
+
+	public Integer getPatientBasicDetailId() {
+		return patientBasicDetailId;
 	}
 
-	public void setPatientId(Integer patientId) {
-		this.patientId = patientId;
+
+
+	public void setPatientBasicDetailId(Integer patientBasicDetailId) {
+		this.patientBasicDetailId = patientBasicDetailId;
 	}
+
+
 
 	public String getPatientGender() {
 		return patientGender;
 	}
 
+
+
 	public void setPatientGender(String patientGender) {
 		this.patientGender = patientGender;
 	}
+
+
 
 	public String getPatientAge() {
 		return patientAge;
 	}
 
+
+
 	public void setPatientAge(String patientAge) {
 		this.patientAge = patientAge;
 	}
+
+
 
 	public String getPatientRace() {
 		return patientRace;
 	}
 
+
+
 	public void setPatientRace(String patientRace) {
 		this.patientRace = patientRace;
 	}
+
+
 
 	public String getPatientEthnicity() {
 		return patientEthnicity;
 	}
 
+
+
 	public void setPatientEthnicity(String patientEthnicity) {
 		this.patientEthnicity = patientEthnicity;
 	}
 
+
+
 	public String getLanguagesKnown() {
-		return LanguagesKnown;
+		return languagesKnown;
 	}
 
+
+
 	public void setLanguagesKnown(String languagesKnown) {
-		LanguagesKnown = languagesKnown;
+		this.languagesKnown = languagesKnown;
 	}
+
+
 
 	public String getHomeAddress() {
 		return homeAddress;
 	}
 
+
+
 	public void setHomeAddress(String homeAddress) {
 		this.homeAddress = homeAddress;
 	}
+
+
 
 	public Integer getUserId() {
 		return userId;
 	}
 
+
+
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+
+
 
 	public int getActive() {
 		return active;
 	}
 
+
+
 	public void setActive(int active) {
 		this.active = active;
 	}
+
+
+
+	public String getPatientKnowAllergy() {
+		return patientKnowAllergy;
+	}
+
+
+
+	public void setPatientKnowAllergy(String patientKnowAllergy) {
+		this.patientKnowAllergy = patientKnowAllergy;
+	}
+
+
 
 	public EmergencyContactEntity getEmergencyContactEntity() {
 		return EmergencyContactEntity;
 	}
 
+
+
 	public void setEmergencyContactEntity(EmergencyContactEntity emergencyContactEntity) {
 		EmergencyContactEntity = emergencyContactEntity;
 	}
 
-	
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+
+	public List<AllergyMapEntity> getAllergyMap() {
+		return allergyMap;
 	}
 
-	
 
-	@Override
-	public String toString() {
-		return "BaseEntity [patientId=" + patientId + ", patientGender=" + patientGender + ", patientAge=" + patientAge
-				+ ", patientRace=" + patientRace + ", patientEthnicity=" + patientEthnicity + ", LanguagesKnown="
-				+ LanguagesKnown + ", homeAddress=" + homeAddress + ", userId=" + userId + ", active=" + active
-				+ ", EmergencyContactEntity=" + EmergencyContactEntity + ", allergyDetailsEntity="
-				+ allergyDetailsId
-				+ "]";
+
+	public void setAllergyMap(List<AllergyMapEntity> allergyMap) {
+		this.allergyMap = allergyMap;
 	}
 
-	  
-	 
-	 
-	/*@OneToOne(cascade = CascadeType.ALL)
-	private EmergencyContactEntity EmergencyContactEntity;
 
-	  
-	 @OneToMany(targetEntity=AllergyDetailsEntity.class)  
 
-	  private Set<AllergyDetailsEntity> allergyDetailsEntity;
+	public PatientBasicDetail(Integer patientBasicDetailId, String patientGender, String patientAge, String patientRace,
+			String patientEthnicity, String languagesKnown, String homeAddress, Integer userId, int active,
+			String patientKnowAllergy, com.pms.entity.EmergencyContactEntity emergencyContactEntity,
+			List<AllergyMapEntity> allergyMap) {
+		super();
+		this.patientBasicDetailId = patientBasicDetailId;
+		this.patientGender = patientGender;
+		this.patientAge = patientAge;
+		this.patientRace = patientRace;
+		this.patientEthnicity = patientEthnicity;
+		this.languagesKnown = languagesKnown;
+		this.homeAddress = homeAddress;
+		this.userId = userId;
+		this.active = active;
+		this.patientKnowAllergy = patientKnowAllergy;
+		EmergencyContactEntity = emergencyContactEntity;
+		this.allergyMap = allergyMap;
+	}
 
-	 */
-	 
-	 
-
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
 }	  
 	  
 	  

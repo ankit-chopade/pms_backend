@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pms.common.entity.ApiResponse;
 import com.pms.common.util.ResponseUtil;
-import com.pms.entity.AllergyDetailsEntity;
-import com.pms.entity.PatientEntity;
+import com.pms.entity.AllergyEntity;
+import com.pms.entity.PatientBasicDetail;
 import com.pms.service.AllergyDetailsService;
-import com.pms.service.PatientService;
+import com.pms.service.PatientBasicDetailService;
 
 @RestController
 @RequestMapping("")
@@ -30,30 +30,34 @@ public class AllergeyDetailsController {
 	
 	
 	
-	@PostMapping("saveallergy")
-	public ResponseEntity<ApiResponse> saveallergey(@RequestBody AllergyDetailsEntity  allergyDetailsEntity){
+	@PostMapping("allergy")
+	public ResponseEntity<ApiResponse> saveallergey(@RequestBody AllergyEntity  allergyDetailsEntity){
 		this.allergeyDetailsservice.save(allergyDetailsEntity);
 	 return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful" );
 	}
 	
-	@GetMapping("getallergyid")
-	public ResponseEntity<ApiResponse> getAllergybyId(@RequestParam String allergyId){
-		this.allergeyDetailsservice.getAllergybyId(allergyId);
-		 return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful");
+	@GetMapping("allergyById")
+	public ResponseEntity<ApiResponse> getAllergybyId(@RequestParam Integer allergyId){
+	
+		 return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful",this.allergeyDetailsservice.getAllergybyId(allergyId));
 	}
 	
-	@PostMapping("getallergyType")
-	public AllergyDetailsEntity getAllergytype(@RequestBody AllergyDetailsEntity allergy){
-		return this.allergeyDetailsservice.getAllergyType(allergy.getAllergyType());
-	}
+	/*
+	 * @PostMapping("getallergyType") public AllergyDetailsEntity
+	 * getAllergytype(@RequestBody AllergyDetailsEntity allergy){ return
+	 * this.allergeyDetailsservice.getAllergyType(allergy.getAllergyType()); }
+	 * 
+	 * @PostMapping("getallergyName") public AllergyDetailsEntity
+	 * getAllergyName(@RequestBody AllergyDetailsEntity allergy){ return
+	 * this.allergeyDetailsservice.getAllergyName(allergy.getAllergyName()); }
+	 */
 	
-	@PostMapping("getallergyName")
-	public AllergyDetailsEntity getAllergyName(@RequestBody AllergyDetailsEntity allergy){
-		return this.allergeyDetailsservice.getAllergyName(allergy.getAllergyName());
-	}
-	
-	@GetMapping("/getAllergyDetails")
+	@GetMapping("/allergy")
 	public ResponseEntity<ApiResponse> getAllergyDetails(){
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.allergeyDetailsservice.getAllergyDetails());
+	}
+	@GetMapping("/allergy/allergycode")
+	public ResponseEntity<ApiResponse> getAllergyCode(@RequestParam String allergyCode){
+		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.allergeyDetailsservice.getbyAllergyCode(allergyCode));
 	}
 }

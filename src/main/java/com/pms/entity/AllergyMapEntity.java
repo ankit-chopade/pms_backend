@@ -8,16 +8,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="allergyId")
-public class AllergyIdEntity {
+@Table(name="allergy_map")
+public class AllergyMapEntity {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="allergyMap_Id")
+	private Integer allergyMapId;
+	
 	@Column(name="allerg_id")
 	private Integer allergyId;
-	
-	@Column(name="allergDetails_id")
-	private String allergyDetailsId;
+
+	public Integer getAllergyMapId() {
+		return allergyMapId;
+	}
+
+	public void setAllergyMapId(Integer allergyMapId) {
+		this.allergyMapId = allergyMapId;
+	}
 
 	public Integer getAllergyId() {
 		return allergyId;
@@ -27,18 +35,16 @@ public class AllergyIdEntity {
 		this.allergyId = allergyId;
 	}
 
-	public String getAllergyDetailsId() {
-		return allergyDetailsId;
+	public AllergyMapEntity(Integer allergyMapId, Integer allergyId) {
+		super();
+		this.allergyMapId = allergyMapId;
+		this.allergyId = allergyId;
 	}
 
-	public void setAllergyDetailsId(String allergyDetailsId) {
-		this.allergyDetailsId = allergyDetailsId;
+	public AllergyMapEntity() {
+		super();
 	}
 
-	@Override
-	public String toString() {
-		return "AllergyIdEntity [allergyId=" + allergyId + ", allergyDetailsId=" + allergyDetailsId + "]";
-	}
 	
 	
 }
