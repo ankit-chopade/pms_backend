@@ -17,7 +17,6 @@ import com.pms.common.util.ResponseUtil;
 import com.pms.dto.IdDto;
 import com.pms.entity.EditHistoryEntity;
 import com.pms.entity.PatientAppointmentEntity;
-import com.pms.entity.PatientEntity;
 import com.pms.service.SchedulingService;
 
 @RestController
