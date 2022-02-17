@@ -31,7 +31,9 @@ public class PatientMedicationServiceImpl implements PatientMedicationService {
 			MedicationDto data = new MedicationDto(PmsUtil.convertObjectIntoLong(obj[0]),
 					PmsUtil.convertObjectIntoString(obj[1]), PmsUtil.convertObjectIntoString(obj[2]),
 					PmsUtil.convertObjectIntoString(obj[3]), PmsUtil.convertObjectIntoString(obj[4]),
-							PmsUtil.convertObjectIntoString(obj[5]), PmsUtil.convertObjectIntoString(obj[6]));
+					PmsUtil.convertObjectIntoString(obj[5]), PmsUtil.convertObjectIntoString(obj[6]),
+					PmsUtil.convertObjectIntoLong(obj[7]), PmsUtil.convertObjectIntoString(obj[8]),
+					PmsUtil.convertObjectIntoLong(obj[9]), PmsUtil.convertObjectIntoString(obj[10]));
 			return data;
 		}).collect(Collectors.toList());
 		return dto;
@@ -49,6 +51,11 @@ public class PatientMedicationServiceImpl implements PatientMedicationService {
 		entity.setCreatedDate(new Date());
 		PatientMedicationEntity savedEntity = repository.save(entity);
 		return converter.toDto(savedEntity);
+	}
+	
+	@Override
+	public void deleteById(Long patientMedicationId) {
+		repository.deleteById(patientMedicationId);
 	}
 
 }

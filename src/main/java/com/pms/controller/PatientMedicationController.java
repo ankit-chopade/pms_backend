@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,4 +36,9 @@ public class PatientMedicationController {
 				this.service.savePatientMedication(dto));
 	}
 
+	@DeleteMapping(PmsUrlConstants.URL_PATIENT_MEDICATION)
+	public ResponseEntity<ApiResponse> deleteDiagnosisById(@RequestParam Long patientMedicationId) {
+		this.service.deleteById(patientMedicationId);
+		return ResponseUtil.getResponse(HttpStatus.OK, PmsConstant.PMS_RECORDS_FETCHED, null);
+	}
 }

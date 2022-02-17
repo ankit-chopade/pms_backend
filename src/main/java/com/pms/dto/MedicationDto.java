@@ -1,29 +1,28 @@
 package com.pms.dto;
 
 public class MedicationDto {
-	
-	
+		
 	private Long medicationId;
 
-	
 	private String drugId;
 
-	
 	private String drugName;
-
 	
 	private String drugManufacturerName;
-
 	
 	private String drugGenericName;
-
 	
 	private String drugForm;
-
 	
 	private String drugStrength;
 
+	private Long appointmentId;
+
+	private String createdDate;
 	
+	private Long patientMedicationId;
+	
+	private String medicationDetails; 
 
 	public MedicationDto() {
 		super();
@@ -81,12 +80,46 @@ public class MedicationDto {
 		return drugStrength;
 	}
 
+	
+	public Long getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(Long appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Long getPatientMedicationId() {
+		return patientMedicationId;
+	}
+
+	public void setPatientMedicationId(Long patientMedicationId) {
+		this.patientMedicationId = patientMedicationId;
+	}
+
+	public String getMedicationDetails() {
+		return medicationDetails;
+	}
+
+	public void setMedicationDetails(String medicationDetails) {
+		this.medicationDetails = medicationDetails;
+	}
+
 	public void setDrugStrength(String drugStrength) {
 		this.drugStrength = drugStrength;
 	}
 
 	public MedicationDto(Long medicationId, String drugId, String drugName, String drugManufacturerName,
-			String drugGenericName, String drugForm, String drugStrength) {
+			String drugGenericName, String drugForm, String drugStrength, Long appointmentId, String createdDate,
+			Long patientMedicationId, String medicationDetails) {
 		super();
 		this.medicationId = medicationId;
 		this.drugId = drugId;
@@ -95,7 +128,13 @@ public class MedicationDto {
 		this.drugGenericName = drugGenericName;
 		this.drugForm = drugForm;
 		this.drugStrength = drugStrength;
+		this.appointmentId = appointmentId;
+		this.createdDate = createdDate;
+		this.patientMedicationId = patientMedicationId;
+		this.medicationDetails = medicationDetails;
 	}
+
+	
 	
 	
 

@@ -7,10 +7,17 @@ public class PatientMedicationDto {
 	private Long appointmentId;
 
 	private String drugManufacturerName;
+	
+	private String drugGenericName;
 
 	private String drugForm;
 
 	private String drugStrength;
+	
+	private String medicationDetails;
+	
+	
+	
 
 	public Long getMedicationId() {
 		return medicationId;
@@ -50,6 +57,22 @@ public class PatientMedicationDto {
 
 	public void setDrugStrength(String drugStrength) {
 		this.drugStrength = drugStrength;
+	}
+
+	public String getDrugGenericName() {
+		return drugGenericName;
+	}
+
+	public void setDrugGenericName(String drugGenericName) {
+		this.drugGenericName = drugGenericName;
+	}
+
+	public String getMedicationDetails() {
+		return medicationDetails;
+	}
+
+	public void setMedicationDetails(String medicationDetails) {
+		this.medicationDetails = medicationDetails;
 	}
 
 }

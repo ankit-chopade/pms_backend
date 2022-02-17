@@ -10,4 +10,6 @@ public interface PatientMedicationService {
 	public List<MedicationDto> getDetailByAppointmentId(Long appointmentId);
 
 	public PatientMedicationDto savePatientMedication(PatientMedicationDto dto);
+	
+	public void deleteById(Long patientMedicationId);
 }

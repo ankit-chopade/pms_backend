@@ -40,7 +40,13 @@ public class PatientMedicationEntity extends BaseEntity implements Serializable 
 
 	@Column(name = "Drug_Strength")
 	private String drugStrength;
-	
+
+	@Column(name = "Drug_Generic_Name")
+	private String drugGenericName;
+
+	@Column(name = "medication_Details")
+	private String medicationDetails;
+
 	public Long getPatientMedicationId() {
 		return patientMedicationId;
 	}
@@ -96,12 +102,30 @@ public class PatientMedicationEntity extends BaseEntity implements Serializable 
 	public void setDrugStrength(String drugStrength) {
 		this.drugStrength = drugStrength;
 	}
+
+	public String getMedicationDetails() {
+		return medicationDetails;
+	}
+
+	public void setMedicationDetails(String medicationDetails) {
+		this.medicationDetails = medicationDetails;
+	}
+
+	public String getDrugGenericName() {
+		return drugGenericName;
+	}
+
+	public void setDrugGenericName(String drugGenericName) {
+		this.drugGenericName = drugGenericName;
+	}
+
 	public PatientMedicationEntity() {
 		super();
 	}
 
 	public PatientMedicationEntity(Long patientMedicationId, Long medicationId, Long patientId, Long appointmentId,
-			String drugManufacturerName, String drugForm, String drugStrength) {
+			String drugManufacturerName, String drugForm, String drugStrength, String drugGenericName,
+			String medicationDetails) {
 		super();
 		this.patientMedicationId = patientMedicationId;
 		this.medicationId = medicationId;
@@ -110,7 +134,7 @@ public class PatientMedicationEntity extends BaseEntity implements Serializable 
 		this.drugManufacturerName = drugManufacturerName;
 		this.drugForm = drugForm;
 		this.drugStrength = drugStrength;
+		this.drugGenericName = drugGenericName;
+		this.medicationDetails = medicationDetails;
 	}
-
-	
 }
