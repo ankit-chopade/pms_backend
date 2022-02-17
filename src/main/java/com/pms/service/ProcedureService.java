@@ -7,7 +7,4 @@ import com.pms.dto.ProcedureDto;
 public interface ProcedureService {
 
 	public List<ProcedureDto> getAllDetails();
-	
-	public void deleteById(Long patientProcedureId);
-
 }

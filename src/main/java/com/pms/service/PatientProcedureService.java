@@ -11,4 +11,6 @@ public interface PatientProcedureService {
 
 	public PatientProcedureDto savePatientProcedure(PatientProcedureDto dto);
 
+	public void deleteById(Long patientProcedureId);
+
 }

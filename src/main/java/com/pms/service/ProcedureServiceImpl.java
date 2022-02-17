@@ -25,11 +25,4 @@ public class ProcedureServiceImpl implements ProcedureService {
 		return converter.toDto(procedureList);
 	}
 
-	@Override
-	public void deleteById(Long patientProcedureId) {
-		repository.deleteById(patientProcedureId);
-	}
-	
-	
-
 }

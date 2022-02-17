@@ -5,6 +5,8 @@ public class PatientProcedureDto {
 	private Long procedureId;
 
 	private Long appointmentId;
+	
+	private String procedureDetails;
 
 	public Long getProcedureId() {
 		return procedureId;
@@ -21,6 +23,15 @@ public class PatientProcedureDto {
 	public void setAppointmentId(Long appointmentId) {
 		this.appointmentId = appointmentId;
 	}
+
+	public String getProcedureDetails() {
+		return procedureDetails;
+	}
+
+	public void setProcedureDetails(String procedureDetails) {
+		this.procedureDetails = procedureDetails;
+	}
+	
 	
 	
 

@@ -9,18 +9,31 @@ public class ProcedureDto {
 	private String procedureDescription;
 
 	private Integer procedureIsDepricated;
+	
+	private Long appointmentId;
 
+	private String createdDate;
+	
+	private Long patientProcedureId;
+	
+	private String procedureDetails; 
+
+	public ProcedureDto() {
+		super();
+	}
+	
 	public ProcedureDto(Long procedureId, String procedureCode, String procedureDescription,
-			Integer procedureIsDepricated) {
+			Integer procedureIsDepricated, Long appointmentId, String createdDate, Long patientProcedureId,
+			String procedureDetails) {
 		super();
 		this.procedureId = procedureId;
 		this.procedureCode = procedureCode;
 		this.procedureDescription = procedureDescription;
 		this.procedureIsDepricated = procedureIsDepricated;
-	}
-
-	public ProcedureDto() {
-		super();
+		this.appointmentId = appointmentId;
+		this.createdDate = createdDate;
+		this.patientProcedureId = patientProcedureId;
+		this.procedureDetails = procedureDetails;
 	}
 
 	public Long getProcedureId() {
@@ -54,6 +67,39 @@ public class ProcedureDto {
 	public void setProcedureIsDepricated(Integer procedureIsDepricated) {
 		this.procedureIsDepricated = procedureIsDepricated;
 	}
+
+	public Long getAppointmentId() {
+		return appointmentId;
+	}
+
+	public void setAppointmentId(Long appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Long getPatientProcedureId() {
+		return patientProcedureId;
+	}
+
+	public void setPatientProcedureId(Long patientProcedureId) {
+		this.patientProcedureId = patientProcedureId;
+	}
+
+	public String getProcedureDetails() {
+		return procedureDetails;
+	}
+
+	public void setProcedureDetails(String procedureDetails) {
+		this.procedureDetails = procedureDetails;
+	}
+	
 
 	
 }

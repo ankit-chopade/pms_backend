@@ -32,6 +32,9 @@ public class PatientProcedureEntity extends BaseEntity implements Serializable {
 	
 	@Column(name = "Appointment_Id")
 	private Long appointmentId;
+	
+	@Column(name = "procedureDetails")
+	private String procedureDetails;
 
 	public Long getPatientProcedureId() {
 		return patientProcedureId;
@@ -64,19 +67,27 @@ public class PatientProcedureEntity extends BaseEntity implements Serializable {
 	public void setAppointmentId(Long appointmentId) {
 		this.appointmentId = appointmentId;
 	}
+	
+	
+	public String getProcedureDetails() {
+		return procedureDetails;
+	}
+
+	public void setProcedureDetails(String procedureDetails) {
+		this.procedureDetails = procedureDetails;
+	}
 
 	public PatientProcedureEntity() {
 		super();
 	}
-	public PatientProcedureEntity(Long patientProcedureId, Long procedureId, Long patientId, Long appointmentId) {
+
+	public PatientProcedureEntity(Long patientProcedureId, Long procedureId, Long patientId, Long appointmentId,
+			String procedureDetails) {
 		super();
 		this.patientProcedureId = patientProcedureId;
 		this.procedureId = procedureId;
 		this.patientId = patientId;
 		this.appointmentId = appointmentId;
+		this.procedureDetails = procedureDetails;
 	}
-	
-	
-
-
 }
