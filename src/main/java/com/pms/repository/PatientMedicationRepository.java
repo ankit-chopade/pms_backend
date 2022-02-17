@@ -12,7 +12,7 @@ import com.pms.entity.PatientMedicationEntity;
 @Repository
 public interface PatientMedicationRepository extends JpaRepository<PatientMedicationEntity, Long> {
 
-	@Query(value = " Select m.medication_id , m.drug_id , m.drug_name , pm.drug_manufacturer_name ,  m.drug_generic_name , pm.drug_form ,"
+	@Query(value = " Select m.medication_id , m.drug_id , m.drug_name , pm.drug_manufacturer_name ,  pm.drug_generic_name , pm.drug_form ,"
 			+ " pm.drug_strength , pm.appointment_id ,  pm.created_date , pm.patient_medication_id , pm.medication_details "
 			+ " from pmsschema.patient_medications as pm "
 			+ " inner join  pmsschema.medications as m on pm.medication_id=m.medication_id where pm.patient_id=  "  
