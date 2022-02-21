@@ -47,7 +47,7 @@ public class JwtUtil {
 
 	public String generateToken(UserEntity user) {
 		return Jwts.builder().setSubject(user.getEmailId()).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(15)))
+				.setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(60)))
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact() + ":" + user.getUserId() + ":"
 				+ user.getRoleId();
 
