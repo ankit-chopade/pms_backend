@@ -42,7 +42,7 @@ public class PatientDetailsController {
 	
 	@PostMapping("/savepatientdetails")
 	public ResponseEntity<ApiResponse> savePatient(@RequestBody PatientBasicDetail patientEntity){
-			 
+			 System.out.println(patientEntity);
 	return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful", this.patientservice.save(patientEntity));
 	   
 	}

@@ -16,7 +16,7 @@ public class AllergyMapEntity {
 	@Column(name="allergyMap_Id")
 	private Integer allergyMapId;
 	
-	@Column(name="allerg_id")
+	@Column(name="allergy_id")
 	private Integer allergyId;
 
 	public Integer getAllergyMapId() {

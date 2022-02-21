@@ -27,13 +27,11 @@ import com.pms.service.PatientBasicDetailService;
 public class AllergeyDetailsController {
 	@Autowired
 	AllergyDetailsService allergeyDetailsservice;
-	
-	
-	
+
 	@PostMapping("allergy")
 	public ResponseEntity<ApiResponse> saveallergey(@RequestBody AllergyEntity  allergyDetailsEntity){
-		this.allergeyDetailsservice.save(allergyDetailsEntity);
-	 return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful" );
+	//	this.allergeyDetailsservice.save(allergyDetailsEntity);
+	 return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful" ,this.allergeyDetailsservice.save(allergyDetailsEntity));
 	}
 	
 	@GetMapping("allergyById")

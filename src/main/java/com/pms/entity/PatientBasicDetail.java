@@ -1,9 +1,7 @@
 package com.pms.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -72,21 +70,17 @@ public class PatientBasicDetail implements Serializable {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	 @JoinColumn(name="emergency_id")
-	private EmergencyContactEntity EmergencyContactEntity;
+	private EmergencyContactEntity emergencyContactEntity;
 
 //	 @OneToMany(targetEntity=AllergyDetailsEntity.class, cascade = CascadeType.ALL)
 //	 private List<AllergyDetailsEntity> allergyDetailsEntity;
 	
 	
 	@OneToMany(targetEntity=AllergyMapEntity.class, cascade = CascadeType.ALL)
-	 @JoinColumn(name="allergyMap")
+	 @JoinColumn(name="patientBasicDetailId")
 	private List<AllergyMapEntity> allergyMap;
 
-	 
-
-	public PatientBasicDetail() {
-		super();
-	}
+	
 
 
 
@@ -211,13 +205,13 @@ public class PatientBasicDetail implements Serializable {
 
 
 	public EmergencyContactEntity getEmergencyContactEntity() {
-		return EmergencyContactEntity;
+		return emergencyContactEntity;
 	}
 
 
 
 	public void setEmergencyContactEntity(EmergencyContactEntity emergencyContactEntity) {
-		EmergencyContactEntity = emergencyContactEntity;
+		this.emergencyContactEntity = emergencyContactEntity;
 	}
 
 
@@ -249,8 +243,14 @@ public class PatientBasicDetail implements Serializable {
 		this.userId = userId;
 		this.active = active;
 		this.patientKnowAllergy = patientKnowAllergy;
-		EmergencyContactEntity = emergencyContactEntity;
+		this.emergencyContactEntity = emergencyContactEntity;
 		this.allergyMap = allergyMap;
+	}
+
+
+
+	public PatientBasicDetail() {
+		super();
 	}
 
 }	  

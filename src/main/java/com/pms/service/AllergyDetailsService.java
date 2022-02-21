@@ -11,7 +11,7 @@ public interface AllergyDetailsService {
 	
 
 	
-	public void save(AllergyEntity allergyDetailsEntity);
+	public AllergyEntity save(AllergyEntity allergyDetailsEntity);
     public Optional<AllergyEntity> getAllergybyId(Integer allergyId);
 
 	public AllergyEntity getAllergyType(String type);

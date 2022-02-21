@@ -15,9 +15,8 @@ public class AllergyDetailsServiceImpl implements AllergyDetailsService{
 	@Autowired
 	AllergyDetailsRepo allergyrepo;
 	
-	public void save(AllergyEntity allergyEntity) {
-			allergyrepo.save(allergyEntity);
-		
+	public AllergyEntity save(AllergyEntity allergyEntity) {
+			return allergyrepo.save(allergyEntity);
 		
 	}
 

@@ -35,12 +35,34 @@ public class PatientServiceImpl implements PatientBasicDetailService {
 
 	public Boolean save(PatientBasicDetail patientEntity) {
 		System.out.println("save Patient");
+		 System.out.println(patientEntity);
+		Optional<PatientBasicDetail> optional	=  patientRepo.findByUserId(patientEntity.getUserId());
+		if(optional.isPresent())
+		{
+			patientEntity.setPatientBasicDetailId(optional.get().getPatientBasicDetailId());
+//			for (AllergyMapEntity allergyMapEntity : optional.get().getAllergyMap()) {
+//				
+//				patientEntity.getAllergyMap().p
+//				allergyMapService.saveAllergyMap(allergyMapEntity);
+//			}
+			PatientBasicDetail savePatient = patientRepo.save(patientEntity);
+				emergencyservice.save(patientEntity.getEmergencyContactEntity());
+				for (AllergyMapEntity allergyMapEntity : patientEntity.getAllergyMap()) {
+					allergyMapService.saveAllergyMap(allergyMapEntity);
+				}
+				
+			return true;
+		}
+		else {
+			
+		
 		PatientBasicDetail savePatient = patientRepo.save(patientEntity);
 		emergencyservice.save(patientEntity.getEmergencyContactEntity());
 		for (AllergyMapEntity allergyMapEntity : patientEntity.getAllergyMap()) {
 			allergyMapService.saveAllergyMap(allergyMapEntity);
 		}
 		return true;
+		}
 	}
 
 	public PatientBasicDetail getpatientbyId(Integer userid) {
