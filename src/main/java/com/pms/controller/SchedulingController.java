@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pms.common.entity.ApiResponse;
 import com.pms.common.exception.CustomException;
+import com.pms.common.util.PmsUrlConstants;
 import com.pms.common.util.ResponseUtil;
 import com.pms.dto.IdDto;
 import com.pms.entity.EditHistoryEntity;
@@ -28,6 +29,7 @@ public class SchedulingController {
 	private SchedulingService  schedulingService;
 	
 	@GetMapping("/getPhysician")
+//	@GetMapping(PmsUrlConstants.URL_PHYSICIAN)
 	public ResponseEntity<ApiResponse> getPhysician(){
 		return ResponseUtil.getResponse(HttpStatus.OK, "Physician Data Fetched Successful", schedulingService.getPhysician());
 	}
