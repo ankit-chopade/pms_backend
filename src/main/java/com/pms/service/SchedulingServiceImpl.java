@@ -100,7 +100,7 @@ public class SchedulingServiceImpl implements SchedulingService{
 				throw new UsernameNotFoundException("No record Found");
 			String physicianName = users_physician.get().getFirstName() +" "+users_physician.get().getLastName();
 			
-			Optional<UserEntity> users_editedBy = userrepo.findByUserId(h.getPatientId());
+			Optional<UserEntity> users_editedBy = userrepo.findByUserId(h.getEditedBy());
 			if (!users_editedBy.isPresent())
 				throw new UsernameNotFoundException("No record Found");
 			String editedByName = users_editedBy.get().getFirstName() +" "+users_editedBy.get().getLastName();

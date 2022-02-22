@@ -45,12 +45,11 @@ public class JwtUtil {
 		return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
 	}
 
-	public String generateToken(String email) {
-		return Jwts.builder().setSubject(email).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(15)))
-				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact(); 
-//				+ ":" + user.getUserId() + ":"
-//				+ user.getRoleId();
+	public String generateToken(UserEntity user) {
+		return Jwts.builder().setSubject(user.getEmailId()).setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(60)))
+				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact() + ":" + user.getUserId() + ":"
+				+ user.getRoleId();
 
 	}
 
