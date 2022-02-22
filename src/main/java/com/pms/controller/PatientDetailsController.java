@@ -53,13 +53,7 @@ public class PatientDetailsController {
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.patientservice.getpatientbyId(id));
 	}
 	
-	@GetMapping("/getUserData")
-	public ResponseEntity<ApiResponse> getUserPatientData(@RequestParam Long id)
-	{
-		System.out.println("In patient controller");
-		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.userservice.findByUserId(id));
-		
-	}
+	
 	
 	
 }

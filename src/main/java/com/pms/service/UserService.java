@@ -1,15 +1,16 @@
 package com.pms.service;
 
-import java.util.Optional;
-
 import com.pms.common.exception.CustomException;
-import com.pms.entity.UserEntity;
+import com.pms.dto.ChangePasswordDto;
+import com.pms.dto.UserDetailsViewDto;
+import com.pms.dto.UserDto;
 
 public interface UserService {
 
-	public UserEntity saveUser(UserEntity user) throws CustomException;
+	public UserDto saveUser(UserDto user) throws CustomException;
 
-	public UserEntity findByEmailId(String emailId);
-	public Optional<UserEntity> findByUserId(Long userId);
+	public UserDetailsViewDto findByEmailId(String emailId) throws CustomException;
+	
+	public UserDetailsViewDto updatePassword(ChangePasswordDto dto)  throws CustomException;
 
 }

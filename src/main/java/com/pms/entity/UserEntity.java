@@ -14,11 +14,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity extends BaseEntity {
 
 	/**
 	 * 
 	 */
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/** The user id. */
 	@Id
@@ -62,10 +67,7 @@ public class UserEntity {
 	@Column(name = "password")
 	private String password;
 
-	/** The active. */
-	@Column(name = "active")
-	private Integer active;
-
+	
 	/**
 	 * Instantiates a new user entity.
 	 */
@@ -88,7 +90,7 @@ public class UserEntity {
 	 * @param active     the active
 	 */
 	public UserEntity(Long userId, String title, String firstName, String lastName, String emailId, Date dob,
-			Integer roleId, Integer employeeId, Long contactNo, String password, Integer active) {
+			Integer roleId, Integer employeeId, Long contactNo, String password) {
 		super();
 		this.userId = userId;
 		this.title = title;
@@ -100,7 +102,7 @@ public class UserEntity {
 		this.employeeId = employeeId;
 		this.contactNo = contactNo;
 		this.password = password;
-		this.active = active;
+		
 	}
 
 	/**
@@ -283,34 +285,6 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	/**
-	 * Gets the active.
-	 *
-	 * @return the active
-	 */
-	public Integer getActive() {
-		return active;
-	}
-
-	/**
-	 * Sets the active.
-	 *
-	 * @param active the new active
-	 */
-	public void setActive(Integer active) {
-		this.active = active;
-	}
-
-	/**
-	 * To string.
-	 *
-	 * @return the string
-	 */
-	@Override
-	public String toString() {
-		return "UserEntity [userId=" + userId + ", title=" + title + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", emailId=" + emailId + ", dob=" + dob + ", roleId=" + roleId + ", employeeId="
-				+ employeeId + ", contactNo=" + contactNo + ", password=" + password + ", active=" + active + "]";
-	}
+	
 
 }

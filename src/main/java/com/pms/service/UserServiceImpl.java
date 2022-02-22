@@ -1,11 +1,13 @@
 package com.pms.service;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,13 +17,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pms.common.exception.CustomException;
-import com.pms.common.util.ErrorResponse;
-import com.pms.entity.PatientBasicDetail;
+import com.pms.common.util.PmsConstant;
+import com.pms.converter.UserConverter;
+import com.pms.dto.ChangePasswordDto;
+import com.pms.dto.UserDetailsViewDto;
+import com.pms.dto.UserDto;
 import com.pms.entity.RoleEntity;
 import com.pms.entity.UserEntity;
-import com.pms.repository.PatientRepository;
 import com.pms.repository.RoleRepository;
-import com.pms.repository.UserRepository;	
+import com.pms.repository.UserRepository;
 import com.pms.util.MailService;
 
 @Service
@@ -29,7 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private UserRepository repository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
 
@@ -38,39 +42,44 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private MailService mailService;
-	
-	@Autowired
-	private PatientRepository patientRepo;
-	
-	@Override
-	public UserEntity saveUser(UserEntity user) throws CustomException {
-		try {
-			user.setPassword(pwdEncoder.encode(user.getPassword()));
-			UserEntity saveUser = repository.save(user);
 
-			/**
-			 * Patient Reg 
-			 */
+	@Autowired
+	private UserConverter userConverter;
+
+	@Override
+	public UserDto saveUser(UserDto userDto) throws CustomException {
+
+		if (repository.findByEmailId(userDto.getEmailId()).isPresent()) {
+			throw new CustomException(HttpStatus.NOT_FOUND, "Email id already exist");
+		}
+		try {
+			UserEntity userEntity = userConverter.toEntity(userDto);
+			userEntity.setPassword(pwdEncoder.encode(userDto.getPassword()));
+			userEntity.setActiveStatus(PmsConstant.ACTIVE_STATUS);
+			userEntity.setCreatedDate(new Date());
+			UserEntity saveUser = repository.save(userEntity);
 			this.sendMail(saveUser);
-			return saveUser;
+			return userConverter.toDto(saveUser);
 		} catch (Exception ex) {
-			throw new CustomException(ErrorResponse.RECORDNOTFOUND);
+			throw new CustomException(HttpStatus.NOT_FOUND, "Issue while creating user");
 		}
 	}
 
 	@Override
-	public UserEntity findByEmailId(String emailId) {
+	public UserDetailsViewDto findByEmailId(String emailId) throws CustomException {
 		Optional<UserEntity> optional = repository.findByEmailId(emailId);
-		if (!optional.isPresent())
-			throw new UsernameNotFoundException("Email ID dose not exist");
-		UserEntity user = optional.get();
-		return user;
+		if (optional.isPresent()) {
+			UserEntity user = optional.get();
+			return new UserDetailsViewDto(userConverter.toDto(user));
+		} else {
+			throw new CustomException(HttpStatus.NOT_FOUND, "Email id does not exist");
+		}
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String emailId) throws UsernameNotFoundException {
 		Optional<UserEntity> optional = repository.findByEmailId(emailId);
-		
+
 		if (!optional.isPresent())
 			throw new UsernameNotFoundException("Email ID dose not exist");
 
@@ -95,9 +104,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-	public Optional<UserEntity> findByUserId(Long userId) {
-		
-		return repository.findById(userId);
+	public UserDetailsViewDto updatePassword(ChangePasswordDto dto) throws CustomException {
+		Optional<UserEntity> optional = repository.findByEmailId(dto.getEmailId());
+		if (optional.isPresent()) {
+			UserEntity user = optional.get();
+			if (pwdEncoder.matches(dto.getOldPassword(), user.getPassword())) {
+				user.setPassword(pwdEncoder.encode(dto.getNewPassword()));
+				user.setUpdatedDate(new Date());
+				UserEntity saveUser = repository.save(user);
+				return new UserDetailsViewDto(userConverter.toDto(saveUser));
+			} else {
+				throw new CustomException(HttpStatus.NOT_FOUND, "Invalid password");
+			}
+		} else {
+			throw new CustomException(HttpStatus.NOT_FOUND, "Invalid email id");
+		}
+
 	}
 
 }

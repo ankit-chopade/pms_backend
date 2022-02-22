@@ -16,9 +16,9 @@ public class TokenService {
 	@Autowired
 	private JwtUtil jwtUtil;
 	
-	public String generateTokens(UserEntity user ,String password) {
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmailId(), password));
-		return jwtUtil.generateToken(user);
+	public String generateTokens(String email ,String password) {
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+		return jwtUtil.generateToken(email);
 	}
 
 }
