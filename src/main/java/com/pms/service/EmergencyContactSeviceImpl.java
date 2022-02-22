@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pms.entity.EmergencyContactEntity;
-import com.pms.entity.PatientBasicDetail;
 import com.pms.repository.EmergencyDetailsRepo;
-import com.pms.repository.PatientRepository;
 @Service
 public class EmergencyContactSeviceImpl implements EmergencyContactService{
 
@@ -16,7 +14,15 @@ public class EmergencyContactSeviceImpl implements EmergencyContactService{
 	private EmergencyDetailsRepo emergencyRepo;
 	
 	public EmergencyContactEntity save(EmergencyContactEntity emergencyContactEntity) {
-	
+//		Optional<EmergencyContactEntity> optional = emergencyRepo.findById(emergencyContactEntity.getEmergencyContactId());
+//		if (optional.isPresent()) {
+//			
+//			emergencyContactEntity.setEmergencyContactId(optional.get().getEmergencyContactId());
+//			return emergencyRepo.save(emergencyContactEntity);
+//		}
+//		else {
+//			return emergencyRepo.save(emergencyContactEntity);
+//		}
 		return emergencyRepo.save(emergencyContactEntity);
 	}
 

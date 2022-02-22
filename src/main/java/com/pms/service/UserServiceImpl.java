@@ -119,7 +119,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		} else {
 			throw new CustomException(HttpStatus.NOT_FOUND, "Invalid email id");
 		}
+	}
 
+	public UserEntity findByUserId(Long userId) throws CustomException {
+		Optional<UserEntity> optional = repository.findById(userId);
+		if(optional.isPresent())
+		{
+			return optional.get();
+		}
+		else {
+			throw new CustomException(HttpStatus.NOT_FOUND,"User detail dosnot exits");
+		}
+		
+		 
+		 
 	}
 
 }

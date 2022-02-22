@@ -2,22 +2,19 @@ package com.pms.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pms.entity.AllergyEntity;
-import com.pms.entity.PatientBasicDetail;
 import com.pms.repository.AllergyDetailsRepo;
 @Service
 public class AllergyDetailsServiceImpl implements AllergyDetailsService{
 	@Autowired
 	AllergyDetailsRepo allergyrepo;
 	
-	public void save(AllergyEntity allergyEntity) {
-			allergyrepo.save(allergyEntity);
-		
+	public AllergyEntity save(AllergyEntity allergyEntity) {
+			return allergyrepo.save(allergyEntity);
 		
 	}
 
