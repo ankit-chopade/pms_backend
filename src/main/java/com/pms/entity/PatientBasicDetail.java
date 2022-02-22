@@ -14,11 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.apache.tomcat.jni.Library;
-
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name="patient_basic_detail")
@@ -252,6 +248,19 @@ public class PatientBasicDetail implements Serializable {
 	public PatientBasicDetail() {
 		super();
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "PatientBasicDetail [patientBasicDetailId=" + patientBasicDetailId + ", patientGender=" + patientGender
+				+ ", patientAge=" + patientAge + ", patientRace=" + patientRace + ", patientEthnicity="
+				+ patientEthnicity + ", languagesKnown=" + languagesKnown + ", homeAddress=" + homeAddress + ", userId="
+				+ userId + ", active=" + active + ", patientKnowAllergy=" + patientKnowAllergy
+				+ ", emergencyContactEntity=" + emergencyContactEntity + ", allergyMap=" + allergyMap + "]";
+	}
+	
+	
 
 }	  
 	  

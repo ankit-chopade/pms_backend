@@ -4,17 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.pms.common.util.ResponseUtil;
-import com.pms.entity.AllergyEntity;
 import com.pms.entity.AllergyMapEntity;
 import com.pms.entity.PatientBasicDetail;
-import com.pms.entity.UserEntity;
 import com.pms.repository.AllergyMapRepo;
 import com.pms.repository.PatientRepository;
-import com.pms.repository.UserRepository;
 
 @Service
 public class PatientServiceImpl implements PatientBasicDetailService {
@@ -33,35 +28,17 @@ public class PatientServiceImpl implements PatientBasicDetailService {
 
 	List<AllergyMapEntity> allergy;
 
-	public Boolean save(PatientBasicDetail patientEntity) {
+	public PatientBasicDetail save(PatientBasicDetail patientEntity) {
 		System.out.println("save Patient");
 		 System.out.println(patientEntity);
 		Optional<PatientBasicDetail> optional	=  patientRepo.findByUserId(patientEntity.getUserId());
 		if(optional.isPresent())
 		{
-			patientEntity.setPatientBasicDetailId(optional.get().getPatientBasicDetailId());
-//			for (AllergyMapEntity allergyMapEntity : optional.get().getAllergyMap()) {
-//				
-//				patientEntity.getAllergyMap().p
-//				allergyMapService.saveAllergyMap(allergyMapEntity);
-//			}
-			PatientBasicDetail savePatient = patientRepo.save(patientEntity);
-				emergencyservice.save(patientEntity.getEmergencyContactEntity());
-				for (AllergyMapEntity allergyMapEntity : patientEntity.getAllergyMap()) {
-					allergyMapService.saveAllergyMap(allergyMapEntity);
-				}
-				
-			return true;
+			patientEntity.setPatientBasicDetailId(optional.get().getPatientBasicDetailId());	
+			return patientRepo.save(patientEntity);
 		}
 		else {
-			
-		
-		PatientBasicDetail savePatient = patientRepo.save(patientEntity);
-		emergencyservice.save(patientEntity.getEmergencyContactEntity());
-		for (AllergyMapEntity allergyMapEntity : patientEntity.getAllergyMap()) {
-			allergyMapService.saveAllergyMap(allergyMapEntity);
-		}
-		return true;
+		return patientRepo.save(patientEntity);
 		}
 	}
 

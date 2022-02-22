@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,12 +17,11 @@ import org.springframework.stereotype.Service;
 
 import com.pms.common.exception.CustomException;
 import com.pms.common.util.ErrorResponse;
-import com.pms.entity.PatientBasicDetail;
 import com.pms.entity.RoleEntity;
 import com.pms.entity.UserEntity;
 import com.pms.repository.PatientRepository;
 import com.pms.repository.RoleRepository;
-import com.pms.repository.UserRepository;	
+import com.pms.repository.UserRepository;
 import com.pms.util.MailService;
 
 @Service
@@ -95,9 +95,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-	public Optional<UserEntity> findByUserId(Long userId) {
+	public UserEntity findByUserId(Long userId) throws CustomException {
+		Optional<UserEntity> optional = repository.findById(userId);
+		if(optional.isPresent())
+		{
+			return optional.get();
+		}
+		else {
+			throw new CustomException(HttpStatus.NOT_FOUND,"User detail dosnot exits");
+		}
 		
-		return repository.findById(userId);
+		 
+		 
 	}
 
 }

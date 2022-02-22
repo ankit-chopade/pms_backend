@@ -2,10 +2,8 @@ package com.pms.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import com.pms.entity.AllergyEntity;
-import com.pms.entity.PatientBasicDetail;
 
 public interface AllergyDetailsService {
 	
