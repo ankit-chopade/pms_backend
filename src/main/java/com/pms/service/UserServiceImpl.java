@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			return optional.get();
 		}
 		else {
-			throw new CustomException(HttpStatus.NOT_FOUND,"User detail dosnot exits");
+			throw new CustomException(HttpStatus.NOT_FOUND,"User detail dosenot exits");
 		}
 		
 		 

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pms.entity.AllergyEntity;
 import com.pms.entity.AllergyMapEntity;
 import com.pms.repository.AllergyMapRepo;
 
@@ -39,6 +40,12 @@ public class AllergyMapServiceImpl implements AllergyMapService {
 		}
 		
 		 return true;
+	}
+
+	@Override
+	public AllergyEntity deletePatientAllergy(Integer allergyId, Integer patientId) {
+		return null;
+	//	repo.findAll().stream().filter(patientAllergy ->patientAllergy.getAllergyId()
 	}
 	
 	

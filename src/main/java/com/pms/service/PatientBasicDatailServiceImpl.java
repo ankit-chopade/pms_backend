@@ -12,7 +12,7 @@ import com.pms.repository.AllergyMapRepo;
 import com.pms.repository.PatientRepository;
 
 @Service
-public class PatientServiceImpl implements PatientBasicDetailService {
+public class PatientBasicDatailServiceImpl implements PatientBasicDetailService {
 
 	@Autowired
 	private PatientRepository patientRepo;
@@ -34,7 +34,7 @@ public class PatientServiceImpl implements PatientBasicDetailService {
 		Optional<PatientBasicDetail> optional	=  patientRepo.findByUserId(patientEntity.getUserId());
 		if(optional.isPresent())
 		{
-			patientEntity.setPatientBasicDetailId(optional.get().getPatientBasicDetailId());	
+			patientEntity.setPatientBasicDetailId(optional.get().getPatientBasicDetailId());
 			return patientRepo.save(patientEntity);
 		}
 		else {

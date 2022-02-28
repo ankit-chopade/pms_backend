@@ -21,10 +21,6 @@ public class PatientAllergyController {
 	@Autowired
 	AllergyMapService service;
 	
-	@DeleteMapping()
-	public ResponseEntity<ApiResponse> deletePatientAllergy(@RequestParam Integer allergyMapId){
-		
-		 return ResponseUtil.getResponse(HttpStatus.OK, "Data delete Successful",this.service.deleteAllergyMap(allergyMapId));
-	}
+	
 
 }

@@ -16,4 +16,5 @@ public interface AllergyDetailsService {
 	public AllergyEntity getAllergyName(String allergyName);
 	public List<AllergyEntity> getAllergyDetails();
 	public AllergyEntity getbyAllergyCode(String allergyCode);
+	
 }
