@@ -2,6 +2,7 @@ package com.pms.service;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -66,6 +67,54 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
+	public UserDto addUser(UserDto userDto) throws CustomException {
+
+		if (repository.findByEmailId(userDto.getEmailId()).isPresent()) {
+			throw new CustomException(HttpStatus.NOT_FOUND, "Email id already exist");
+		}
+		try {
+			UserEntity userEntity = userConverter.toEntity(userDto);
+			String password = "Password@123";
+			userDto.setPassword(password);
+			userEntity.setPassword(pwdEncoder.encode(userDto.getPassword()));
+			userEntity.setActiveStatus(PmsConstant.ACTIVE_STATUS);
+			userEntity.setCreatedBy(1l);
+			userEntity.setCreatedDate(new Date());
+			UserEntity saveUser = repository.save(userEntity);
+			this.sendMailToNewUser(saveUser); 
+			return userConverter.toDto(saveUser);
+		} catch (Exception ex) {
+			throw new CustomException(HttpStatus.NOT_FOUND, "Issue while creating user");
+		}
+	}
+
+	@Override
+	public List<UserEntity> getPatients() {
+		List<UserEntity> patients = repository.findAll();
+		return patients.stream().filter(p -> p.getRoleId() == 5).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<UserEntity> getHospitalUsers() {
+
+		List<UserEntity> patients = repository.findAll();
+		return patients.stream().filter(p -> p.getRoleId() == 3 || p.getRoleId() == 4).collect(Collectors.toList());
+	}
+
+	@Override
+	public UserEntity updateStatus(UserDto user) {
+		if (repository.findByUserId(user.getUserId()).isPresent()) {
+
+			UserEntity entity = repository.findByUserId(user.getUserId()).get();
+
+			entity.setActiveStatus(user.getActive());
+			return repository.save(entity);
+		}
+
+		return null;
+	}
+
+	@Override
 	public UserDetailsViewDto findByEmailId(String emailId) throws CustomException {
 		Optional<UserEntity> optional = repository.findByEmailId(emailId);
 		if (optional.isPresent()) {
@@ -91,6 +140,56 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 				roles.stream().map(role -> new SimpleGrantedAuthority(role)).collect(Collectors.toList()));
 	}
 
+	@Override
+	public UserDetailsViewDto updatePassword(ChangePasswordDto dto) throws CustomException {
+		Optional<UserEntity> optional = repository.findByEmailId(dto.getEmailId());
+		if (optional.isPresent()) {
+			UserEntity user = optional.get();
+			if (pwdEncoder.matches(dto.getOldPassword(), user.getPassword())) {
+				user.setPassword(pwdEncoder.encode(dto.getNewPassword()));
+				user.setUpdatedDate(new Date());
+				UserEntity updatedUser = repository.save(user)
+						;
+				this.sendMailForUpdateStatus(updatedUser);
+				return new UserDetailsViewDto(userConverter.toDto(updatedUser));
+			} else {
+				throw new CustomException(HttpStatus.NOT_FOUND, "Invalid password");
+			}
+		} else {
+			throw new CustomException(HttpStatus.NOT_FOUND, "Invalid email id");
+		}
+	}
+
+	public UserEntity findByUserId(Long userId) throws CustomException {
+		Optional<UserEntity> optional = repository.findById(userId);
+		if (optional.isPresent()) {
+			return optional.get();
+		} else {
+			throw new CustomException(HttpStatus.NOT_FOUND, "User detail dosnot exits");
+		}
+	}
+	
+	private void sendMailForUpdateStatus(UserEntity user) {
+		String status= "";
+		if (user.getActiveStatus() == 1) {
+			status = "Activated";
+		} else if (user.getActiveStatus() == 2) {
+			status = "In-Active";
+		} else {
+			status = "Blocked";
+		}
+		
+		String recipient = user.getEmailId();
+		String subject = "PMS Registration.";
+		String message = "<HTML><head><body>" + "<div style=' border:black ; padding :10px ; border-style:outset ;'>"
+				+ "<p> Welcome to the PMS Application : </br>"				
+				+user.getTitle()+ " " + user.getFirstName()+ " " + user.getLastName()
+				+" your profile status is updated : </p>" + "<h3> <b>" + status +" </b></h3>"				
+				+ "</div>" + "<HTML><head><body>";
+		;
+		mailService.sendMail(recipient, subject, message);
+	}
+
 	private void sendMail(UserEntity user) {
 		String recipient = user.getEmailId();
 		String subject = "PMS Registration.";
@@ -103,36 +202,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		mailService.sendMail(recipient, subject, message);
 	}
 
-	@Override
-	public UserDetailsViewDto updatePassword(ChangePasswordDto dto) throws CustomException {
-		Optional<UserEntity> optional = repository.findByEmailId(dto.getEmailId());
-		if (optional.isPresent()) {
-			UserEntity user = optional.get();
-			if (pwdEncoder.matches(dto.getOldPassword(), user.getPassword())) {
-				user.setPassword(pwdEncoder.encode(dto.getNewPassword()));
-				user.setUpdatedDate(new Date());
-				UserEntity saveUser = repository.save(user);
-				return new UserDetailsViewDto(userConverter.toDto(saveUser));
-			} else {
-				throw new CustomException(HttpStatus.NOT_FOUND, "Invalid password");
-			}
-		} else {
-			throw new CustomException(HttpStatus.NOT_FOUND, "Invalid email id");
-		}
-	}
-
-	public UserEntity findByUserId(Long userId) throws CustomException {
-		Optional<UserEntity> optional = repository.findById(userId);
-		if(optional.isPresent())
-		{
-			return optional.get();
-		}
-		else {
-			throw new CustomException(HttpStatus.NOT_FOUND,"User detail dosnot exits");
-		}
-		
-		 
-		 
+	private void sendMailToNewUser(UserEntity user) {
+		String recipient = user.getEmailId();
+		String subject = "PMS Registration.";
+		String message = "<HTML><head><body>" + "<div style=' border:black ; padding :10px ; border-style:outset ;'>"
+				+ "<h2>Welcome to the PMS Application.</h2><hr>" + "<h3> Hello " + user.getTitle() + " "
+				+ user.getFirstName() + " " + user.getLastName() + "</h3> </br>"
+				+ "<p> Welcome to the PMS Application : </br>"
+				+ "your registration has been successfully completed.</p>" + "<h3>your username : " + user.getEmailId()
+				+ " </h3>" + "<h3>your default password : " + user.getPassword() + " </h3>"
+				+ "this is one time login password please change your password." + "</div>" + "<HTML><head><body>";
+		;
+		mailService.sendMail(recipient, subject, message);
 	}
 
 }
