@@ -16,4 +16,5 @@ public interface UserService {
 
 	public UserEntity findByUserId(Long userId) throws CustomException;
 
+
 }

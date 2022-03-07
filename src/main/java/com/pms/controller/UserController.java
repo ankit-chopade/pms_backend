@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +28,7 @@ public class UserController {
 	UserService service;
 
 	@Autowired
-	private TokenService tokenService;
-
+	TokenService tokenService;
 	@PostMapping(PmsUrlConstants.URL_REGISTRATION)
 	public ResponseEntity<ApiResponse> saveUser(@RequestBody UserDto user) throws CustomException {
 		return ResponseUtil.getResponse(HttpStatus.OK, "User registered successfully", this.service.saveUser(user));
@@ -40,6 +40,7 @@ public class UserController {
 				new UserTokenDto(service.findByEmailId(loginDto.getEmailId()),
 						tokenService.generateTokens(loginDto.getEmailId(), loginDto.getPassword())));
 	}
+
 
 	@PostMapping(PmsUrlConstants.URL_CHANGE_PASSWORD)
 	public ResponseEntity<ApiResponse> updatePassword(@RequestBody ChangePasswordDto dto) throws CustomException {
