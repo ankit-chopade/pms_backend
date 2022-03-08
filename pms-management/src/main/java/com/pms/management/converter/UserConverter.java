@@ -12,16 +12,16 @@ public class UserConverter implements BaseConverter<UserEntity,UserDto> {
 
 	@Override
 	public UserEntity toEntity(UserDto dto) {
-		UserEntity medicationEntity = new UserEntity();
-		BeanUtils.copyProperties(dto, medicationEntity);
-		return medicationEntity;
+		UserEntity entity = new UserEntity();
+		BeanUtils.copyProperties(dto, entity);
+		return entity;
 	}
 
 	@Override
 	public UserDto toDto(UserEntity entity) {
-		UserDto medicationDto = new UserDto();
-		BeanUtils.copyProperties(entity, medicationDto);
-		return medicationDto;
+		UserDto dto = new UserDto();
+		BeanUtils.copyProperties(entity, dto);
+		return dto;
 	}
 
 }
