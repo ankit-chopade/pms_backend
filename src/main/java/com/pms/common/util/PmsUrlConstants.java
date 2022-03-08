@@ -8,7 +8,7 @@ public class PmsUrlConstants {
 	
 	public static final String URL_CHANGE_PASSWORD = "/change-password";
 
-
+	public static final String URL_ALLERGY = "/allergy";
 	public static final String URL_DIAGNOSIS = "/diagnosis";
 
 	public static final String URL_PROCEDURE = "/procedure";

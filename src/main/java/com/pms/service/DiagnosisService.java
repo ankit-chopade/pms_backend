@@ -9,6 +9,7 @@ public interface DiagnosisService {
 	public List<DiagnosisDto> getAllDetails(); 
 	
 	public DiagnosisDto saveDiagnosis(DiagnosisDto dto);
-
+    
+	public void deleteDiagnosis(Long diagnosisId);
 
 }

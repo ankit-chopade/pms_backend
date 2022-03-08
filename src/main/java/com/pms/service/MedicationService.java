@@ -7,5 +7,6 @@ import com.pms.dto.MedicationDto;
 public interface MedicationService {
 	
 	public List<MedicationDto> getAllDetails(); 
-
+	public MedicationDto saveDetails(MedicationDto dto); 
+	public void delete(Long medicationId);
 }
