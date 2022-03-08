@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pms.entity.AllergyEntity;
 import com.pms.repository.AllergyDetailsRepo;
 @Service
-public class AllergyDetailsServiceImpl implements AllergyDetailsService{
+public class AllergyServiceImpl implements AllergyService{
 	@Autowired
 	AllergyDetailsRepo allergyrepo;
 	

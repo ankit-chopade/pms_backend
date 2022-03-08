@@ -1,5 +1,7 @@
 package com.pms.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,125 +14,67 @@ import lombok.Data;
 @Entity
 @Table(name="emergencyContact")
 @Data
-public class EmergencyContactEntity {
+public class EmergencyContactEntity  implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@Id	
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="emergencyContact_id")
 	private Integer emergencyContactId;
 	
 	
-	@Column(name="emergencyContact_fristName")
-	private String emergencyContactFristName;
+	@Column(name="fristName")
+	private String fristName;
 	
-	@Column(name="emergencyContact_lastName")
-	private String emergencyContactLastName;
+	@Column(name="lastName")
+	private String lastName;
 		
-	@Column(name="emergencyContact_email")
-	private String emergencyContactEmail;
+	@Column(name="email")
+	private String email;
 	
 	@Column(name="home_address")
 	private String homeAddress;
 	
-	@Column(name="emergency_contact")
-	private Long emergencyContact;
+	@Column(name="contact_number")
+	private Long contactNumber;
 	
 	@Column(name="isActive")
 	private byte active;
 	
-	@Column(name="patientRelationship")
+	@Column(name="patient_relationship")
 	private String patientRelationship;
 	
-	@Column(name="accessPatient_portal")
+	@Column(name="access_patient_portal")
 	 private String accessPatientPortal;
+	
+	
+	
+	
+	
 
-	public Integer getEmergencyContactId() {
-		return emergencyContactId;
-	}
-
-	public void setEmergencyContactId(Integer emergencyContactId) {
+	public EmergencyContactEntity(Integer emergencyContactId, String fristName, String lastName, String email,
+			String homeAddress, Long contactNumber, byte active, String patientRelationship,
+			String accessPatientPortal) {
+		super();
 		this.emergencyContactId = emergencyContactId;
-	}
-
-	public String getEmergencyContactFristName() {
-		return emergencyContactFristName;
-	}
-
-	public void setEmergencyContactFristName(String emergencyContactFristName) {
-		this.emergencyContactFristName = emergencyContactFristName;
-	}
-
-	public String getEmergencyContactLastName() {
-		return emergencyContactLastName;
-	}
-
-	public void setEmergencyContactLastName(String emergencyContactLastName) {
-		this.emergencyContactLastName = emergencyContactLastName;
-	}
-
-	public String getEmergencyContactEmail() {
-		return emergencyContactEmail;
-	}
-
-	public void setEmergencyContactEmail(String emergencyContactEmail) {
-		this.emergencyContactEmail = emergencyContactEmail;
-	}
-
-	public String getHomeAddress() {
-		return homeAddress;
-	}
-
-	public void setHomeAddress(String homeAddress) {
+		this.fristName = fristName;
+		this.lastName = lastName;
+		this.email = email;
 		this.homeAddress = homeAddress;
-	}
-
-	public Long getEmergencyContact() {
-		return emergencyContact;
-	}
-
-	public void setEmergencyContact(Long emergencyContact) {
-		this.emergencyContact = emergencyContact;
-	}
-
-	public byte getActive() {
-		return active;
-	}
-
-	public void setActive(byte active) {
+		this.contactNumber = contactNumber;
 		this.active = active;
-	}
-
-	public String getPatientRelationship() {
-		return patientRelationship;
-	}
-
-	public void setPatientRelationship(String patientRelationship) {
 		this.patientRelationship = patientRelationship;
-	}
-
-	public String getAccessPatientPortal() {
-		return accessPatientPortal;
-	}
-
-	public void setAccessPatientPortal(String accessPatientPortal) {
 		this.accessPatientPortal = accessPatientPortal;
 	}
+
+
+
+
+
 
 	public EmergencyContactEntity() {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "EmergencyContactEntity [emergencyContactId=" + emergencyContactId + ", emergencyContactFristName="
-				+ emergencyContactFristName + ", emergencyContactLastName=" + emergencyContactLastName
-				+ ", emergencyContactEmail=" + emergencyContactEmail + ", homeAddress=" + homeAddress
-				+ ", emergencyContact=" + emergencyContact + ", active=" + active + ", patientRelationship="
-				+ patientRelationship + ", accessPatientPortal=" + accessPatientPortal + "]";
-	}
-	 
-	
-
-	
 	
 }

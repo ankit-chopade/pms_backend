@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.pms.entity.AllergyEntity;
 
-public interface AllergyDetailsService {
+public interface AllergyService {
 	
 
 	

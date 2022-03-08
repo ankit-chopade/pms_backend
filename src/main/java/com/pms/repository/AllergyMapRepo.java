@@ -3,9 +3,9 @@ package com.pms.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.pms.entity.AllergyMapEntity;
+import com.pms.entity.PatientAllergyEntity;
 
 @Repository
-public interface AllergyMapRepo extends JpaRepository<AllergyMapEntity, Integer> {
+public interface AllergyMapRepo extends JpaRepository<PatientAllergyEntity, Integer> {
 
 }

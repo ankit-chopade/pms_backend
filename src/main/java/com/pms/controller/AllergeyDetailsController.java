@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pms.common.entity.ApiResponse;
 import com.pms.common.util.ResponseUtil;
 import com.pms.entity.AllergyEntity;
-import com.pms.service.AllergyDetailsService;
+import com.pms.service.AllergyService;
 
 @RestController
 @RequestMapping("")
 @CrossOrigin(origins="http://localhost:4200",allowedHeaders = "*")
 public class AllergeyDetailsController {
 	@Autowired
-	AllergyDetailsService allergeyDetailsservice;
+	AllergyService allergeyDetailsservice;
 
 	@PostMapping("/allergy")
 	public ResponseEntity<ApiResponse> saveallergey(@RequestBody AllergyEntity  allergyDetailsEntity){

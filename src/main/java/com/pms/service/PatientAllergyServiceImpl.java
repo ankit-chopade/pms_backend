@@ -6,33 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pms.entity.AllergyEntity;
-import com.pms.entity.AllergyMapEntity;
+import com.pms.entity.PatientAllergyEntity;
 import com.pms.repository.AllergyMapRepo;
 
 @Service
-public class AllergyMapServiceImpl implements AllergyMapService {
+public class PatientAllergyServiceImpl implements PatientAllergyService {
 
 	@Autowired
 	AllergyMapRepo repo;
 
 	@Override
-	public void saveAllergyMap(AllergyMapEntity entity) {
-//		Optional<AllergyMapEntity> optional = repo.findById(entity.getAllergyMapId());
-//		if (optional.isPresent()) {
-//			
-//			entity.setAllergyMapId(optional.get().getAllergyMapId()); 
-//			 repo.save(entity);
-//		}
-//		else {
-//			repo.save(entity);
-//		}
+	public void saveAllergyMap(PatientAllergyEntity entity) {
+
 		
 		repo.save(entity);
 	}
 
 	@Override
 	public boolean deleteAllergyMap(Integer allergyMapId) {
-		Optional<AllergyMapEntity> optional = repo.findById(allergyMapId);
+		Optional<PatientAllergyEntity> optional = repo.findById(allergyMapId);
 		if (optional.isPresent()) 
 		{		
 		 repo.deleteById(allergyMapId);

@@ -14,31 +14,31 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pms.common.entity.ApiResponse;
 import com.pms.common.exception.CustomException;
 import com.pms.common.util.ResponseUtil;
-import com.pms.entity.PatientBasicDetail;
-import com.pms.service.AllergyDetailsService;
+import com.pms.entity.DemographicDetail;
+import com.pms.service.AllergyService;
 import com.pms.service.EmergencyContactService;
-import com.pms.service.PatientBasicDetailService;
+import com.pms.service.DemographicDetailService;
 import com.pms.service.UserService;
 
 @RestController
 @RequestMapping("")
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-public class PatientDetailsController {
+public class DemographicDetailController {
 
 	@Autowired
-	PatientBasicDetailService patientservice;
+	DemographicDetailService patientservice;
 
 	@Autowired
 	EmergencyContactService emergencyservice;
 
 	@Autowired
-	AllergyDetailsService allergeyDetailsservice;
+	AllergyService allergeyDetailsservice;
 
 	@Autowired
 	UserService userservice;
 
 	@PostMapping("/patientBasicDetail")
-	public ResponseEntity<ApiResponse> savePatient(@RequestBody PatientBasicDetail patientEntity) {
+	public ResponseEntity<ApiResponse> savePatient(@RequestBody DemographicDetail patientEntity) {
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful", this.patientservice.save(patientEntity));
 
 	}

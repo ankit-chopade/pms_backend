@@ -6,13 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pms.entity.AllergyMapEntity;
-import com.pms.entity.PatientBasicDetail;
+import com.pms.entity.PatientAllergyEntity;
+import com.pms.entity.DemographicDetail;
 import com.pms.repository.AllergyMapRepo;
 import com.pms.repository.PatientRepository;
 
 @Service
-public class PatientBasicDatailServiceImpl implements PatientBasicDetailService {
+public class DemographicDetailServiceImpl implements DemographicDetailService {
 
 	@Autowired
 	private PatientRepository patientRepo;
@@ -21,30 +21,32 @@ public class PatientBasicDatailServiceImpl implements PatientBasicDetailService 
 	EmergencyContactService emergencyservice;
 
 	@Autowired
-	AllergyMapService allergyMapService;
+	PatientAllergyService allergyMapService;
 
 	@Autowired
 	AllergyMapRepo allergyMapRepo;
 
-	List<AllergyMapEntity> allergy;
+	List<PatientAllergyEntity> allergy;
 
-	public PatientBasicDetail save(PatientBasicDetail patientEntity) {
+	public DemographicDetail save(DemographicDetail patientEntity) {
 		System.out.println("save Patient");
 		 System.out.println(patientEntity);
-		Optional<PatientBasicDetail> optional	=  patientRepo.findByUserId(patientEntity.getUserId());
+		Optional<DemographicDetail> optional	=  patientRepo.findByUserId(patientEntity.getUserId());
 		if(optional.isPresent())
 		{
-			patientEntity.setPatientBasicDetailId(optional.get().getPatientBasicDetailId());
+		//	patientEntity.setUpdatedBy(1l);
+			patientEntity.setDemographicDetailId(optional.get().getDemographicDetailId());
 			return patientRepo.save(patientEntity);
 		}
 		else {
+		//	patientEntity.setCreatedBy(1l);
 		return patientRepo.save(patientEntity);
 		}
 	}
 
-	public PatientBasicDetail getpatientbyId(Integer userid) {
-		Optional<PatientBasicDetail> optional = patientRepo.findByUserId(userid);
-		PatientBasicDetail patient = null;
+	public DemographicDetail getpatientbyId(Integer userid) {
+		Optional<DemographicDetail> optional = patientRepo.findByUserId(userid);
+		DemographicDetail patient = null;
 		if (optional.isPresent()) {
 			patient = optional.get();
 		}

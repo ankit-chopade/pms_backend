@@ -1,5 +1,7 @@
 package com.pms.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,23 +10,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="allergy_map")
-public class AllergyMapEntity {
-
+@Table(name="patient_allergy")
+public class PatientAllergyEntity  implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="allergyMap_Id")
-	private Integer allergyMapId;
+	@Column(name="patientAllergy_Id")
+	private Integer patientAllergyId;
 	
 	@Column(name="allergy_id")
 	private Integer allergyId;
 
-	public Integer getAllergyMapId() {
-		return allergyMapId;
+	public Integer getPatientAllergyId() {
+		return patientAllergyId;
 	}
 
-	public void setAllergyMapId(Integer allergyMapId) {
-		this.allergyMapId = allergyMapId;
+	public void setPatientAllergyId(Integer patientAllergyId) {
+		this.patientAllergyId = patientAllergyId;
 	}
 
 	public Integer getAllergyId() {
@@ -35,16 +37,15 @@ public class AllergyMapEntity {
 		this.allergyId = allergyId;
 	}
 
-	public AllergyMapEntity(Integer allergyMapId, Integer allergyId) {
+	public PatientAllergyEntity(Integer patientAllergyId, Integer allergyId) {
 		super();
-		this.allergyMapId = allergyMapId;
+		this.patientAllergyId = patientAllergyId;
 		this.allergyId = allergyId;
 	}
 
-	public AllergyMapEntity() {
+	public PatientAllergyEntity() {
 		super();
 	}
 
-	
 	
 }
