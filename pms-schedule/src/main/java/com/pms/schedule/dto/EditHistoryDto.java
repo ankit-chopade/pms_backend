@@ -4,7 +4,15 @@ import java.util.Date;
 
 import com.pms.schedule.entity.EditHistoryEntity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+@Data
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 public class EditHistoryDto {
 	
     private Date endTime;
@@ -34,65 +42,6 @@ public class EditHistoryDto {
 		this.description = editHistoryEntity.getDescription();
 		this.subject = editHistoryEntity.getSubject();
 		this.editTime = editHistoryEntity.getEditTime();
-	}
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getPhysicianName() {
-		return physicianName;
-	}
-
-	public void setPhysicianName(String physicianName) {
-		this.physicianName = physicianName;
-	}
-
-	public String getEditedBy() {
-		return editedBy;
-	}
-
-	public void setEditedBy(String editedBy) {
-		this.editedBy = editedBy;
-	}
-
-	public String getReason() {
-		return reason;
-	}
-
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getSubject() {
-		return subject;
-	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-	public Date getEditTime() {
-		return editTime;
-	}
-
-	public void setEditTime(Date editTime) {
-		this.editTime = editTime;
 	}
 	
     
