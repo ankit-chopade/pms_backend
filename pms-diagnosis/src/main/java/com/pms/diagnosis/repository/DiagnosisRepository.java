@@ -1,6 +1,7 @@
 package com.pms.diagnosis.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -10,7 +11,10 @@ import com.pms.diagnosis.entity.DiagnosisEntity;
 @Repository
 public interface DiagnosisRepository extends JpaRepository<DiagnosisEntity, Long> {
 
-	DiagnosisEntity findByDiagnosisCodeAndActiveStatus(String code, Integer status);
+	List<DiagnosisEntity> findByActiveStatus(Integer activeStatus);
 
-	List<DiagnosisEntity> findByDiagnosisDescriptionAndActiveStatus(String description, Integer status);
+	Optional<DiagnosisEntity> findByDiagnosisCodeAndActiveStatus(String diagnosisCode, Integer activeStatus);
+
+	Optional<DiagnosisEntity> findByDiagnosisIdAndActiveStatus(Long diagnosisId, Integer activeStatus);
+
 }

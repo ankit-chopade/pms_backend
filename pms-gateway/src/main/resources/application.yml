@@ -17,7 +17,16 @@ spring:
             args:
               name: medication-service
               fallbackuri: forward:/medicationFallback  
-         
+        - id: diagnosis-service
+          uri: lb://DIAGNOSIS-SERVICE
+          predicates:
+            - Path= /diagnosis/**
+          filters:
+          - name: CircuitBreaker
+            args:
+              name: diagnosis-service
+              fallbackuri: forward:/diagnosisFallback  
+                       
 eureka:
   client:
     register-with-eureka: true
