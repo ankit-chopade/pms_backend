@@ -1,11 +1,13 @@
 package com.pms.schedule.converter;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import com.pms.schedule.dto.PatientAppointmentDto;
 import com.pms.schedule.entity.PatientAppointmentEntity;
 import com.pms.schedule.utils.BaseConverter;
 
+@Component
 public class PatientAppointmentConverter implements BaseConverter<PatientAppointmentEntity, PatientAppointmentDto> {
 
 	@Override

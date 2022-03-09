@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 
 import com.pms.schedule.constants.PmsScheduleConstants;
 import com.pms.schedule.converter.EditHistoryConverter;
+import com.pms.schedule.converter.EditHistorySaveConverter;
 import com.pms.schedule.converter.PatientAppointmentConverter;
 import com.pms.schedule.dto.EditHistoryDto;
+import com.pms.schedule.dto.EditHistorySaveDto;
 import com.pms.schedule.dto.PatientAppointmentDto;
 import com.pms.schedule.entity.EditHistoryEntity;
 import com.pms.schedule.entity.PatientAppointmentEntity;
@@ -47,6 +49,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 	
 	@Autowired
 	EditHistoryConverter editHistoryConverter;
+	
+	@Autowired
+	EditHistorySaveConverter editHistorySaveConverter;
 
 	@Override
 	public List<UserEntity> getPhysician() {
@@ -81,6 +86,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public PatientAppointmentDto editPatientAppointment(PatientAppointmentDto patientAppointment)
 			throws CustomException {
 		PatientAppointmentEntity appointment = patientAppointmentRepository.findByAppointmentId(patientAppointment.getAppointmentId());
+		System.out.println(appointment);
+		System.out.println(patientAppointment.getAppointmentId());
 		appointment.setDescription(patientAppointment.getDescription());
 		appointment.setEndTime(patientAppointment.getEndTime());
 		appointment.setId(patientAppointment.getId());
@@ -104,16 +111,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public EditHistoryDto saveEditHistory(EditHistoryDto editHistory) throws CustomException {
+	public EditHistorySaveDto saveEditHistory(EditHistorySaveDto editHistory) throws CustomException {
 		try {
 			
-			EditHistoryEntity entity = editHistoryConverter.toEntity(editHistory);
+			EditHistoryEntity entity = editHistorySaveConverter.toEntity(editHistory);
 			entity.setActiveStatus(PmsScheduleConstants.ACTIVE_STATUS);
 			entity.setCreatedDate(new Date());
 			entity.setCreatedBy(1l);
 			EditHistoryEntity savedentity = editHistoryRepository.save(entity);
 			
-			return editHistoryConverter.toDto(savedentity);
+			return editHistorySaveConverter.toDto(savedentity);
 		} catch (Exception ex) {
 			throw new CustomException(ErrorResponse.RECORDNOTFOUND);
 		}
