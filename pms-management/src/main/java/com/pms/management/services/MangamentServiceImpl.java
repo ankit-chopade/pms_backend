@@ -377,5 +377,5 @@ public class MangamentServiceImpl implements ManagementService {
 		}
 	}
 
-
+	
 }
