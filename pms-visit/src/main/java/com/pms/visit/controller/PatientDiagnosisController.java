@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,8 @@ import com.pms.visit.utils.ResponseUtil;
 
 @RestController
 @CrossOrigin(origins = PmsVisitConstants.PMS_CROSS_ORIGIN)
+@RequestMapping(PmsVisitUrlConstants.URL_PATIENT_DIAGNOSIS)
+
 public class PatientDiagnosisController {
 
 	@Autowired
@@ -28,7 +31,7 @@ public class PatientDiagnosisController {
 	@GetMapping(PmsVisitUrlConstants.URL_PATIENT_DIAGNOSIS)
 	public ResponseEntity<ApiResponse> getDetailByAppointmentId() {
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsVisitConstants.PMS_RECORDS_FETCHED,
-				this.service.getDetailByAppointmentId(0l));
+				this.service.getDetailByAppointmentId(1l));
 	}
 
 	@PostMapping(PmsVisitUrlConstants.URL_PATIENT_DIAGNOSIS)

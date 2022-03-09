@@ -27,6 +27,7 @@ public class PatientMedicationServiceImpl implements PatientMedicationService {
 	@Override
 	public List<PatientMedicationViewDto> getDetailByAppointmentId(Long appointmentId) {
 		List<Object[]> list = repository.findByAppointmentId(appointmentId);
+		
 		List<PatientMedicationViewDto> dto = list.stream().map(obj -> {
 			PatientMedicationViewDto data = new PatientMedicationViewDto(PmsVisitUtil.convertObjectIntoLong(obj[0]),
 					PmsVisitUtil.convertObjectIntoString(obj[1]), PmsVisitUtil.convertObjectIntoString(obj[2]),
