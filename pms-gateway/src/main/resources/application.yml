@@ -25,6 +25,10 @@ spring:
           uri: lb://MEDICATION-SERVICE
           predicates:
             - Path= /medication/**
+        - id: schedule-service
+          uri: lb://SCHEDULE-SERVICE
+          predicates:
+            - Path=/schedule/**
           filters:
           - name: CircuitBreaker
             args:
