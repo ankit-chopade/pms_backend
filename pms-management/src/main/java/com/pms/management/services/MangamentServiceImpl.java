@@ -1,18 +1,9 @@
 package com.pms.management.services;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.mail.MessagingException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,11 +15,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -36,8 +22,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
-
-import com.pms.management.PmsManagementApplication;
 import com.pms.management.constants.ManagementConstants;
 import com.pms.management.converter.UserConverter;
 import com.pms.management.dto.ChangePasswordDto;
@@ -49,7 +33,7 @@ import com.pms.management.utils.CustomException;
 import com.pms.management.utils.MailService;
 
 import net.bytebuddy.utility.RandomString;
-
+@Service
 public class MangamentServiceImpl implements ManagementService {
 
 	@Autowired
@@ -60,12 +44,12 @@ public class MangamentServiceImpl implements ManagementService {
 
 	@Autowired
 	private UserConverter userConverter;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder;
 	
-	RestTemplate restTemplate = new RestTemplate();
-
+   @Autowired
+	RestTemplate restTemplate ;//= new RestTemplate();
 
 	/**
 	 * Patient self Registration
@@ -105,7 +89,7 @@ public class MangamentServiceImpl implements ManagementService {
 			UserEntity userEntity = userConverter.toEntity(userDto);
 			String default_password = "Password@123";
 			userDto.setPassword(default_password);
-			// userEntity.setPassword(pwdEncoder.encode(userDto.getPassword()));
+			userEntity.setPassword(pwdEncoder.encode(userDto.getPassword()));
 			userEntity.setActiveStatus(ManagementConstants.ACTIVE_STATUS);
 			userEntity.setCreatedBy(1l);
 			userEntity.setCreatedDate(new Date());
@@ -154,6 +138,7 @@ public class MangamentServiceImpl implements ManagementService {
 			throw new CustomException(HttpStatus.NOT_FOUND, "Email id does not exist");
 		}
 	}
+
 	/**
 	 * Patient Update Password
 	 */
@@ -216,7 +201,7 @@ public class MangamentServiceImpl implements ManagementService {
 		;
 		mailService.sendMail(recipient, subject, message);
 	}
-	
+
 	public void saveUserInKeyclock(String username, String password) {
 
 		try {
@@ -268,96 +253,97 @@ public class MangamentServiceImpl implements ManagementService {
 			headers_userid.setContentType(MediaType.APPLICATION_JSON);
 			headers_userid.add("Authorization", "Bearer " + token_admin);
 			HttpEntity<String> request_userid = new HttpEntity<String>(headers_userid);
-			ResponseEntity resp_userid = restTemplate.exchange(url_userid,HttpMethod.GET ,request_userid, String.class);	
-			JSONArray userid_json= new JSONArray(resp_userid.getBody().toString());
-			
+			ResponseEntity resp_userid = restTemplate.exchange(url_userid, HttpMethod.GET, request_userid,
+					String.class);
+			JSONArray userid_json = new JSONArray(resp_userid.getBody().toString());
+
 			/**
 			 * Role Mapping
 			 */
-			String url_role="http://localhost:8180/auth/admin/realms/pms/users/"+userid_json.getJSONObject(0).get("id")+"/role-mappings/realm";
+			String url_role = "http://localhost:8180/auth/admin/realms/pms/users/"
+					+ userid_json.getJSONObject(0).get("id") + "/role-mappings/realm";
 			HttpHeaders headers_role = new HttpHeaders();
 			headers_role.setContentType(MediaType.APPLICATION_JSON);
 			headers_role.add("Authorization", "Bearer " + token_admin);
-			
+
 			JSONObject roleParam = new JSONObject();
 			roleParam.put("id", "397e835f-06e6-4610-82eb-b461be517b69");
 			roleParam.put("name", "patient");
-			
+
 			JSONArray roleArray = new JSONArray();
 			roleArray.put(roleParam);
 
-			
-			HttpEntity<String> request_role = new HttpEntity<String>(roleArray.toString(),headers_role);
-			ResponseEntity resp_role = restTemplate.exchange(url_role,HttpMethod.POST ,request_role, String.class);	
+			HttpEntity<String> request_role = new HttpEntity<String>(roleArray.toString(), headers_role);
+			ResponseEntity resp_role = restTemplate.exchange(url_role, HttpMethod.POST, request_role, String.class);
 //			System.out.println(resp_role.getBody());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	public void updateUserPasswordInKeyclock(String username, String password) {
 
 //		try {
 
-			String url = "http://localhost:8180/auth/realms/pms/protocol/openid-connect/token";
+		String url = "http://localhost:8180/auth/realms/pms/protocol/openid-connect/token";
 
-			/**
-			 * Admin password
-			 */
-			MultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
-			requestParams.add("client_id", "login-ms");
-			requestParams.add("username", "ankit");
-			requestParams.add("password", "ankit");
-			requestParams.add("grant_type", "password");
-			requestParams.add("client_secret", "b2dabfcf-e66a-47bc-b3c3-892071c29f1e");
-			requestParams.add("scope", "openid");
+		/**
+		 * Admin password
+		 */
+		MultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
+		requestParams.add("client_id", "login-ms");
+		requestParams.add("username", "ankit");
+		requestParams.add("password", "ankit");
+		requestParams.add("grant_type", "password");
+		requestParams.add("client_secret", "b2dabfcf-e66a-47bc-b3c3-892071c29f1e");
+		requestParams.add("scope", "openid");
 
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestParams, headers);
-			AccessTokenResponse keycloakAccessToken = getAccessTokenResponse(request, url);
-			String token_admin = keycloakAccessToken.getToken().trim();
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestParams, headers);
+		AccessTokenResponse keycloakAccessToken = getAccessTokenResponse(request, url);
+		String token_admin = keycloakAccessToken.getToken().trim();
 
-			
-			/**
-			 * User id
-			 */
-			String url_userid = "http://localhost:8180/auth/admin/realms/pms/users/?username=" + username;
-			HttpHeaders headers_userid = new HttpHeaders();
-			headers_userid.setContentType(MediaType.APPLICATION_JSON);
-			headers_userid.add("Authorization", "Bearer " + token_admin);
-			HttpEntity<String> request_userid = new HttpEntity<String>(headers_userid);
-			ResponseEntity resp_userid = restTemplate.exchange(url_userid,HttpMethod.GET ,request_userid, String.class);	
-			JSONArray userid_json= new JSONArray(resp_userid.getBody().toString());
-			
-			/**
-			 * Update Password
-			 */
-			String url_updatepwd="http://localhost:8180/auth/admin/realms/pms/users/"+userid_json.getJSONObject(0).get("id")+"/reset-password";
-			HttpHeaders headers_updatepwd = new HttpHeaders();
-			headers_updatepwd.setContentType(MediaType.APPLICATION_JSON);
-			headers_updatepwd.add("Authorization", "Bearer " + token_admin);
-			
-			JSONObject updatepwdParam = new JSONObject();
-			updatepwdParam.put("type", "password");
-			updatepwdParam.put("temporary", "false");
-			updatepwdParam.put("value", password);
-			
+		/**
+		 * User id
+		 */
+		String url_userid = "http://localhost:8180/auth/admin/realms/pms/users/?username=" + username;
+		HttpHeaders headers_userid = new HttpHeaders();
+		headers_userid.setContentType(MediaType.APPLICATION_JSON);
+		headers_userid.add("Authorization", "Bearer " + token_admin);
+		HttpEntity<String> request_userid = new HttpEntity<String>(headers_userid);
+		ResponseEntity resp_userid = restTemplate.exchange(url_userid, HttpMethod.GET, request_userid, String.class);
+		JSONArray userid_json = new JSONArray(resp_userid.getBody().toString());
+
+		/**
+		 * Update Password
+		 */
+		String url_updatepwd = "http://localhost:8180/auth/admin/realms/pms/users/"
+				+ userid_json.getJSONObject(0).get("id") + "/reset-password";
+		HttpHeaders headers_updatepwd = new HttpHeaders();
+		headers_updatepwd.setContentType(MediaType.APPLICATION_JSON);
+		headers_updatepwd.add("Authorization", "Bearer " + token_admin);
+
+		JSONObject updatepwdParam = new JSONObject();
+		updatepwdParam.put("type", "password");
+		updatepwdParam.put("temporary", "false");
+		updatepwdParam.put("value", password);
+
 //			JSONArray updatepwdArray = new JSONArray();
 //			updatepwdArray.put(updatepwdParam);
 
-			System.out.println(updatepwdParam);
-			HttpEntity<String> request_updatepwd = new HttpEntity<String>(updatepwdParam.toString(),headers_updatepwd);
-			ResponseEntity resp_updatepwd = restTemplate.exchange(url_updatepwd,HttpMethod.PUT ,request_updatepwd, String.class);	
-			System.out.println(resp_updatepwd.getBody());
+		System.out.println(updatepwdParam);
+		HttpEntity<String> request_updatepwd = new HttpEntity<String>(updatepwdParam.toString(), headers_updatepwd);
+		ResponseEntity resp_updatepwd = restTemplate.exchange(url_updatepwd, HttpMethod.PUT, request_updatepwd,
+				String.class);
+		System.out.println(resp_updatepwd.getBody());
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
 
 	}
-
 
 	private AccessTokenResponse getAccessTokenResponse(HttpEntity<MultiValueMap<String, String>> request, String url) {
 		try {
@@ -376,6 +362,5 @@ public class MangamentServiceImpl implements ManagementService {
 			throw e;
 		}
 	}
-
 
 }

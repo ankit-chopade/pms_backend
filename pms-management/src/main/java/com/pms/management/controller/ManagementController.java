@@ -3,6 +3,7 @@ package com.pms.management.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,11 +23,12 @@ import com.pms.management.utils.ResponseUtil;
 import com.pms.management.utils.TokenService;
 
 @RestController
+@CrossOrigin(origins = ManagementConstants.PMS_CROSS_ORIGIN)
 public class ManagementController {
    
 	@Autowired
 	private ManagementService service;
-//
+	
 	@Autowired
 	private TokenService tokenService;
 
@@ -37,15 +39,14 @@ public class ManagementController {
 
 	@PostMapping(ManagementUrlConstants.URL_LOGIN)
 	public ResponseEntity<ApiResponse> loginUser(@RequestBody LoginDto loginDto) throws CustomException {
-		return ResponseUtil.getResponse(HttpStatus.OK, "Token generated successfully ",
+		return ResponseUtil.getResponse(HttpStatus.OK,ManagementConstants.PMS_TOKEN_GENERATED,
 				new UserTokenDto(service.findByEmailId(loginDto.getEmailId()),
 						tokenService.generateTokens(loginDto.getEmailId(), loginDto.getPassword())));
 	}
 
-
 	@PostMapping(ManagementUrlConstants.URL_CHANGE_PASSWORD)
 	public ResponseEntity<ApiResponse> updatePassword(@RequestBody ChangePasswordDto dto) throws CustomException {
-		return ResponseUtil.getResponse(HttpStatus.OK, "Token generated successfully ", service.updatePassword(dto));
+		return ResponseUtil.getResponse(HttpStatus.OK,ManagementConstants.PMS_CHANGE_PASSWORD, service.updatePassword(dto));
 	}
 	
 	@PostMapping(ManagementUrlConstants.URL_ADD_USER)
