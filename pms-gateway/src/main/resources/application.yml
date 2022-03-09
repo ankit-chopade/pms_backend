@@ -4,10 +4,23 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: visit-service
-          uri: lb://VISIT-SERVICE
+        - id: allergy-service
+          uri: lb://ALLERGY-SERVICE
           predicates:
-            - Path= /visit/**
+            - Path= /allergy/**  
+        - id: diagnosis-service
+          uri: lb://DIAGNOSIS-SERVICE
+          predicates:
+            - Path= /diagnosis/**     
+          filters:
+          - name: CircuitBreaker
+            args:
+              name: diagnosis-service
+              fallbackuri: forward:/diagnosisFallback           
+        - id: procedure-service
+          uri: lb://PROCEDURE-SERVICE
+          predicates:
+            - Path= /procedure/**
         - id: medication-service
           uri: lb://MEDICATION-SERVICE
           predicates:
@@ -17,16 +30,7 @@ spring:
             args:
               name: medication-service
               fallbackuri: forward:/medicationFallback  
-        - id: diagnosis-service
-          uri: lb://DIAGNOSIS-SERVICE
-          predicates:
-            - Path= /diagnosis/**
-          filters:
-          - name: CircuitBreaker
-            args:
-              name: diagnosis-service
-              fallbackuri: forward:/diagnosisFallback  
-                       
+                    
 eureka:
   client:
     register-with-eureka: true

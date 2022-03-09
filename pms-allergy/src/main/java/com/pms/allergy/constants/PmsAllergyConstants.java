@@ -1,8 +1,6 @@
-package com.pms.procedure.constants;
+package com.pms.allergy.constants;
 
-public class PmsProcedureConstants {
-
-	public static final String PMS_CROSS_ORIGIN = "http://localhost:4200";
+public class PmsAllergyConstants {
 
 	public static final Integer ACTIVE = 1;
 	
@@ -10,4 +8,5 @@ public class PmsProcedureConstants {
 
 	public static final String PMS_RECORDS_FETCHED = "Records Fetched Successfully";
 
+	public static final String PMS_CROSS_ORIGIN = "http://localhost:4200";
 }
