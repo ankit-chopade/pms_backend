@@ -1,15 +1,15 @@
-package com.pms.procedure;
+package com.pms.allergy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
-@SpringBootApplication
+
 @EnableEurekaClient
-public class PmsProcedureApplication {
-
+@SpringBootApplication
+public class PmsAllergyApplication {
+	
 	public static void main(String[] args) {
-		SpringApplication.run(PmsProcedureApplication.class, args);
+		SpringApplication.run(PmsAllergyApplication.class, args);
 	}
-
 }

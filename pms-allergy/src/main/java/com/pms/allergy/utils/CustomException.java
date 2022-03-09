@@ -1,5 +1,5 @@
 
-package com.pms.allergy.common;
+package com.pms.allergy.utils;
 
 import org.springframework.http.HttpStatus;
 

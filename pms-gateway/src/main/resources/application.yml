@@ -17,6 +17,19 @@ spring:
             args:
               name: medication-service
               fallbackuri: forward:/medicationFallback  
+        - id: procedure-service
+          uri: lb://PROCEDURE-SERVICE
+          predicates:
+            - Path= /procedure/**
+        - id: allergy-service
+          uri: lb://ALLERGY-SERVICE
+          predicates:
+            - Path= /allergy/**
+          filters:
+          - name: CircuitBreaker
+            args:
+              name: allergy-service
+              fallbackuri: forward:/allergyFallback
          
 eureka:
   client:

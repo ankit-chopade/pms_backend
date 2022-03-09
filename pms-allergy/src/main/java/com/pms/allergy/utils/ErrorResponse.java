@@ -1,4 +1,4 @@
-package com.pms.allergy.common;
+package com.pms.allergy.utils;
 
 public enum ErrorResponse {
 
