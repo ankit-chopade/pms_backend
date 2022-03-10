@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @KeycloakConfiguration
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 @Import(KeycloakSpringBootConfigResolver.class)
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:8080")
 
 public class KeyclockConfig extends KeycloakWebSecurityConfigurerAdapter {
 	/**
@@ -53,11 +53,31 @@ public class KeyclockConfig extends KeycloakWebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		super.configure(http);
-		http.csrf().disable().cors().and()
+		http.cors().disable();
+		http.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 		.authorizeRequests()
-		.antMatchers("/management/**").hasAnyRole("patient","physician","nurse","admin")
+//		.antMatchers("/management/**").hasAnyRole("patient","physician","nurse","admin")
 		.anyRequest().permitAll();
-
+//		.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security",
+//		"/swagger-ui.html", "/webjars/**", "/registration", "/management/login","/change-password","/forgot-password")
+//		.permitAll();
 	}
+	
+//	@Override
+//	public void configure(HttpSecurity http) throws Exception {
+//	http.cors();
+//	http.csrf().disable().authorizeRequests()
+//	.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security",
+//	"/swagger-ui.html", "/webjars/**", "/registration", "/login","/change-password","/forgot-password")
+//	.permitAll()
+//	.anyRequest().authenticated().and().exceptionHandling()
+//	.authenticationEntryPoint(authenticationEntryPoint).and().sessionManagement()
+//	.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//	// register filter for 2nd request onwords
+//	.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//
+//
+//	}
 }

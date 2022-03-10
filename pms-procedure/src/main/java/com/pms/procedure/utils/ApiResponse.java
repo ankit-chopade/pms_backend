@@ -24,6 +24,6 @@ public class ApiResponse implements Serializable {
     private String message;
 
     /** The data. */
-    private transient Object data;
+    private transient Object result;
  
 }
