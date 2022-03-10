@@ -1,4 +1,4 @@
-package com.pms.management.config;
+package com.pms.schedule.config;
 
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 @Import(KeycloakSpringBootConfigResolver.class)
 //@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "http://localhost:8080")
+//@CrossOrigin(origins = "http://localhost:8080")
 
 public class KeyclockConfig extends KeycloakWebSecurityConfigurerAdapter {
 	/**
@@ -56,7 +56,7 @@ public class KeyclockConfig extends KeycloakWebSecurityConfigurerAdapter {
 		http.csrf().disable().cors().and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 		.authorizeRequests()
-		.antMatchers("/management/**").hasAnyRole("patient","physician","nurse","admin")
+		.antMatchers("/schedule/**").hasAnyRole("patient","physician","nurse")
 		.anyRequest().permitAll();
 
 	}

@@ -25,6 +25,10 @@ spring:
           uri: lb://MEDICATION-SERVICE
           predicates:
             - Path= /medication/**
+        - id: management-service
+          uri: lb://MANAGEMENT-SERVICE
+          predicates:
+            - Path=/management/**
         - id: schedule-service
           uri: lb://SCHEDULE-SERVICE
           predicates:

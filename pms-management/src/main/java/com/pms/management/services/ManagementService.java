@@ -20,10 +20,10 @@ public interface ManagementService {
 
 	public UserEntity findByUserId(Long userId) throws CustomException;
 
-	public List<UserEntity> getPatients();
+	public List<UserDto> getPatients();
 
 	public UserEntity updateStatus(UserDto user);
 
-	public List<UserEntity> getHospitalUsers();
+	public List<UserDto> getHospitalUsers();
 
 }
