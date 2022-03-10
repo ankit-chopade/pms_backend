@@ -2,6 +2,8 @@ package com.pms.dto;
 
 import java.util.Date;
 
+import com.pms.model.UserNotes;
+
 
 public class UserDto {
 	
@@ -32,8 +34,19 @@ public class UserDto {
 
 	private String password;
 
+	private RoleDto role;
 	
 	
+
+	public RoleDto getRole() {
+		return role;
+	}
+
+
+	public void setRole(RoleDto role) {
+		this.role = role;
+	}
+
 
 	public Long getUserId() {
 		return userId;
@@ -133,6 +146,9 @@ public class UserDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	
 
 
 	

@@ -1,5 +1,6 @@
 package com.pms.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -57,13 +58,16 @@ public class PatientAppointmentEntity {
 	@Column(name = "physician_id")
 	private Long physicianId;
 	
+	@Column(name = "appointment_date")
+    private LocalDate appointmentDate;
 	
 
 	
 	public PatientAppointmentEntity() {}
+
 	public PatientAppointmentEntity(Long appointmentId, Date endTime, String endTimezone, Long id, Boolean isAllDay,
 			String recurrenceRule, Date startTime, String startTimezone, String subject, Boolean isReadonly,
-			Boolean isBlock, String description, Long patientId, Long physicianId) {
+			Boolean isBlock, String description, Long patientId, Long physicianId, LocalDate appointmentDate) {
 		super();
 		this.appointmentId = appointmentId;
 		this.endTime = endTime;
@@ -79,6 +83,7 @@ public class PatientAppointmentEntity {
 		this.description = description;
 		this.patientId = patientId;
 		this.physicianId = physicianId;
+		this.appointmentDate = appointmentDate;
 	}
 
 	public Long getAppointmentId() {
@@ -169,6 +174,14 @@ public class PatientAppointmentEntity {
 		this.isBlock = isBlock;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Long getPatientId() {
 		return patientId;
 	}
@@ -185,18 +198,12 @@ public class PatientAppointmentEntity {
 		this.physicianId = physicianId;
 	}
 
-	public String getDescription() {
-		return description;
+	public LocalDate getAppointmentDate() {
+		return appointmentDate;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setAppointmentDate(LocalDate appointmentDate) {
+		this.appointmentDate = appointmentDate;
 	}
 	
-	
-	
-
-	
-	
-
 }
