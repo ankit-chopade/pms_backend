@@ -15,5 +15,4 @@ public class ProcedureDto {
 	
 	private Integer procedureIsDepricated;
 
-
 }

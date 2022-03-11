@@ -65,5 +65,12 @@ public class ProcedureServiceImpl implements ProcedureService {
 			throw new CustomException(HttpStatus.NOT_FOUND, PmsProcedureMsgConstants.PROCEDURE_CODE_ALREADY_EXISTS);
 		}
 	}
+	
+	@Override
+	public List<ProcedureDto> getAllNonDepricatedDetails() {
+		List<ProcedureEntity> procedureList = repository.findByActiveStatusAndProcedureIsDepricated(PmsProcedureConstants.ACTIVE, 
+				PmsProcedureConstants.IS_DEPRICATED);
+		return converter.toDto(procedureList);
+	}
 
 }

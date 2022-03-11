@@ -69,4 +69,11 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 		}
 
 	}
+	
+	@Override
+	public List<DiagnosisDto> getAllNonDepricatedDetails() {
+		List<DiagnosisEntity> diagnosisList = repository.findByActiveStatusAndDiagnosisIsDepricated(PmsDiagnosisConstants.ACTIVE, 
+				PmsDiagnosisConstants.IS_DEPRICATED);
+		return converter.toDto(diagnosisList);
+	}
 }

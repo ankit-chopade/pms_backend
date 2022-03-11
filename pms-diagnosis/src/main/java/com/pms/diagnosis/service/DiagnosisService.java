@@ -14,5 +14,7 @@ public interface DiagnosisService {
 	public DiagnosisDto updateDiagnosis(DiagnosisDto dto);
 
 	public DiagnosisDto deleteDiagnosis(Long id) throws CustomException;
+	
+	public List<DiagnosisDto> getAllNonDepricatedDetails();
 
 }

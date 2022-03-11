@@ -54,5 +54,11 @@ public class DiagnosisController {
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsDiagnosisConstants.PMS_RECORDS_FETCHED);
 
 	}
+	
+	@GetMapping("/getNonDepricated")
+	public ResponseEntity<ApiResponse> getAllNonDepricatedDetails() {
+		return ResponseUtil.getResponse(HttpStatus.OK, PmsDiagnosisConstants.PMS_RECORDS_FETCHED,
+				this.service.getAllNonDepricatedDetails());
+	}
 
 }

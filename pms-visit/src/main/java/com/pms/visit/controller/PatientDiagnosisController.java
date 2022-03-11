@@ -21,7 +21,7 @@ import com.pms.visit.utils.ResponseUtil;
 
 @RestController
 @CrossOrigin(origins = PmsVisitConstants.PMS_CROSS_ORIGIN)
-@RequestMapping(PmsVisitUrlConstants.URL_PATIENT_DIAGNOSIS)
+@RequestMapping(PmsVisitUrlConstants.URL_VISIT)
 
 public class PatientDiagnosisController {
 
@@ -29,9 +29,9 @@ public class PatientDiagnosisController {
 	private PatientDiagnosisService service;
 
 	@GetMapping(PmsVisitUrlConstants.URL_PATIENT_DIAGNOSIS)
-	public ResponseEntity<ApiResponse> getDetailByAppointmentId() {
+	public ResponseEntity<ApiResponse> getDetailByAppointmentId(@RequestParam Long id) {
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsVisitConstants.PMS_RECORDS_FETCHED,
-				this.service.getDetailByAppointmentId(1l));
+				this.service.getDetailByAppointmentId(id));
 	}
 
 	@PostMapping(PmsVisitUrlConstants.URL_PATIENT_DIAGNOSIS)

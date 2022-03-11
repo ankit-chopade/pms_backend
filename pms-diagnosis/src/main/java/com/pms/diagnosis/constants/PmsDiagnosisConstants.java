@@ -9,4 +9,6 @@ public class PmsDiagnosisConstants {
 	public static final String PMS_RECORDS_FETCHED = "Records Fetched Successfully";
 
 	public static final String PMS_CROSS_ORIGIN = "http://localhost:4200";
+	
+	public static final Integer IS_DEPRICATED = 1;
 }

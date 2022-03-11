@@ -13,10 +13,15 @@ import com.pms.visit.entity.PatientDiagnosisEntity;
 public interface PatientDiagnosisRepository extends JpaRepository<PatientDiagnosisEntity, Long> {
 
 	@Query
-	(value="Select d.diagnosis_id, d.diagnosis_code,d.diagnosis_description,d.diagnosis_is_depricated , pd.appointment_id ,  pd.created_date , pd.patient_diagnosis_id , pd.diagnosis_details   from pms.patient_diagnosis as pd " + 
-	"inner join  pms.diagnosis as d on pd.diagnosis_id=d.diagnosis_id " + 
-			"	where pd.patient_id= " + 
-			"	(SELECT patient_id	FROM pms.patientappointment as pa where pa.appointment_id = :appointmentId ) " 
+	(value= " select d.diagnosis_id, d.diagnosis_code,d.diagnosis_description,d.diagnosis_is_depricated , " + 
+		    " patient_diagnosis.appointment_id , patient_diagnosis.created_date , " + 
+		    " patient_diagnosis.patient_diagnosis_id , patient_diagnosis.diagnosis_details " +
+		    " from pmsschema.diagnosis as d inner join ( select pd.appointment_id, pd.created_date, " +
+		    " pd.diagnosis_id, pd.diagnosis_details, pd.patient_diagnosis_id from pmsschema.patient_diagnosis pd inner join " +
+			" ( select pa.appointment_id from pmsschema.patientappointment pa where pa.patient_id = " +
+			" ( select pa.patient_id from pmsschema.patientappointment as pa where pa.appointment_id = :appointmentId ) ) " +
+			" as appointment_id  on pd.appointment_id = appointment_id.appointment_id ) as patient_diagnosis " +
+			" on d.diagnosis_id = patient_diagnosis.diagnosis_id order by patient_diagnosis.created_date desc" 
 			,nativeQuery = true)
 	
 	public  List<Object[]> findByAppointmentId(@Param("appointmentId") Long appointmentId);

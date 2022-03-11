@@ -1,6 +1,7 @@
 package com.pms.visit.service;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,12 @@ public class VitalSignServiceImpl implements VitalSignService {
 	private VitalSignConverter converter;
 
 	@Override
-	public VitalSignDto getDetailByAppointmentId(Long appointmentId) {
-		VitalSignEntity entity = repository.findByAppointmentId(appointmentId);
-		return converter.toDto(entity);
+	public VitalSignDto getDetailByAppointmentId(Long id) {
+		Optional<VitalSignEntity> optional = repository.findByAppointmentId(id);
+		if(optional.isPresent()) {
+			return converter.toDto(optional.get());
+		}
+		return null;
 	}
 
 	@Override

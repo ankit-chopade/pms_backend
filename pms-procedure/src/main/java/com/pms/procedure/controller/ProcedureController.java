@@ -55,6 +55,11 @@ public class ProcedureController {
 	}
 
 	
+	@GetMapping("/getNonDepricated")
+	public ResponseEntity<ApiResponse> getAllNonDepricatedDetails() {
+		return ResponseUtil.getResponse(HttpStatus.OK, PmsProcedureConstants.PMS_RECORDS_FETCHED,
+				this.service.getAllNonDepricatedDetails());
+	}
 
 	
 	

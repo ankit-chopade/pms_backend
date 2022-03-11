@@ -16,5 +16,7 @@ public interface DiagnosisRepository extends JpaRepository<DiagnosisEntity, Long
 	Optional<DiagnosisEntity> findByDiagnosisCodeAndActiveStatus(String diagnosisCode, Integer activeStatus);
 
 	Optional<DiagnosisEntity> findByDiagnosisIdAndActiveStatus(Long diagnosisId, Integer activeStatus);
+	
+	List<DiagnosisEntity> findByActiveStatusAndDiagnosisIsDepricated(Integer activeStatus, Integer isDepricated);
 
 }

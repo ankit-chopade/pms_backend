@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VitalSignDto {
 
-	private Long vitalId;
-
 	private Integer height;
 
 	private Integer weight;
@@ -22,5 +20,7 @@ public class VitalSignDto {
 	private String respirationRate;
 
 	private Long appointmentId;
+	
+	private Long vitalId;
 
 }

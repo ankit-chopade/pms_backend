@@ -14,4 +14,6 @@ public interface ProcedureRepository extends JpaRepository<ProcedureEntity, Long
 	public Optional<ProcedureEntity> findByProcedureCodeAndActiveStatus(String procedureCode, Integer status);
 	
 	public Optional<ProcedureEntity> findByProcedureIdAndActiveStatus(Long id, Integer status);
+
+	List<ProcedureEntity> findByActiveStatusAndProcedureIsDepricated(Integer activeStatus, Integer isDepricated);
 }

@@ -9,5 +9,7 @@ public class PmsProcedureConstants {
 	public static final Integer DEACTIVE = 0;
 
 	public static final String PMS_RECORDS_FETCHED = "Records Fetched Successfully";
+	
+	public static final Integer IS_DEPRICATED = 1;
 
 }

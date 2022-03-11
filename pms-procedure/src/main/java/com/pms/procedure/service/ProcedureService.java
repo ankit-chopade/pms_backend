@@ -14,4 +14,6 @@ public interface ProcedureService {
 	public ProcedureDto updateProcedure(ProcedureDto dto) throws CustomException;
 	
 	public ProcedureDto deleteProcedure(Long id) throws CustomException;
+	
+	public List<ProcedureDto> getAllNonDepricatedDetails();
 }

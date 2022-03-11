@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PatientProcedureDto {
 
-	private Long patientProcedureId;
-
 	private Long procedureId;
 
 	private Long appointmentId;
