@@ -3,6 +3,7 @@ package com.pms.management.services;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.json.JSONArray;
@@ -27,11 +28,13 @@ import com.pms.management.converter.UserConverter;
 import com.pms.management.dto.ChangePasswordDto;
 import com.pms.management.dto.UserDetailsViewDto;
 import com.pms.management.dto.UserDto;
+import com.pms.management.dto.UserViewDto;
 import com.pms.management.entites.UserEntity;
 import com.pms.management.repository.ManagementRepository;
 import com.pms.management.utils.CustomException;
 import com.pms.management.utils.KeyCloakService;
 import com.pms.management.utils.MailService;
+import com.pms.management.utils.PmsManagementUtil;
 
 import net.bytebuddy.utility.RandomString;
 @Service
@@ -115,17 +118,25 @@ public class MangamentServiceImpl implements ManagementService {
 	}
 
 	@Override
-	public List<UserDto> getPatients() {
+	public List<UserViewDto> getPatients() {
 		List<UserEntity> patients = repository.findAll();
 		List<UserEntity> entities = patients.stream().filter(p -> p.getRoleId() == 5).collect(Collectors.toList());
-		return userConverter.toDto(entities);
+		List<UserViewDto> filteredUsers = entities.stream().map(u->{
+			UserViewDto data = new UserViewDto(u.getUserId(),u.getTitle(),u.getFirstName(),u.getLastName(),u.getEmailId(),u.getDob(),u.getRoleId(),u.getEmployeeId(),u.getContactNo(),u.getPassword(),u.getActiveStatus());
+			return data;
+		}).collect(Collectors.toList());
+		return filteredUsers;
 	}
 
 	@Override
-	public List<UserDto> getHospitalUsers() {
+	public List<UserViewDto> getHospitalUsers() {
 
 		List<UserEntity> patients = repository.findAll().stream().filter(p -> p.getRoleId() == 3 || p.getRoleId() == 4).collect(Collectors.toList());
-		return userConverter.toDto(patients);
+		List<UserViewDto> filteredUsers = patients.stream().map(u->{
+			UserViewDto data = new UserViewDto(u.getUserId(),u.getTitle(),u.getFirstName(),u.getLastName(),u.getEmailId(),u.getDob(),u.getRoleId(),u.getEmployeeId(),u.getContactNo(),u.getPassword(),u.getActiveStatus());
+			return data;
+		}).collect(Collectors.toList());
+		return filteredUsers;
 	}
 
 	@Override

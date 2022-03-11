@@ -56,8 +56,8 @@ public class AllergeyDetailsController {
 	}
 	
 	@DeleteMapping()
-	public ResponseEntity<ApiResponse> deleteAllergy(@RequestParam Long allergyId) throws CustomException{
-		this.service.deleteAllergy(allergyId);
+	public ResponseEntity<ApiResponse> deleteAllergy(@RequestParam Long id) throws CustomException{
+		this.service.deleteAllergy(id);
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsAllergyConstants.PMS_RECORDS_FETCHED);
 				
 	}

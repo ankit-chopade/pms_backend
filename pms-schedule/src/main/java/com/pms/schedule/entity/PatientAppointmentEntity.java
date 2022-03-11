@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "patientappointment")
+@Table(name = "patient_appointment")
 @Data
 @EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor

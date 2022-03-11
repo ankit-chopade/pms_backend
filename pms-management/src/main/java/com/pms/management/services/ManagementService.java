@@ -5,6 +5,7 @@ import java.util.List;
 import com.pms.management.dto.ChangePasswordDto;
 import com.pms.management.dto.UserDetailsViewDto;
 import com.pms.management.dto.UserDto;
+import com.pms.management.dto.UserViewDto;
 import com.pms.management.entites.UserEntity;
 import com.pms.management.utils.CustomException;
 
@@ -20,10 +21,10 @@ public interface ManagementService {
 
 	public UserEntity findByUserId(Long userId) throws CustomException;
 
-	public List<UserDto> getPatients();
+	public List<UserViewDto> getPatients();
 
 	public UserEntity updateStatus(UserDto user);
 
-	public List<UserDto> getHospitalUsers();
+	public List<UserViewDto> getHospitalUsers();
 
 }

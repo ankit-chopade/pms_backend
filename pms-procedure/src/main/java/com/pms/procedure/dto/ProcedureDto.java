@@ -12,5 +12,8 @@ public class ProcedureDto {
 	private String procedureCode;
 
 	private String procedureDescription;
+	
+	private Integer procedureIsDepricated;
+
 
 }
