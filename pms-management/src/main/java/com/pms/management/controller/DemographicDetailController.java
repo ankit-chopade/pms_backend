@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pms.management.constants.DemographicDetailUrlConstants;
+import com.pms.management.dto.AllergyDto;
 import com.pms.management.dto.DemographicDetailDto;
 import com.pms.management.entites.DemographicDetailEntity;
 import com.pms.management.services.DemographicDetailService;
@@ -33,24 +35,34 @@ public class DemographicDetailController {
 	@Autowired
 	ManagementService managementservice;
 
-	@PostMapping("/patientBasicDetail")
+	@PostMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHIC)
 	public ResponseEntity<ApiResponse> savePatient(@RequestBody DemographicDetailDto dto) {
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful", this.patientservice.save(dto));
 
 	}
 
-	@GetMapping("/getPatientbyId")
+	@GetMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHICBYID)
 	public ResponseEntity<ApiResponse> getPatientbyId(@RequestParam Long id) {
 		// PatientEntity b=this.patientservice.getpatientbyId(userid);
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful",
 				this.patientservice.getpatientbyId(id));
 	}
 
-	@GetMapping("/user")
+	@GetMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHIC)
 	public ResponseEntity<ApiResponse> getUserPatientData(@RequestParam Long id) throws CustomException {
-		System.out.println("In patient controller");
-		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.managementservice.findByUserId(id));
+		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.patientservice.getpatientbyId(id));
 
 	}
-
+	
+	@GetMapping(DemographicDetailUrlConstants.URL_ALLERGY)
+	public ResponseEntity<ApiResponse> getAllergyData() {
+		// PatientEntity b=this.patientservice.getpatientbyId(userid);
+		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful",
+				this.patientservice.getAllAllergy());
+	}
+	@PostMapping(DemographicDetailUrlConstants.URL_ALLERGY)
+	public ResponseEntity<ApiResponse> saveallergey(@RequestBody AllergyDto  dto){
+	
+	 return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful" ,this.patientservice.save(dto));
+	}
 }
