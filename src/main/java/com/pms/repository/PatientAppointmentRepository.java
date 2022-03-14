@@ -38,8 +38,19 @@ public interface PatientAppointmentRepository extends JpaRepository<PatientAppoi
 //	"from pmsschema.patientappointment a inner join pmsschema.users u	on a.physician_id=u.user_id	where  " +
 //			"date(a.start_time)= date(:customDate)",nativeQuery=true)
 //	public List<Object[]> getAppointmentsByDateToNurse(Date date);
-//	
 	
+	
+//	
+	@Query(value="select a.appointment_id, a.subject, a.description, a.start_time, a.patient_id, concat(u.first_name,' ',u.last_name) as physician_name " +
+			"from pmsschema.patientappointment a inner join pmsschema.users u	on a.patient_id=u.user_id	where  " +
+					"date(a.start_time)= date(:customDate) and a.patient_id = :patientId ",nativeQuery=true)
+			public List<Object[]> getAppointmentsByDateAndPatientId( Date customDate, Long patientId);
+			
+			
+	@Query(value="select a.appointment_id, a.subject, a.description, a.start_time, a.patient_id, concat(u.first_name,' ',u.last_name) as physician_name " +
+		    "from pmsschema.patientappointment a inner join pmsschema.users u	on a.physician_id=u.user_id	where  " +
+			"date(a.start_time)= date(:customDate) and a.physician_id = :physicianId ",nativeQuery=true)
+      public List<Object[]> getAppointmentsByDateAndPhysicianId( Date customDate, Long physicianId);
 	
 	
 }

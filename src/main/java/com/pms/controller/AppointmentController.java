@@ -11,14 +11,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pms.common.entity.ApiResponse;
+import com.pms.common.exception.CustomException;
 import com.pms.common.util.PmsConstant;
 import com.pms.common.util.ResponseUtil;
+import com.pms.dto.IdDto;
 import com.pms.dto.PatientAppointmentDto;
+import com.pms.entity.EditHistoryEntity;
 import com.pms.entity.PatientAppointmentEntity;
 import com.pms.service.AppointmentServiceInteface;
 
@@ -109,6 +114,13 @@ public class AppointmentController {
 
 	}
 	
+	
+	
+	
+	@DeleteMapping(path ="/delete/appointment")
+	public ResponseEntity<ApiResponse> deleteAppointment(@RequestBody IdDto idDto) throws CustomException{
+		return ResponseUtil.getResponse(HttpStatus.OK, "Appointment deleted Successfully", appointmentService.deleteAppointment(idDto.getId()));
+	}
 //	@GetMapping(path = "/getAppointmentsByDateToPhysician")
 //	public ResponseEntity<ApiResponse> getAppointmentsByDateToPhysician(@RequestParam String date){
 //		return ResponseUtil.getResponse(HttpStatus.OK, PmsConstant.PMS_RECORDS_FETCHED,
@@ -122,4 +134,18 @@ public class AppointmentController {
 //				this.appointmentService.getAppointmentsByDateToNurse(date));
 //
 //	}
+	
+	@GetMapping(path = "/getAppointmentToPatientByDateAndPatientId")
+	public ResponseEntity<ApiResponse> getAppointmentsByDateAndPatientId(@RequestParam String date, @RequestParam Long patientId){
+		return ResponseUtil.getResponse(HttpStatus.OK, PmsConstant.PMS_RECORDS_FETCHED,
+				this.appointmentService.getAppointmentsByDateAndPatientId(date, patientId));
+	
+	}
+	
+	@GetMapping(path = "/getAppointmentToPatientByDateAndPhysicianId")
+	public ResponseEntity<ApiResponse> getAppointmentsByDateAndPhysicianId(@RequestParam String date, @RequestParam Long patientId){
+		return ResponseUtil.getResponse(HttpStatus.OK, PmsConstant.PMS_RECORDS_FETCHED,
+				this.appointmentService.getAppointmentsByDateAndPhysiciantId(date, patientId));
+	
+	}
 }
