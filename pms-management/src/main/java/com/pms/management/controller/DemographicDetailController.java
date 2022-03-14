@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pms.management.constants.DemographicDetailUrlConstants;
-import com.pms.management.dto.AllergyDto;
 import com.pms.management.dto.DemographicDetailDto;
-import com.pms.management.entites.DemographicDetailEntity;
 import com.pms.management.services.DemographicDetailService;
 import com.pms.management.services.ManagementService;
 import com.pms.management.utils.ApiResponse;
@@ -41,11 +39,11 @@ public class DemographicDetailController {
 
 	}
 
-	@GetMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHICBYID)
-	public ResponseEntity<ApiResponse> getPatientbyId(@RequestParam Long id) {
+	@GetMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHICBYID) 
+	public ResponseEntity<ApiResponse> getPatientbyId(@RequestParam Long userId) throws CustomException {
 		// PatientEntity b=this.patientservice.getpatientbyId(userid);
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful",
-				this.patientservice.getpatientbyId(id));
+				this.patientservice.getpatientbyId(userId));
 	}
 
 	@GetMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHIC)
@@ -54,15 +52,5 @@ public class DemographicDetailController {
 
 	}
 	
-	@GetMapping(DemographicDetailUrlConstants.URL_ALLERGY)
-	public ResponseEntity<ApiResponse> getAllergyData() {
-		// PatientEntity b=this.patientservice.getpatientbyId(userid);
-		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful",
-				this.patientservice.getAllAllergy());
-	}
-	@PostMapping(DemographicDetailUrlConstants.URL_ALLERGY)
-	public ResponseEntity<ApiResponse> saveallergey(@RequestBody AllergyDto  dto){
 	
-	 return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful" ,this.patientservice.save(dto));
-	}
 }

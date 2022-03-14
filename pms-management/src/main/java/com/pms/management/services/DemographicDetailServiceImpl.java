@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
@@ -18,6 +19,7 @@ import com.pms.management.entites.DemographicDetailEntity;
 import com.pms.management.entites.PatientAllergyEntity;
 import com.pms.management.repository.AllergyRepo;
 import com.pms.management.repository.DemographicDetailRepository;
+import com.pms.management.utils.CustomException;
 
 
 
@@ -59,13 +61,17 @@ public class DemographicDetailServiceImpl implements DemographicDetailService {
 		}
 	}
 
-	public DemographicDetailDto getpatientbyId(Long userid) {
+	public DemographicDetailDto getpatientbyId(Long userid) throws CustomException {
 		Optional<DemographicDetailEntity> optional = patientRepo.findByUserId(userid);
 		DemographicDetailEntity patient = null;
 		if (optional.isPresent()) {
 			patient = optional.get();
+			return converter.toDto(patient);
 		}
-		return converter.toDto(patient);
+		else {
+			throw new CustomException(HttpStatus.NOT_FOUND, "data not found");
+		}
+		
 
 	}
 
