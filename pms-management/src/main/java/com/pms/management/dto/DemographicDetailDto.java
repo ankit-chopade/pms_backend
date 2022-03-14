@@ -30,8 +30,7 @@ public class DemographicDetailDto {
 	
 	private String homeAddress;
 	
-	
-	private Integer userId;
+	private Long userId;
 	
 	
 	private int active;
