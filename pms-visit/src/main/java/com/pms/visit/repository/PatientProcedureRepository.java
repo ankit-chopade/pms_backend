@@ -17,8 +17,8 @@ public interface PatientProcedureRepository extends JpaRepository<PatientProcedu
 			" patient_procedure.patient_procedure_id , patient_procedure.procedure_details " +
 			" from pmsschema.procedures as p inner join ( select pp.appointment_id, pp.created_date, " +
 			" pp.procedure_id, pp.procedure_details, pp.patient_procedure_id from pmsschema.patient_procedures pp inner join " +
-			" ( select pa.appointment_id from pmsschema.patientappointment pa where pa.patient_id = " +
-			" ( select pa.patient_id from pmsschema.patientappointment as pa where pa.appointment_id = :appointmentId ) ) " +
+			" ( select pa.appointment_id from pmsschema.patient_appointment pa where pa.patient_id = " +
+			" ( select pa.patient_id from pmsschema.patient_appointment as pa where pa.appointment_id = :appointmentId ) ) " +
 			" as appointment_id  on pp.appointment_id = appointment_id.appointment_id ) as patient_procedure " +
 			" on p.procedure_id = patient_procedure.procedure_id order by patient_procedure.created_date desc", nativeQuery = true)
 

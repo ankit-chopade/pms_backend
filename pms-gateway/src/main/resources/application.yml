@@ -33,6 +33,10 @@ spring:
           uri: lb://SCHEDULE-SERVICE
           predicates:
             - Path=/schedule/**
+        - id: visit-service
+          uri: lb://VISIT-SERVICE
+          predicates:
+            - Path=/visit/**
           filters:
           - name: CircuitBreaker
             args:

@@ -67,6 +67,7 @@ public class AllergyServiceImpl implements AllergyService{
 		}
 		entity.setActiveStatus(PmsAllergyConstants.ACTIVE);
 		entity.setCreatedDate(new Date());
+		entity.setCreatedBy(1l);
 		AllergyEntity savedEntity = repository.save(entity);
 		return converter.toDto(savedEntity);
 	}

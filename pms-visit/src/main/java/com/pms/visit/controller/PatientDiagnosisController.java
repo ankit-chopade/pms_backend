@@ -20,7 +20,7 @@ import com.pms.visit.utils.ApiResponse;
 import com.pms.visit.utils.ResponseUtil;
 
 @RestController
-@CrossOrigin(origins = PmsVisitConstants.PMS_CROSS_ORIGIN)
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @RequestMapping(PmsVisitUrlConstants.URL_VISIT)
 
 public class PatientDiagnosisController {

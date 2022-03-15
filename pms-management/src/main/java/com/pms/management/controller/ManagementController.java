@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pms.management.constants.DemographicDetailUrlConstants;
 import com.pms.management.constants.ManagementConstants;
 import com.pms.management.constants.ManagementUrlConstants;
 import com.pms.management.dto.ChangePasswordDto;
@@ -76,6 +78,10 @@ public class ManagementController {
 		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_STATUS_UPDATED,
 				this.service.updateStatus(user));
 
+	}
+	@GetMapping(ManagementUrlConstants.URL_USERDATA)
+	public ResponseEntity<ApiResponse> getAllergybyId(@RequestParam Long userId) throws CustomException{
+	return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful",this.service.findByUserId(userId));
 	}
 	
 }

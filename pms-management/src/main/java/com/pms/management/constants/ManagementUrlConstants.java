@@ -19,4 +19,5 @@ public class ManagementUrlConstants {
 	public static final String URL_STATUS = "/update-status";
 
 	public static final String URL_PATIENT = "/patients";
+	public static final String URL_USERDATA="/userById";
 }
