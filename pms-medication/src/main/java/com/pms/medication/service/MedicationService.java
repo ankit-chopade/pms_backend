@@ -9,9 +9,9 @@ public interface MedicationService {
 	
 	public List<MedicationDto> getAllDetails(); 
 
-	public MedicationDto saveDiagnosis(MedicationDto dto) throws CustomException;
+	public MedicationDto saveMedication(MedicationDto dto) throws CustomException;
 
-	public MedicationDto updateDiagnosis(MedicationDto dto);
+	public MedicationDto updateMedication(MedicationDto dto);
 
-	public MedicationDto deleteDiagnosis(Long id) throws CustomException;
+	public MedicationDto deleteMedication(Long id) throws CustomException;
 }

@@ -46,7 +46,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 	}
 
 	@Override
-	public ProcedureDto updateProcedure(ProcedureDto dto) throws CustomException {
+	public ProcedureDto updateProcedure(ProcedureDto dto)  {
 		ProcedureEntity entity = converter.toEntity(dto);
 		entity.setUpdatedDate(new Date());
 		ProcedureEntity updatedEntity = repository.save(entity);

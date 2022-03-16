@@ -43,7 +43,7 @@ public class ProcedureController {
 	}
 	
 	@PutMapping()
-	public ResponseEntity<ApiResponse> updateProcedure(@RequestBody ProcedureDto dto) throws CustomException{
+	public ResponseEntity<ApiResponse> updateProcedure(@RequestBody ProcedureDto dto) {
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsProcedureConstants.PMS_RECORDS_FETCHED,
 				this.service.updateProcedure(dto));
 	}

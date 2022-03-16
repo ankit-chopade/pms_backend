@@ -36,20 +36,20 @@ public class MedicationController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<ApiResponse> saveDiagnosis(@RequestBody MedicationDto dto) throws CustomException {
+	public ResponseEntity<ApiResponse> saveMedication(@RequestBody MedicationDto dto) throws CustomException {
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsMedicationConstants.PMS_RECORDS_FETCHED,
-				this.service.saveDiagnosis(dto));
+				this.service.saveMedication(dto));
 	}
 
 	@PutMapping()
-	public ResponseEntity<ApiResponse> updateDiagnosis(@RequestBody MedicationDto dto) {
+	public ResponseEntity<ApiResponse> updateMedication(@RequestBody MedicationDto dto) {
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsMedicationConstants.PMS_RECORDS_FETCHED,
-				this.service.updateDiagnosis(dto));
+				this.service.updateMedication(dto));
 	}
 
 	@DeleteMapping()
-	public ResponseEntity<ApiResponse> deleteDiagnosis(@RequestParam Long id) throws CustomException {
-		this.service.deleteDiagnosis(id);
+	public ResponseEntity<ApiResponse> deleteMedication(@RequestParam Long id) throws CustomException {
+		this.service.deleteMedication(id);
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsMedicationConstants.PMS_RECORDS_FETCHED);
 
 	}

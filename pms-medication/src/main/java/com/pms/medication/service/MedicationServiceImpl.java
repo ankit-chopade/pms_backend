@@ -31,7 +31,7 @@ public class MedicationServiceImpl implements MedicationService {
 	}
 
 	@Override
-	public MedicationDto saveDiagnosis(MedicationDto dto) throws CustomException {
+	public MedicationDto saveMedication(MedicationDto dto) throws CustomException {
 		MedicationEntity entity = converter.toEntity(dto);
 		Optional<MedicationEntity> optional = repository.findByDrugIdAndActiveStatus(dto.getDrugId(),
 				PmsMedicationConstants.ACTIVE);
@@ -46,7 +46,7 @@ public class MedicationServiceImpl implements MedicationService {
 	}
 
 	@Override
-	public MedicationDto updateDiagnosis(MedicationDto dto) {
+	public MedicationDto updateMedication(MedicationDto dto) {
 		MedicationEntity entity = converter.toEntity(dto);
 		entity.setUpdatedDate(new Date());
 		MedicationEntity savedEntity = repository.save(entity);
@@ -54,7 +54,7 @@ public class MedicationServiceImpl implements MedicationService {
 	}
 
 	@Override
-	public MedicationDto deleteDiagnosis(Long id) throws CustomException {
+	public MedicationDto deleteMedication(Long id) throws CustomException {
 		Optional<MedicationEntity> optional = repository.findByMedicationIdAndActiveStatus(id,
 				PmsMedicationConstants.ACTIVE);
 		if (optional.isPresent()) {
