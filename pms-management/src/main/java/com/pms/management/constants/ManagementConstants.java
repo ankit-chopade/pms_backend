@@ -10,7 +10,7 @@ public class ManagementConstants {
 	
 	public static final String PMS_USER_REGISTERED = "User registered successfully";
 	
-	public static final String PMS_STATUS_UPDATED  = "user status updated Successfully";
+	public static final String PMS_STATUS_UPDATED  = "user updated Successfully";
 	
 	public static final String PMS_CHANGE_PASSWORD = "password changed successfully";
 	

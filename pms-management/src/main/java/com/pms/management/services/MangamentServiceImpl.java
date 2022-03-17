@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.keycloak.representations.AccessTokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,7 +31,7 @@ import com.pms.management.dto.UserViewDto;
 import com.pms.management.entites.UserEntity;
 import com.pms.management.repository.ManagementRepository;
 import com.pms.management.utils.CustomException;
-import com.pms.management.utils.KeyCloakService;
+
 import com.pms.management.utils.MailService;
 import com.pms.management.utils.PmsManagementUtil;
 
@@ -55,9 +54,10 @@ public class MangamentServiceImpl implements ManagementService {
    @Autowired
 	RestTemplate restTemplate;
    
-   @Autowired
-   private KeyCloakService keyCloakService;
-   
+//   @Autowired
+//   private KeyCloakService keyCloakService;
+    
+   private String user_role;
 
 
 	/**
@@ -81,7 +81,7 @@ public class MangamentServiceImpl implements ManagementService {
 			 * Saving user in Keyclock Server with Properties username(emailid) and password
 			 */
 //			this.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
-			keyCloakService.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
+//			keyCloakService.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
 			mailService.sendMail(saveUser);
 			return userConverter.toDto(saveUser);
 		} catch (Exception ex) {
@@ -96,7 +96,16 @@ public class MangamentServiceImpl implements ManagementService {
 			throw new CustomException(HttpStatus.NOT_FOUND, "Email id already exist");
 		}
 		try {
+			
+			
 			UserEntity userEntity = userConverter.toEntity(userDto);
+			/*
+			 *Assigning employee id based on role ; 
+			 * */
+			if (userEntity.getRoleId() == 2) { this.user_role = "AD";}				
+			else if (userEntity.getRoleId() == 3 ){ this.user_role = "DR";}
+			else { this.user_role = "NR";}
+			userEntity.setEmployeeId(this.generateEmployeeId(user_role));
 			String default_password = "Password@123";
 			userDto.setPassword(default_password);
 			userEntity.setPassword(pwdEncoder.encode(userDto.getPassword()));
@@ -107,7 +116,7 @@ public class MangamentServiceImpl implements ManagementService {
 			 * Register in KeyClock
 			 */
 //			this.addUserInKeyclock(userDto,default_password);
-			keyCloakService.addUserInKeyclock(userDto,default_password);
+//			keyCloakService.addUserInKeyclock(userDto,default_password);
 
 			UserEntity saveUser = repository.save(userEntity);
 			mailService.sendMailToNewUser(saveUser, default_password);
@@ -116,6 +125,7 @@ public class MangamentServiceImpl implements ManagementService {
 			throw new CustomException(HttpStatus.NOT_FOUND, "Issue while creating user");
 		}
 	}
+
 
 	@Override
 	public List<UserViewDto> getPatients() {
@@ -140,19 +150,35 @@ public class MangamentServiceImpl implements ManagementService {
 	}
 
 	@Override
-	public UserEntity updateStatus(UserDto user) {
+	public UserDto updateStatus(UserDto user) {
 		if (repository.findByUserId(user.getUserId()).isPresent()) {
 
 			UserEntity entity = repository.findByUserId(user.getUserId()).get();
 			entity.setActiveStatus(user.getActive());
 
 			this.sendMailForUpdateStatus(entity);
-			return repository.save(entity);
+			return userConverter.toDto(repository.save(entity));
 		}
 
 		return null;
 	}
+   
+	@Override
+	public UserDto updateUserDetails(UserDto user) {
+		if (repository.findByUserId(user.getUserId()).isPresent()) {
 
+			UserEntity entity = repository.findByUserId(user.getUserId()).get();
+			entity.setTitle(user.getTitle());
+			entity.setFirstName(user.getFirstName());
+			entity.setLastName(user.getLastName());
+
+			//this.sendMailForUpdateStatus(entity);
+			return userConverter.toDto(repository.save(entity));
+		}
+
+		return null;
+	}
+	
 	@Override
 	public UserDetailsViewDto findByEmailId(String emailId) throws CustomException {
 		Optional<UserEntity> optional = repository.findByEmailId(emailId);
@@ -178,7 +204,7 @@ public class MangamentServiceImpl implements ManagementService {
 				user.setUpdatedDate(new Date());
 				UserEntity saveUser = repository.save(user);
 //				this.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
-				keyCloakService.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
+//				keyCloakService.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
 				return new UserDetailsViewDto(userConverter.toDto(saveUser));
 			} else {
 				throw new CustomException(HttpStatus.NOT_FOUND, "Invalid password");
@@ -196,7 +222,14 @@ public class MangamentServiceImpl implements ManagementService {
 			throw new CustomException(HttpStatus.NOT_FOUND, "User detail does not exits");
 		}
 	}
-
+   
+	private String generateEmployeeId(String role){
+		int min = 1000;
+        int max = 9999;
+		int randomNumber = (min + (int)(Math.random() * ((max - min))));
+	    return role + randomNumber;
+	}
+	
 	private void generateOneTimePassword(UserEntity user) {
 		UserEntity userEntity = repository.findByEmailId(user.getEmailId()).get();
 		String otp = RandomString.make(8);
@@ -227,4 +260,6 @@ public class MangamentServiceImpl implements ManagementService {
 		;
 		mailService.sendMail(recipient, subject, message);
 	}
+
+	
 }
