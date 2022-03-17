@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import org.keycloak.representations.AccessTokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +32,7 @@ import com.pms.management.dto.UserViewDto;
 import com.pms.management.entites.UserEntity;
 import com.pms.management.repository.ManagementRepository;
 import com.pms.management.utils.CustomException;
+//import com.pms.management.utils.KeyCloakService;
 import com.pms.management.utils.MailService;
 import com.pms.management.utils.PmsManagementUtil;
 
@@ -54,7 +55,8 @@ public class MangamentServiceImpl implements ManagementService {
    @Autowired
 	RestTemplate restTemplate;
    
-  
+//   @Autowired
+//   private KeyCloakService keyCloakService;
    
 
 
@@ -79,7 +81,7 @@ public class MangamentServiceImpl implements ManagementService {
 			 * Saving user in Keyclock Server with Properties username(emailid) and password
 			 */
 //			this.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
-	//		keyCloakService.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
+//			keyCloakService.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
 			mailService.sendMail(saveUser);
 			return userConverter.toDto(saveUser);
 		} catch (Exception ex) {
@@ -105,7 +107,7 @@ public class MangamentServiceImpl implements ManagementService {
 			 * Register in KeyClock
 			 */
 //			this.addUserInKeyclock(userDto,default_password);
-	//		keyCloakService.addUserInKeyclock(userDto,default_password);
+//			keyCloakService.addUserInKeyclock(userDto,default_password);
 
 			UserEntity saveUser = repository.save(userEntity);
 			mailService.sendMailToNewUser(saveUser, default_password);
@@ -176,7 +178,7 @@ public class MangamentServiceImpl implements ManagementService {
 				user.setUpdatedDate(new Date());
 				UserEntity saveUser = repository.save(user);
 //				this.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
-//				keyCloakService.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
+	//			keyCloakService.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
 				return new UserDetailsViewDto(userConverter.toDto(saveUser));
 			} else {
 				throw new CustomException(HttpStatus.NOT_FOUND, "Invalid password");
