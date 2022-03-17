@@ -79,9 +79,15 @@ public class ManagementController {
 				this.service.updateStatus(user));
 
 	}
+	
 	@GetMapping(ManagementUrlConstants.URL_USERDATA)
 	public ResponseEntity<ApiResponse> getAllergybyId(@RequestParam Long userId) throws CustomException{
 	return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful",this.service.findByUserId(userId));
+	}
+	
+	@GetMapping(ManagementUrlConstants.URL_MONTHLY_WISE_DATA)
+	public ResponseEntity<ApiResponse> getMonthlyRegisteredData() throws CustomException{
+	return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful",this.service.monthWiseData());
 	}
 	
 }

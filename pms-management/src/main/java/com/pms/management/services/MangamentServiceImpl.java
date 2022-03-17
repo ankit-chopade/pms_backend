@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import com.pms.management.constants.ManagementConstants;
 import com.pms.management.converter.UserConverter;
 import com.pms.management.dto.ChangePasswordDto;
+import com.pms.management.dto.IdAndNameDto;
 import com.pms.management.dto.UserDetailsViewDto;
 import com.pms.management.dto.UserDto;
 import com.pms.management.dto.UserViewDto;
@@ -226,5 +227,15 @@ public class MangamentServiceImpl implements ManagementService {
 				+ "</div>" + "<HTML><head><body>";
 		;
 		mailService.sendMail(recipient, subject, message);
+	}
+	/**
+	 * Data for Admin Dashboard
+	 */
+	
+	public List<IdAndNameDto> monthWiseData() {
+		List<Object[]> list = repository.getMonthWiseRegistrationCount();
+		return list.stream().map(obj -> {
+			return new IdAndNameDto(PmsManagementUtil.convertObjectIntoLong(obj[0]),PmsManagementUtil.convertObjectIntoString(obj[1]));
+		}).collect(Collectors.toList());
 	}
 }

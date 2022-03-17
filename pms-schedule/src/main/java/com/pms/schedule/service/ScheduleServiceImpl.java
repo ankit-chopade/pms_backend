@@ -177,7 +177,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 				+ patientAppointment.getStartTime() + "<br>" + "End Time :" + patientAppointment.getEndTime() + "<br>"
 				+ "Description :" + patientAppointment.getDescription() + "</div>" + "<HTML><head><body>";
 		;
-		mailService.sendMail(recipient, subject, message);
 
 		// sending mail to Physician
 		String recipient_physician = physician.getEmailId();
@@ -192,6 +191,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 				+ patientAppointment.getStartTime() + "<br>" + "End Time :" + patientAppointment.getEndTime() + "<br>"
 				+ "Description :" + patientAppointment.getDescription() + "</div>" + "<HTML><head><body>";
 		;
+		mailService.sendMail(recipient, subject, message);
+
 		mailService.sendMail(recipient_physician, subject_physicain, message_physicain);
 	}
 

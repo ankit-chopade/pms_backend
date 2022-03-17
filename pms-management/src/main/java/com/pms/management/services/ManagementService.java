@@ -3,6 +3,7 @@ package com.pms.management.services;
 import java.util.List;
 
 import com.pms.management.dto.ChangePasswordDto;
+import com.pms.management.dto.IdAndNameDto;
 import com.pms.management.dto.UserDetailsViewDto;
 import com.pms.management.dto.UserDto;
 import com.pms.management.dto.UserViewDto;
@@ -26,5 +27,7 @@ public interface ManagementService {
 	public UserEntity updateStatus(UserDto user);
 
 	public List<UserViewDto> getHospitalUsers();
+	
+	public List<IdAndNameDto> monthWiseData();
 
 }

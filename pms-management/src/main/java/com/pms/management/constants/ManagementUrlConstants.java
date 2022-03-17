@@ -20,4 +20,6 @@ public class ManagementUrlConstants {
 
 	public static final String URL_PATIENT = "/patients";
 	public static final String URL_USERDATA="/userById";
+	public static final String URL_MONTHLY_WISE_DATA="/monthlydata";
+
 }
