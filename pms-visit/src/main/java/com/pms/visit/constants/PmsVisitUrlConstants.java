@@ -12,4 +12,5 @@ public class PmsVisitUrlConstants {
 
 	public static final String URL_PATIENT_MEDICATION = "/patient-medication";
 
+	public static final String URL_PATIENT_HISTORY = "/patient-visit-history";
 }
