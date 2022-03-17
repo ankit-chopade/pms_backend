@@ -18,4 +18,5 @@ public class PmsVisitUrlConstants {
 	
 	public static final String URL_LATEST_VITAL_SIGN = "/get-latest-vital-signs";
 
+	public static final String URL_PATIENT_HISTORY = "/patient-visit-history";
 }
