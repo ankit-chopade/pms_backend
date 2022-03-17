@@ -24,7 +24,9 @@ public interface ManagementService {
 
 	public List<UserViewDto> getPatients();
 
-	public UserEntity updateStatus(UserDto user);
+	public UserDto updateStatus(UserDto user);
+	
+	public UserDto updateUserDetails(UserDto user);
 
 	public List<UserViewDto> getHospitalUsers();
 	

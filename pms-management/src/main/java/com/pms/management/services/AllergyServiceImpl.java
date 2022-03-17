@@ -17,7 +17,7 @@ import com.pms.management.repository.AllergyRepo;
 @Service
 public class AllergyServiceImpl implements AllergyService{
 	@Autowired
-	AllergyRepo allergyrepo;
+	private AllergyRepo allergyrepo;
 	@Autowired
 	private AllergyConverter converter;
 	
@@ -53,6 +53,14 @@ public class AllergyServiceImpl implements AllergyService{
 	public AllergyEntity getbyAllergyCode(String allergyCode) {
 		
 		return allergyrepo.findByAllergyCode(allergyCode);
+	}
+
+
+	@Override
+	public List<AllergyDto> getAllergyByListId(List<Long> id) {
+		//allergyrepo.findByallergyIdIn(id);
+	     List<AllergyEntity> findAllById = allergyrepo.findByAllergyIdIn(id);
+	 return converter.toDto(findAllById);
 	}
 
 

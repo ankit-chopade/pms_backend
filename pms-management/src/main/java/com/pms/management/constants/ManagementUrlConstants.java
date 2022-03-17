@@ -17,8 +17,11 @@ public class ManagementUrlConstants {
 	public static final String URL_HOSPITAL_USERS = "/hospital-users";
 
 	public static final String URL_STATUS = "/update-status";
+	
+	public static final String URL_UPDATE_USER ="/update-hospital-user";
 
 	public static final String URL_PATIENT = "/patients";
+	
 	public static final String URL_USERDATA="/userById";
 	public static final String URL_MONTHLY_WISE_DATA="/monthlydata";
 

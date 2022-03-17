@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pms.management.constants.DemographicDetailUrlConstants;
 import com.pms.management.constants.ManagementConstants;
 import com.pms.management.constants.ManagementUrlConstants;
 import com.pms.management.dto.ChangePasswordDto;
@@ -25,7 +24,7 @@ import com.pms.management.services.ManagementService;
 import com.pms.management.utils.ApiResponse;
 import com.pms.management.utils.CustomException;
 import com.pms.management.utils.ResponseUtil;
-import com.pms.management.utils.TokenService;
+//import com.pms.management.utils.TokenService;
 
 @RestController
 @CrossOrigin(origins = ManagementConstants.PMS_CROSS_ORIGIN)
@@ -35,8 +34,8 @@ public class ManagementController {
 	@Autowired
 	private ManagementService service;
 	
-	@Autowired
-	private TokenService tokenService;
+//	@Autowired
+//	private TokenService tokenService;
 
 	@PostMapping(ManagementUrlConstants.URL_REGISTRATION)
 	public ResponseEntity<ApiResponse> saveUser(@RequestBody UserDto user) throws CustomException {
@@ -46,8 +45,8 @@ public class ManagementController {
 	@PostMapping(ManagementUrlConstants.URL_LOGIN)
 	public ResponseEntity<ApiResponse> loginUser(@RequestBody LoginDto loginDto) throws CustomException {
 		return ResponseUtil.getResponse(HttpStatus.OK,ManagementConstants.PMS_TOKEN_GENERATED,
-				new UserTokenDto(service.findByEmailId(loginDto.getEmailId()),
-						tokenService.generateTokens(loginDto.getEmailId(), loginDto.getPassword())));
+				new UserTokenDto(service.findByEmailId(loginDto.getEmailId()),"abc"));
+//						tokenService.generateTokens(loginDto.getEmailId(), loginDto.getPassword())));
 	}
 
 	@PostMapping(ManagementUrlConstants.URL_CHANGE_PASSWORD)
@@ -77,7 +76,12 @@ public class ManagementController {
 	public ResponseEntity<ApiResponse> updateUser(@RequestBody UserDto user) {
 		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_STATUS_UPDATED,
 				this.service.updateStatus(user));
+	}
 
+	@PutMapping(ManagementUrlConstants.URL_UPDATE_USER)
+	public ResponseEntity<ApiResponse> updateUserDetails(@RequestBody UserDto user) {
+		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_STATUS_UPDATED,
+				this.service.updateUserDetails(user));
 	}
 	
 	@GetMapping(ManagementUrlConstants.URL_USERDATA)

@@ -15,7 +15,6 @@ import com.pms.management.constants.DemographicDetailUrlConstants;
 import com.pms.management.constants.ManagementUrlConstants;
 import com.pms.management.dto.DemographicDetailDto;
 import com.pms.management.services.DemographicDetailService;
-import com.pms.management.services.ManagementService;
 import com.pms.management.utils.ApiResponse;
 import com.pms.management.utils.CustomException;
 import com.pms.management.utils.ResponseUtil;
@@ -27,12 +26,7 @@ import com.pms.management.utils.ResponseUtil;
 public class DemographicDetailController {
 
 	@Autowired
-	DemographicDetailService patientservice;
-
-	
-
-	@Autowired
-	ManagementService managementservice;
+	private DemographicDetailService patientservice;
 
 	@PostMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHIC)
 	public ResponseEntity<ApiResponse> savePatient(@RequestBody DemographicDetailDto dto) {
@@ -52,6 +46,5 @@ public class DemographicDetailController {
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.patientservice.getpatientbyId(id));
 
 	}
-	
 	
 }
