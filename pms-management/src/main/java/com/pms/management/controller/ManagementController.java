@@ -37,6 +37,7 @@ public class ManagementController {
 //	@Autowired
 //	private TokenService tokenService;
 
+
 	@PostMapping(ManagementUrlConstants.URL_REGISTRATION)
 	public ResponseEntity<ApiResponse> saveUser(@RequestBody UserDto user) throws CustomException {
 		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_USER_REGISTERED, this.service.saveUser(user));
@@ -48,6 +49,13 @@ public class ManagementController {
 				new UserTokenDto(service.findByEmailId(loginDto.getEmailId()),"abc"));
 //						tokenService.generateTokens(loginDto.getEmailId(), loginDto.getPassword())));
 	}
+//
+//	@PostMapping(ManagementUrlConstants.URL_LOGIN)
+//	public ResponseEntity<ApiResponse> loginUser(@RequestBody LoginDto loginDto) throws CustomException {
+//		return ResponseUtil.getResponse(HttpStatus.OK,ManagementConstants.PMS_TOKEN_GENERATED,
+//				new UserTokenDto(service.findByEmailId(loginDto.getEmailId()),
+//						tokenService.generateTokens(loginDto.getEmailId(), loginDto.getPassword())));
+//	}
 
 	@PostMapping(ManagementUrlConstants.URL_CHANGE_PASSWORD)
 	public ResponseEntity<ApiResponse> updatePassword(@RequestBody ChangePasswordDto dto) throws CustomException {

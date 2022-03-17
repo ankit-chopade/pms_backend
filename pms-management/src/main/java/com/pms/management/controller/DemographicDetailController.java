@@ -35,16 +35,15 @@ public class DemographicDetailController {
 	}
 
 	@GetMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHICBYID) 
-	public ResponseEntity<ApiResponse> getPatientbyId(@RequestParam Long userId) throws CustomException {
-		// PatientEntity b=this.patientservice.getpatientbyId(userid);
+	public ResponseEntity<ApiResponse> getDetailsbyUserId(@RequestParam Long userId) throws CustomException {
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful",
-				this.patientservice.getpatientbyId(userId));
+				this.patientservice.getpatientDetailbyUserId(userId));
 	}
 
-	@GetMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHIC)
-	public ResponseEntity<ApiResponse> getUserPatientData(@RequestParam Long id) throws CustomException {
-		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.patientservice.getpatientbyId(id));
-
-	}
+//	@GetMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHIC)
+//	public ResponseEntity<ApiResponse> getUserPatientData(@RequestParam Long id) throws CustomException {
+//		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.patientservice.getpatientbyId(id));
+//
+//	}
 	
 }

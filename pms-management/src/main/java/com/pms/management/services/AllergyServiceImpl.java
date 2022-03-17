@@ -22,45 +22,47 @@ public class AllergyServiceImpl implements AllergyService{
 	private AllergyConverter converter;
 	
 	public AllergyDto save(AllergyDto dto) {
-		//	return allergyrepo.save(allergyEntity);
 			AllergyEntity entity = converter.toEntity(dto);
-	
-			if(entity.getAllergyId()==null)
-			{
 			  entity.setActiveStatus(ManagementConstants.ACTIVE_STATUS);
 				entity.setCreatedBy(1l);
 				entity.setCreatedDate(new Date());
 				AllergyEntity savedEntity = allergyrepo.save(entity);
 				return converter.toDto(savedEntity);
-			}
-		return dto;
+			
+		
 	}
 
 	
-	public List<AllergyEntity> getAllergyDetails() {
-		System.out.println(allergyrepo.findAll());
-		return allergyrepo.findAll();
+	public List<AllergyDto> getAllergyDetails() {
+		List<AllergyEntity> allergyList = allergyrepo.findByActiveStatus(ManagementConstants.ACTIVE_STATUS);
+		return converter.toDto(allergyList);
 	}
 
 
 	@Override
-	public Optional<AllergyEntity> getAllergybyId(Long id) {
-		System.out.println(allergyrepo.findById(id));
-		return allergyrepo.findById(id);
+	public Optional<AllergyDto> getAllergybyId(Long id) {
+		Optional<AllergyEntity> optional = allergyrepo.findById(id);
+		AllergyEntity entity= null;
+		   if(optional.isPresent()){
+			    entity =   optional.get();
+			   converter.toDto(entity);
+		   }
+		 return null;
 	}
 
 	@Override
-	public AllergyEntity getbyAllergyCode(String allergyCode) {
+	public AllergyDto getbyAllergyCode(String allergyCode) {
 		
-		return allergyrepo.findByAllergyCode(allergyCode);
+		AllergyEntity savedEntity= allergyrepo.findByAllergyCode(allergyCode);
+		return converter.toDto(savedEntity);
 	}
 
 
 	@Override
-	public List<AllergyDto> getAllergyByListId(List<Long> id) {
-		//allergyrepo.findByallergyIdIn(id);
-	     List<AllergyEntity> findAllById = allergyrepo.findByAllergyIdIn(id);
-	 return converter.toDto(findAllById);
+
+	public List<AllergyDto> getByAllergyIdIn(List<Long> id) {
+		List<AllergyEntity> findAllById = allergyrepo.findByAllergyIdIn(id);
+		return converter.toDto(findAllById);
 	}
 
 
