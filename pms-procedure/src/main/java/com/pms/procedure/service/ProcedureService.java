@@ -11,7 +11,7 @@ public interface ProcedureService {
 
 	public ProcedureDto saveProcedure(ProcedureDto dto) throws CustomException;
 	
-	public ProcedureDto updateProcedure(ProcedureDto dto) throws CustomException;
+	public ProcedureDto updateProcedure(ProcedureDto dto) ;
 	
 	public ProcedureDto deleteProcedure(Long id) throws CustomException;
 	
