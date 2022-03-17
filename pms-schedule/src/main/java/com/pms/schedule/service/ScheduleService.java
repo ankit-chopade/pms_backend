@@ -19,7 +19,4 @@ public interface ScheduleService {
 	public List<EditHistoryDto> getEditHistory(Long Id) throws CustomException;
 	public List<UserEntity> getPatient();
 	public List<PatientAppointmentDto> getPatientAppintments(Long Id) throws CustomException;
-
-
-
 }
