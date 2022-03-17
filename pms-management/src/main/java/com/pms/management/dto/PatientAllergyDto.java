@@ -13,4 +13,6 @@ public class PatientAllergyDto {
    private Long patientAllergyId;	
 	
 	private Integer allergyId;
+	
+	private Integer allergyIsFatal;
 }

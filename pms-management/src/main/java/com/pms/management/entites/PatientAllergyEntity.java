@@ -33,5 +33,7 @@ public class PatientAllergyEntity extends BaseEntity  implements Serializable {
 	@Column(name="allergy_id")
 	private Integer allergyId;
 
+	@Column(name="allergy_isFatal")
+	private Integer allergyIsFatal;
 	
 }

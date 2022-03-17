@@ -4,16 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import com.pms.management.dto.AllergyDto;
-import com.pms.management.entites.AllergyEntity;
-
-
 
 
 public interface AllergyService {
-	
-	public AllergyDto save(AllergyDto dto);
-    public Optional<AllergyEntity> getAllergybyId(Long allergyId);
-	public List<AllergyEntity> getAllergyDetails();
-	public AllergyEntity getbyAllergyCode(String allergyCode);
-	
+
+	AllergyDto save(AllergyDto dto);
+
+	Optional<AllergyDto> getAllergybyId(Long allergyId);
+
+	List<AllergyDto> getAllergyDetails();
+
+	AllergyDto getbyAllergyCode(String allergyCode);
+
+	List<AllergyDto> getByAllergyIdIn(List<Long> id);
 }

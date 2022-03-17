@@ -72,19 +72,7 @@ public class AllergyServiceImpl implements AllergyService{
 		return converter.toDto(savedEntity);
 	}
 
-	
 
-
-//	@Override
-//	public Optional<AllergyEntity> getAllergybyId(Long id) {
-//		System.out.println(allergyrepo.findById(id));
-//		return allergyrepo.findById(id);
-//	}
-
-//	@Override
-//	public AllergyEntity getbyAllergyCode(String allergyCode) {
-//		return allergyrepo.findByAllergyCode(allergyCode);
-//	}
 	
 	@Override
 	public AllergyDto updateAllergy(AllergyDto dto) throws CustomException {
