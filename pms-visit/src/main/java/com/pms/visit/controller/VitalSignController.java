@@ -40,6 +40,22 @@ public class VitalSignController {
 				this.service.saveVitalSigns(dto));
 	}
 	
+	@GetMapping(PmsVisitUrlConstants.URL_BLOOD_PRESSURE_LIST)
+	public ResponseEntity<ApiResponse> getBloodPressureList(@RequestParam Long id) throws CustomException {
+		return ResponseUtil.getResponse(HttpStatus.OK, PmsVisitConstants.PMS_RECORDS_FETCHED,
+				this.service.getBloodPressure(id));
+	}
 	
+	@GetMapping(PmsVisitUrlConstants.URL_RESPIRATION_RATE_LIST)
+	public ResponseEntity<ApiResponse> getRespirationRateList(@RequestParam Long id) throws CustomException {
+		return ResponseUtil.getResponse(HttpStatus.OK, PmsVisitConstants.PMS_RECORDS_FETCHED,
+				this.service.getRespirationRate(id));
+	}
+	
+	@GetMapping(PmsVisitUrlConstants.URL_LATEST_VITAL_SIGN)
+	public ResponseEntity<ApiResponse> getLatestVitalSigns(@RequestParam Long id) throws CustomException {
+		return ResponseUtil.getResponse(HttpStatus.OK, PmsVisitConstants.PMS_RECORDS_FETCHED,
+				this.service.getLatestVitalSigns(id));
+	}
 
 }
