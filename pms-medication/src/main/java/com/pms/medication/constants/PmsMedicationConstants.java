@@ -1,6 +1,10 @@
 package com.pms.medication.constants;
 
 public class PmsMedicationConstants {
+	
+	private PmsMedicationConstants() {
+		super();
+	}
 
 	public static final String PMS_CROSS_ORIGIN = "http://localhost:4200";
 

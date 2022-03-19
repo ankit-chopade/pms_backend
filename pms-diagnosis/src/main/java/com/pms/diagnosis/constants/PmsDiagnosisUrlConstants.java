@@ -2,6 +2,9 @@ package com.pms.diagnosis.constants;
 
 public class PmsDiagnosisUrlConstants {
 
-	public static final String URL_DIAGNOSIS = "/diagnosis";
+	private PmsDiagnosisUrlConstants() {
+		super();
+	}
 
+	public static final String URL_DIAGNOSIS = "/diagnosis";
 }

@@ -1,6 +1,10 @@
 package com.pms.procedure.constants;
 
 public class PmsProcedureConstants {
+	
+	private PmsProcedureConstants() {
+		super();
+	}
 
 	public static final String PMS_CROSS_ORIGIN = "http://localhost:4200";
 

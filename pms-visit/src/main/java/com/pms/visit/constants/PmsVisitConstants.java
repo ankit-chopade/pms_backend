@@ -1,6 +1,10 @@
 package com.pms.visit.constants;
 
 public class PmsVisitConstants {
+	
+	private PmsVisitConstants() {
+		super();
+	}
 
 	public static final String PMS_CROSS_ORIGIN = "http://localhost:4200/*";
 

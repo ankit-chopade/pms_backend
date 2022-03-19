@@ -24,7 +24,7 @@ import com.pms.diagnosis.repository.DiagnosisRepository;
 import com.pms.diagnosis.utils.CustomException;
 
 @ExtendWith(MockitoExtension.class)
-public class DiagnosisServiceImplTest {
+class DiagnosisServiceImplTest {
 
 	@InjectMocks
 	private DiagnosisServiceImpl service;
