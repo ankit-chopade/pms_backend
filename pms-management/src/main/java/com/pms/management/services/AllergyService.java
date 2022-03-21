@@ -1,7 +1,6 @@
 package com.pms.management.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.pms.management.dto.AllergyDto;
 
@@ -10,7 +9,7 @@ public interface AllergyService {
 	
 	public AllergyDto save(AllergyDto dto);
 
-	public Optional<AllergyDto> getAllergybyId(Long allergyId);
+//	public AllergyDto getAllergybyId(Long allergyId) throws CustomException;
 
 	public List<AllergyDto> getAllergyDetails();
 

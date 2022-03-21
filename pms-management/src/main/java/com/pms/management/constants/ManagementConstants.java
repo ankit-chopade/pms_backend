@@ -2,6 +2,10 @@ package com.pms.management.constants;
 
 public class ManagementConstants {
 	
+	private ManagementConstants() {
+		super();
+	}
+	
 	public static final Integer ACTIVE_STATUS = 1;
 	
 	public static final String PMS_CROSS_ORIGIN    = "http://localhost:4200";

@@ -68,7 +68,7 @@ public class DemographicDetailEntity extends BaseEntity   implements Serializabl
 	private int active;
 	
 	@Column(name="has_allergy")
-	private String has_Allergy;
+	private String hasAllergy;
 	
 	@Column(name="contact_number")
 	private String contactNo;

@@ -40,7 +40,7 @@ public class MailService {
 				+ user.getFirstName() + " " + user.getLastName() + "</h3> </br>"
 				+ "<p> Welcome to the PMS Application : </br>" + "your registration has been successfully completed."
 				+ "</div>" + "<HTML><head><body>";
-		;
+		
 		this.sendMail(recipient, subject, message);
 	}
 	public void sendMailToNewUser(UserEntity user,String default_password) {

@@ -36,7 +36,7 @@ public class DemographicDetailDto {
 	
 	private int active;
 		
-	private String has_Allergy;
+	private String hasAllergy;
 	
 	private EmergencyContactDto emergencyContactEntity;
 	

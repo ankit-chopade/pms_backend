@@ -1,11 +1,10 @@
 package com.pms.management.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,12 +53,6 @@ class AllergyServiceImplTest {
 		assertNotNull(service.getAllergyDetails());
 	}
 
-	@Test
-	void testGetAllergybyId() {
-		when(repository.findById(JunitConstants.LONG_TYPE)).thenReturn(Optional.ofNullable(entity));
-		when(converter.toDto(entity)).thenReturn(dto);
-		assertNotNull(service.getAllergybyId(JunitConstants.LONG_TYPE));
-	}
 
 	@Test
 	void testGetbyAllergyCode() {

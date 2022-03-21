@@ -40,10 +40,4 @@ public class DemographicDetailController {
 				this.patientservice.getpatientDetailbyUserId(userId));
 	}
 
-//	@GetMapping(DemographicDetailUrlConstants.URL_DEMOGRAPHIC)
-//	public ResponseEntity<ApiResponse> getUserPatientData(@RequestParam Long id) throws CustomException {
-//		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.patientservice.getpatientbyId(id));
-//
-//	}
-	
 }

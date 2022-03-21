@@ -2,6 +2,10 @@ package com.pms.management.constants;
 
 public class ManagementUrlConstants {
 	
+	private ManagementUrlConstants() {
+		super();
+	}
+	
 	public static final String URL_ROOT="/management";
 	
 	public static final String URL_LOGIN = "/login";

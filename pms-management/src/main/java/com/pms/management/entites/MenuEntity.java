@@ -5,8 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="menus")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class MenuEntity {
 	
 	@Id
@@ -23,62 +30,6 @@ public class MenuEntity {
 	
 
 	@Column(name="role_id")
-	private Integer roleId;
-
-
-	public Integer getMenuId() {
-		return menuId;
-	}
-
-
-	public void setMenuId(Integer menuId) {
-		this.menuId = menuId;
-	}
-
-
-	public String getMenuName() {
-		return menuName;
-	}
-
-
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
-	}
-
-
-	public String getMenuLink() {
-		return menuLink;
-	}
-
-
-	public void setMenuLink(String menuLink) {
-		this.menuLink = menuLink;
-	}
-
-
-	public Integer getRoleId() {
-		return roleId;
-	}
-
-
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
-
-
-	public MenuEntity(Integer menuId, String menuName, String menuLink, Integer roleId) {
-		super();
-		this.menuId = menuId;
-		this.menuName = menuName;
-		this.menuLink = menuLink;
-		this.roleId = roleId;
-	}
-
-
-	public MenuEntity() {
-		super();
-	}
-	
-	
+	private Integer roleId;	
 
 }

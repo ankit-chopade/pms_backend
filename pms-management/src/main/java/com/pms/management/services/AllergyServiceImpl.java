@@ -2,7 +2,6 @@ package com.pms.management.services;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,16 +38,15 @@ public class AllergyServiceImpl implements AllergyService{
 	}
 
 
-	@Override
-	public Optional<AllergyDto> getAllergybyId(Long id) {
-		Optional<AllergyEntity> optional = allergyrepo.findById(id);
-		AllergyEntity entity= null;
-		   if(optional.isPresent()){
-			    entity =   optional.get();
-			   converter.toDto(entity);
-		   }
-		 return null;
-	}
+//	@Override
+//	public AllergyDto getAllergybyId(Long id) {
+//		Optional<AllergyEntity> optional = allergyrepo.findById(id);
+//		AllergyEntity entity= null;
+//		   if(optional.isPresent()){
+//			    entity =   optional.get();
+//			   return converter.toDto(entity);
+//		   }
+//	}
 
 	@Override
 	public AllergyDto getbyAllergyCode(String allergyCode) {
@@ -59,7 +57,6 @@ public class AllergyServiceImpl implements AllergyService{
 
 
 	@Override
-
 	public List<AllergyDto> getByAllergyIdIn(List<Long> id) {
 		List<AllergyEntity> findAllById = allergyrepo.findByAllergyIdIn(id);
 		return converter.toDto(findAllById);

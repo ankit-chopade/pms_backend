@@ -34,12 +34,12 @@ public class AllergyController {
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful", this.allergyService.save(dto));
 	}
 
-	@GetMapping(DemographicDetailUrlConstants.URL_ALLERGYID)
-	public ResponseEntity<ApiResponse> getAllergybyId(@RequestParam Long allergyId) {
-
-		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_RECORDS_FETCHED,
-				this.allergyService.getAllergybyId(allergyId));
-	}
+//	@GetMapping(DemographicDetailUrlConstants.URL_ALLERGYID)
+//	public ResponseEntity<ApiResponse> getAllergybyId(@RequestParam Long allergyId) {
+//
+//		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_RECORDS_FETCHED,
+//				this.allergyService.getAllergybyId(allergyId));
+//	}
 
 	@GetMapping(DemographicDetailUrlConstants.URL_ALLERGY)
 	public ResponseEntity<ApiResponse> getAllergyDetails() {
