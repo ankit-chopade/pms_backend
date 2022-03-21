@@ -31,32 +31,6 @@ public class AllergyServiceImpl implements AllergyService{
 		return converter.toDto(allergyList);
 	}
 	
-//	@Override
-//	public AllergyDto saveAllergy(AllergyDto dto) {
-//			AllergyEntity entity = converter.toEntity(dto);
-//	
-//			if(entity.getAllergyId()==null)
-//			{
-//			  entity.setActiveStatus(PmsAllergyConstants.ACTIVE);
-//				entity.setCreatedBy(1l);
-//				entity.setCreatedDate(new Date());
-//				AllergyEntity savedEntity = allergyrepo.save(entity);
-//				return converter.toDto(savedEntity);
-//			}
-//			else {
-//				Optional<AllergyEntity> optional= allergyrepo.findById(entity.getAllergyId());
-//				if(optional.isPresent()) {
-//					entity.setAllergyId(optional.get().getAllergyId());
-//					entity.setUpdatedDate(new Date());
-//					entity.setUpdatedBy(1l);
-//					entity.setActiveStatus(PmsAllergyConstants.ACTIVE_STATUS);
-//					AllergyEntity savedEntity = allergyrepo.save(entity);
-//					return converter.toDto(savedEntity);
-//				}
-//		
-//		}
-//		return dto;
-//	}
 	@Override
 	public AllergyDto saveAllergy(AllergyDto dto) throws CustomException {
 		AllergyEntity entity = converter.toEntity(dto);

@@ -1,6 +1,10 @@
 package com.pms.allergy.constants;
 
 public class PmsAllergyConstants {
+	
+	private PmsAllergyConstants() {
+		super();
+	}
 
 	public static final Integer ACTIVE = 1;
 	

@@ -21,44 +21,33 @@ import com.pms.allergy.utils.ApiResponse;
 import com.pms.allergy.utils.CustomException;
 import com.pms.allergy.utils.ResponseUtil;
 
-
 @RestController
 @RequestMapping(PmsAllergyUrlConstants.URL_ALLERGY)
-@CrossOrigin(origins="http://localhost:4200",allowedHeaders = "*")
-public class AllergeyDetailsController {
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
+public class AllergyController {
 	@Autowired
 	AllergyService service;
 
-//	@GetMapping(PmsAllergyUrlConstants.URL_ALLERGY/{allergyId})
-//	public ResponseEntity<ApiResponse> getAllergybyId(@RequestParam Long allergyId){
-//		return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful",this.service.getAllergybyId(allergyId));
-//	}
-	
 	@GetMapping()
-	public ResponseEntity<ApiResponse> getAllergyDetails(){
+	public ResponseEntity<ApiResponse> getAllergyDetails() {
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.service.getAllDetails());
 	}
-	
+
 	@PostMapping()
-	public ResponseEntity<ApiResponse> saveAllergy(@RequestBody AllergyDto  dto) throws CustomException{
-	 return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful" ,this.service.saveAllergy(dto));
+	public ResponseEntity<ApiResponse> saveAllergy(@RequestBody AllergyDto dto) throws CustomException {
+		return ResponseUtil.getResponse(HttpStatus.OK, "Data Save Successful", this.service.saveAllergy(dto));
 	}
-	
-//	@GetMapping(PmsAllergyUrlConstants.URL_ALLERGYCODE)
-//	public ResponseEntity<ApiResponse> getAllergyCode(@RequestParam String allergyCode){
-//		return ResponseUtil.getResponse(HttpStatus.OK, "Data Fetched Successful", this.service.getbyAllergyCode(allergyCode));
-//	}
-	
+
 	@PutMapping()
-	public ResponseEntity<ApiResponse> updateAllergy(@RequestBody AllergyDto dto) throws CustomException{
+	public ResponseEntity<ApiResponse> updateAllergy(@RequestBody AllergyDto dto) throws CustomException {
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsAllergyConstants.PMS_RECORDS_FETCHED,
 				this.service.updateAllergy(dto));
 	}
-	
+
 	@DeleteMapping()
-	public ResponseEntity<ApiResponse> deleteAllergy(@RequestParam Long id) throws CustomException{
+	public ResponseEntity<ApiResponse> deleteAllergy(@RequestParam Long id) throws CustomException {
 		this.service.deleteAllergy(id);
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsAllergyConstants.PMS_RECORDS_FETCHED);
-				
+
 	}
 }
