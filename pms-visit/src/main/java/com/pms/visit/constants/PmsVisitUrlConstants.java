@@ -2,6 +2,10 @@ package com.pms.visit.constants;
 
 public class PmsVisitUrlConstants {
 	
+	private PmsVisitUrlConstants() {
+		super();
+	}
+	
 	public static final String URL_VISIT = "/visit";
 	
 	public static final String URL_VITIAL_SIGN = "/vital-sign";

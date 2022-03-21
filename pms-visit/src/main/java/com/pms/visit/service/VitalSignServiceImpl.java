@@ -55,7 +55,7 @@ public class VitalSignServiceImpl implements VitalSignService {
 	@Override
 	public DashboardVitalDto getLatestVitalSigns(Long patientId) {
 		 String obj = repository.findLatestVitalSignsByPatientId(patientId);
-		 String vitalSigns[] = obj.split(",");
+		 String[] vitalSigns = obj.split(",");
 		 return new DashboardVitalDto(
 				 Integer.parseInt(vitalSigns[0]),
 				 vitalSigns[1],

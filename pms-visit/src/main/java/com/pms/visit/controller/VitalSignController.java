@@ -16,7 +16,6 @@ import com.pms.visit.constants.PmsVisitUrlConstants;
 import com.pms.visit.dto.VitalSignDto;
 import com.pms.visit.service.VitalSignService;
 import com.pms.visit.utils.ApiResponse;
-import com.pms.visit.utils.CustomException;
 import com.pms.visit.utils.ResponseUtil;
 
 @RestController
@@ -35,25 +34,25 @@ public class VitalSignController {
 	
 
 	@PostMapping(PmsVisitUrlConstants.URL_VITIAL_SIGN)
-	public ResponseEntity<ApiResponse> saveVitalSigns(@RequestBody VitalSignDto dto) throws CustomException {
+	public ResponseEntity<ApiResponse> saveVitalSigns(@RequestBody VitalSignDto dto) {
 		return ResponseUtil.getResponse(HttpStatus.OK, "vital signs added Successfully ",
 				this.service.saveVitalSigns(dto));
 	}
 	
 	@GetMapping(PmsVisitUrlConstants.URL_BLOOD_PRESSURE_LIST)
-	public ResponseEntity<ApiResponse> getBloodPressureList(@RequestParam Long id) throws CustomException {
+	public ResponseEntity<ApiResponse> getBloodPressureList(@RequestParam Long id) {
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsVisitConstants.PMS_RECORDS_FETCHED,
 				this.service.getBloodPressure(id));
 	}
 	
 	@GetMapping(PmsVisitUrlConstants.URL_RESPIRATION_RATE_LIST)
-	public ResponseEntity<ApiResponse> getRespirationRateList(@RequestParam Long id) throws CustomException {
+	public ResponseEntity<ApiResponse> getRespirationRateList(@RequestParam Long id)  {
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsVisitConstants.PMS_RECORDS_FETCHED,
 				this.service.getRespirationRate(id));
 	}
 	
 	@GetMapping(PmsVisitUrlConstants.URL_LATEST_VITAL_SIGN)
-	public ResponseEntity<ApiResponse> getLatestVitalSigns(@RequestParam Long id) throws CustomException {
+	public ResponseEntity<ApiResponse> getLatestVitalSigns(@RequestParam Long id) {
 		return ResponseUtil.getResponse(HttpStatus.OK, PmsVisitConstants.PMS_RECORDS_FETCHED,
 				this.service.getLatestVitalSigns(id));
 	}

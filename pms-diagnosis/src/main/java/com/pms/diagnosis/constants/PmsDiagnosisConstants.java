@@ -1,6 +1,10 @@
 package com.pms.diagnosis.constants;
 
 public class PmsDiagnosisConstants {
+	
+	private PmsDiagnosisConstants() {
+		super();
+	}
 
 	public static final Integer ACTIVE = 1;
 

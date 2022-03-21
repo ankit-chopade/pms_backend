@@ -28,16 +28,14 @@ public class PatientMedicationServiceImpl implements PatientMedicationService {
 	public List<PatientMedicationViewDto> getDetailByAppointmentId(Long appointmentId) {
 		List<Object[]> list = repository.findByAppointmentId(appointmentId);
 		
-		List<PatientMedicationViewDto> dto = list.stream().map(obj -> {
-			PatientMedicationViewDto data = new PatientMedicationViewDto(PmsVisitUtil.convertObjectIntoLong(obj[0]),
+		return list.stream().map(obj -> 
+			 new PatientMedicationViewDto(PmsVisitUtil.convertObjectIntoLong(obj[0]),
 					PmsVisitUtil.convertObjectIntoString(obj[1]), PmsVisitUtil.convertObjectIntoString(obj[2]),
 					PmsVisitUtil.convertObjectIntoString(obj[3]), PmsVisitUtil.convertObjectIntoString(obj[4]),
 					PmsVisitUtil.convertObjectIntoString(obj[5]), PmsVisitUtil.convertObjectIntoString(obj[6]),
 					PmsVisitUtil.convertObjectIntoLong(obj[7]), PmsVisitUtil.convertObjectIntoString(obj[8]),
-					PmsVisitUtil.convertObjectIntoLong(obj[9]), PmsVisitUtil.convertObjectIntoString(obj[10]));
-			return data;
-		}).collect(Collectors.toList());
-		return dto;
+					PmsVisitUtil.convertObjectIntoLong(obj[9]), PmsVisitUtil.convertObjectIntoString(obj[10]))
+		).collect(Collectors.toList());
 	}
 
 	@Override

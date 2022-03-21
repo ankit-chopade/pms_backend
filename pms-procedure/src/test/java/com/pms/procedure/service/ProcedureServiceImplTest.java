@@ -24,7 +24,7 @@ import com.pms.procedure.repository.ProcedureRepository;
 import com.pms.procedure.utils.CustomException;
 
 @ExtendWith(MockitoExtension.class)
-public class ProcedureServiceImplTest {
+class ProcedureServiceImplTest {
 
 	@InjectMocks
 	private ProcedureServiceImpl service;

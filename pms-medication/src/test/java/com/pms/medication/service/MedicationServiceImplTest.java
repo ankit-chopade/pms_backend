@@ -24,7 +24,7 @@ import com.pms.medication.repository.MedicationRepository;
 import com.pms.medication.utils.CustomException;
 
 @ExtendWith(MockitoExtension.class)
-public class MedicationServiceImplTest {
+class MedicationServiceImplTest {
 
 	@InjectMocks
 	private MedicationServiceImpl service;

@@ -1,6 +1,10 @@
 package com.pms.diagnosis.constants;
 
 public class PmsDiagnosisMsgConstants {
+	
+	private PmsDiagnosisMsgConstants() {
+		super();
+	}
 
 	public static final String DIAGNOSIS_CODE_ALREADY_EXISTS = "Diagnosis code already exists";
 

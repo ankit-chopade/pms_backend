@@ -20,13 +20,11 @@ public class PatientVisitHistoryServiceImpl implements PatientVisitHistoryServic
 	@Override
 	public List<PatientVisitHistoryViewDto> getAllVisitByDateAndId(IdAndDateDto dto) {
 		List<Object[]> list = repository.findAllVisitByDateAndId(dto.getDate(),dto.getId());
-		List<PatientVisitHistoryViewDto> visitList = list.stream().map(obj->{
-			PatientVisitHistoryViewDto data  = new PatientVisitHistoryViewDto(PmsVisitUtil.convertObjectIntoLong(obj[0]),
+		return list.stream().map(obj->
+			 new PatientVisitHistoryViewDto(PmsVisitUtil.convertObjectIntoLong(obj[0]),
 					PmsVisitUtil.convertObjectIntoString(obj[1]),PmsVisitUtil.convertObjectIntoString(obj[2]), PmsVisitUtil.convertObjectIntoString(obj[3]),PmsVisitUtil.convertObjectIntoString(obj[4]),
-					PmsVisitUtil.convertObjectIntoLong(obj[5]),PmsVisitUtil.convertObjectIntoString(obj[6]));
-			return data;
-		}).collect(Collectors.toList());
-		return visitList;
+					PmsVisitUtil.convertObjectIntoLong(obj[5]),PmsVisitUtil.convertObjectIntoString(obj[6]))
+		).collect(Collectors.toList());
 	}
 	
 	

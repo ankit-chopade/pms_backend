@@ -1,6 +1,10 @@
 package com.pms.medication.constants;
 
 public class PmsMedicationMsgConstants {
+	
+	private PmsMedicationMsgConstants() {
+		super();
+	}
 
 	public static final String DRUG_ID_ALREADY_EXISTS = "Drug id already exists";
 

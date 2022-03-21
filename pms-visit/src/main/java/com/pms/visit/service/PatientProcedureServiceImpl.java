@@ -27,15 +27,13 @@ public class PatientProcedureServiceImpl implements PatientProcedureService {
 	@Override
 	public List<PatientProcedureViewDto> getDetailByAppointmentId(Long appointmentId) {
 		List<Object[]> list = repository.findByAppointmentId(appointmentId);
-		List<PatientProcedureViewDto> dto = list.stream().map(obj -> {
-			PatientProcedureViewDto data = new PatientProcedureViewDto(PmsVisitUtil.convertObjectIntoLong(obj[0]),
+		return list.stream().map(obj -> 
+			 new PatientProcedureViewDto(PmsVisitUtil.convertObjectIntoLong(obj[0]),
 					PmsVisitUtil.convertObjectIntoString(obj[1]), PmsVisitUtil.convertObjectIntoString(obj[2]),
 					PmsVisitUtil.convertObjectIntoInteger(obj[3]), PmsVisitUtil.convertObjectIntoLong(obj[4]),
 					PmsVisitUtil.convertObjectIntoString(obj[5]), PmsVisitUtil.convertObjectIntoLong(obj[6]),
-					PmsVisitUtil.convertObjectIntoString(obj[7]));
-			return data;
-		}).collect(Collectors.toList());
-		return dto;
+					PmsVisitUtil.convertObjectIntoString(obj[7]))
+		).collect(Collectors.toList());
 	}
 
 	@Override

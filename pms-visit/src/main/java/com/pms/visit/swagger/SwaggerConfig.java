@@ -24,12 +24,12 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo());
     }
     private ApiInfo apiInfo() {
-        Contact peter_johnsons = new Contact("Peter Johnsons", "http://www.mattjohnson.com", "matt.johnson@swagger.com");
+        Contact peterJohnsons = new Contact("Peter Johnsons", "http://www.mattjohnson.com", "matt.johnson@swagger.com");
         return new ApiInfoBuilder()
                 .title("Title: Product Resource API enpoints")
                 .version("v1.5")
                 .description("Desc: API for managing product")
-                .contact(peter_johnsons)
+                .contact(peterJohnsons)
                 .license("Training Licence Version 1.5")
                 .build();
     }
