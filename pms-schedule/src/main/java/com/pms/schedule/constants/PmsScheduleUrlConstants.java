@@ -2,6 +2,10 @@ package com.pms.schedule.constants;
 
 public class PmsScheduleUrlConstants {
 	
+	private PmsScheduleUrlConstants() {
+		super();
+	}
+	
 	public static final String URL_ROOT = "/schedule";
 
 	public static final String URL_SAVE_APPOINTMENT = "/savePatientAppointment";

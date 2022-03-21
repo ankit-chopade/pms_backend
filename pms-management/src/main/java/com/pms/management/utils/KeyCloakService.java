@@ -70,9 +70,9 @@ public class KeyCloakService {
 
 			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestParams, headers);
 			AccessTokenResponse keycloakAccessToken = getAccessTokenResponse(request, url);
-			String token_admin = keycloakAccessToken.getToken().trim();
+			String tokenAdmin = keycloakAccessToken.getToken().trim();
 
-			String url_register = "http://localhost:8180/auth/admin/realms/pms/users";
+			String urlRegister = "http://localhost:8180/auth/admin/realms/pms/users";
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("type", "password");
 			jsonObj.put("value", password);
@@ -85,32 +85,32 @@ public class KeyCloakService {
 			userParam.put("enabled", "true");
 			userParam.put("emailVerified", "true");
 
-			HttpHeaders headers_user = new HttpHeaders();
-			headers_user.setContentType(MediaType.APPLICATION_JSON);
-			headers_user.add("Authorization", "Bearer " + token_admin);
-			HttpEntity<String> request_user = new HttpEntity<String>(userParam.toString(), headers_user);
-			ResponseEntity resp = restTemplate.postForEntity(url_register, request_user, String.class);
+			HttpHeaders headersUser = new HttpHeaders();
+			headersUser.setContentType(MediaType.APPLICATION_JSON);
+			headersUser.add("Authorization", "Bearer " + tokenAdmin);
+			HttpEntity<String> requestUser = new HttpEntity<String>(userParam.toString(), headersUser);
+			restTemplate.postForEntity(urlRegister, requestUser, String.class);
 
 			/**
 			 * User id
 			 */
-			String url_userid = "http://localhost:8180/auth/admin/realms/pms/users/?username=" + username;
-			HttpHeaders headers_userid = new HttpHeaders();
-			headers_userid.setContentType(MediaType.APPLICATION_JSON);
-			headers_userid.add("Authorization", "Bearer " + token_admin);
-			HttpEntity<String> request_userid = new HttpEntity<String>(headers_userid);
-			ResponseEntity resp_userid = restTemplate.exchange(url_userid, HttpMethod.GET, request_userid,
+			String urlUserid = "http://localhost:8180/auth/admin/realms/pms/users/?username=" + username;
+			HttpHeaders headersUserid = new HttpHeaders();
+			headersUserid.setContentType(MediaType.APPLICATION_JSON);
+			headersUserid.add("Authorization", "Bearer " + tokenAdmin);
+			HttpEntity<String> requestUserid = new HttpEntity<>(headersUserid);
+			ResponseEntity respUserid = restTemplate.exchange(urlUserid, HttpMethod.GET, requestUserid,
 					String.class);
-			JSONArray userid_json = new JSONArray(resp_userid.getBody().toString());
+			JSONArray useridJson = new JSONArray(respUserid.getBody().toString());
 
 			/**
 			 * Role Mapping
 			 */
-			String url_role = "http://localhost:8180/auth/admin/realms/pms/users/"
-					+ userid_json.getJSONObject(0).get("id") + "/role-mappings/realm";
-			HttpHeaders headers_role = new HttpHeaders();
-			headers_role.setContentType(MediaType.APPLICATION_JSON);
-			headers_role.add("Authorization", "Bearer " + token_admin);
+			String urlRole = "http://localhost:8180/auth/admin/realms/pms/users/"
+					+ useridJson.getJSONObject(0).get("id") + "/role-mappings/realm";
+			HttpHeaders headersRole = new HttpHeaders();
+			headersRole.setContentType(MediaType.APPLICATION_JSON);
+			headersRole.add("Authorization", "Bearer " + tokenAdmin);
 
 			JSONObject roleParam = new JSONObject();
 			roleParam.put("id", patientId);
@@ -119,9 +119,8 @@ public class KeyCloakService {
 			JSONArray roleArray = new JSONArray();
 			roleArray.put(roleParam);
 
-			HttpEntity<String> request_role = new HttpEntity<String>(roleArray.toString(), headers_role);
-			ResponseEntity resp_role = restTemplate.exchange(url_role, HttpMethod.POST, request_role, String.class);
-//			System.out.println(resp_role.getBody());
+			HttpEntity<String> requestRole = new HttpEntity<>(roleArray.toString(), headersRole);
+			restTemplate.exchange(urlRole, HttpMethod.POST, requestRole, String.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -151,9 +150,9 @@ public class KeyCloakService {
 
 			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestParams, headers);
 			AccessTokenResponse keycloakAccessToken = getAccessTokenResponse(request, url);
-			String token_admin = keycloakAccessToken.getToken().trim();
+			String tokenAdmin = keycloakAccessToken.getToken().trim();
 
-			String url_register = "http://localhost:8180/auth/admin/realms/pms/users";
+			String urlRegister = "http://localhost:8180/auth/admin/realms/pms/users";
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("type", "password");
 			jsonObj.put("value", password);
@@ -166,31 +165,31 @@ public class KeyCloakService {
 			userParam.put("enabled", "true");
 			userParam.put("emailVerified", "true");
 
-			HttpHeaders headers_user = new HttpHeaders();
-			headers_user.setContentType(MediaType.APPLICATION_JSON);
-			headers_user.add("Authorization", "Bearer " + token_admin);
-			HttpEntity<String> request_user = new HttpEntity<String>(userParam.toString(), headers_user);
-			ResponseEntity resp = restTemplate.postForEntity(url_register, request_user, String.class);
+			HttpHeaders headersUser = new HttpHeaders();
+			headersUser.setContentType(MediaType.APPLICATION_JSON);
+			headersUser.add("Authorization", "Bearer " + tokenAdmin);
+			HttpEntity<String> requestUser = new HttpEntity<>(userParam.toString(), headersUser);
+			restTemplate.postForEntity(urlRegister, requestUser, String.class);
 
 			/**
 			 * User id
 			 */
-			String url_userid = "http://localhost:8180/auth/admin/realms/pms/users/?username=" + username;
-			HttpHeaders headers_userid = new HttpHeaders();
-			headers_userid.setContentType(MediaType.APPLICATION_JSON);
-			headers_userid.add("Authorization", "Bearer " + token_admin);
-			HttpEntity<String> request_userid = new HttpEntity<String>(headers_userid);
-			ResponseEntity resp_userid = restTemplate.exchange(url_userid, HttpMethod.GET, request_userid,
+			String urlUserid = "http://localhost:8180/auth/admin/realms/pms/users/?username=" + username;
+			HttpHeaders headersUserid = new HttpHeaders();
+			headersUserid.setContentType(MediaType.APPLICATION_JSON);
+			headersUserid.add("Authorization", "Bearer " + tokenAdmin);
+			HttpEntity<String> requestUserid = new HttpEntity<>(headersUserid);
+			ResponseEntity respUserid = restTemplate.exchange(urlUserid, HttpMethod.GET, requestUserid,
 					String.class);
-			JSONArray userid_json = new JSONArray(resp_userid.getBody().toString());
+			JSONArray useridJson = new JSONArray(respUserid.getBody().toString());
 
 			/**
 			 * Role Mapping
 			 */
-			String url_role = "http://localhost:8180/auth/admin/realms/pms/users/"+ userid_json.getJSONObject(0).get("id") + "/role-mappings/realm";
-			HttpHeaders headers_role = new HttpHeaders();
-			headers_role.setContentType(MediaType.APPLICATION_JSON);
-			headers_role.add("Authorization", "Bearer " + token_admin);
+			String urlRole = "http://localhost:8180/auth/admin/realms/pms/users/"+ useridJson.getJSONObject(0).get("id") + "/role-mappings/realm";
+			HttpHeaders headersRole = new HttpHeaders();
+			headersRole.setContentType(MediaType.APPLICATION_JSON);
+			headersRole.add("Authorization", "Bearer " + tokenAdmin);
 
 			/**
 			 * Checking for Nurse or Physician
@@ -225,9 +224,8 @@ public class KeyCloakService {
 			JSONArray roleArray = new JSONArray();
 			roleArray.put(roleParam);
 
-			HttpEntity<String> request_role = new HttpEntity<String>(roleArray.toString(), headers_role);
-			ResponseEntity resp_role = restTemplate.exchange(url_role, HttpMethod.POST, request_role, String.class);
-//			System.out.println(resp_role.getBody());
+			HttpEntity<String> requestRole = new HttpEntity<String>(roleArray.toString(), headersRole);
+			restTemplate.exchange(urlRole, HttpMethod.POST, requestRole, String.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -256,27 +254,27 @@ public class KeyCloakService {
 
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestParams, headers);
 		AccessTokenResponse keycloakAccessToken = getAccessTokenResponse(request, url);
-		String token_admin = keycloakAccessToken.getToken().trim();
+		String tokenAdmin = keycloakAccessToken.getToken().trim();
 
 		/**
 		 * User id
 		 */
-		String url_userid = "http://localhost:8180/auth/admin/realms/pms/users/?username=" + username;
-		HttpHeaders headers_userid = new HttpHeaders();
-		headers_userid.setContentType(MediaType.APPLICATION_JSON);
-		headers_userid.add("Authorization", "Bearer " + token_admin);
-		HttpEntity<String> request_userid = new HttpEntity<String>(headers_userid);
-		ResponseEntity resp_userid = restTemplate.exchange(url_userid, HttpMethod.GET, request_userid, String.class);
-		JSONArray userid_json = new JSONArray(resp_userid.getBody().toString());
+		String urlUserid = "http://localhost:8180/auth/admin/realms/pms/users/?username=" + username;
+		HttpHeaders headersUserid = new HttpHeaders();
+		headersUserid.setContentType(MediaType.APPLICATION_JSON);
+		headersUserid.add("Authorization", "Bearer " + tokenAdmin);
+		HttpEntity<String> requestUserid = new HttpEntity<String>(headersUserid);
+		ResponseEntity respUserid = restTemplate.exchange(urlUserid, HttpMethod.GET, requestUserid, String.class);
+		JSONArray useridJson = new JSONArray(respUserid.getBody().toString());
 
 		/**
 		 * Update Password
 		 */
-		String url_updatepwd = "http://localhost:8180/auth/admin/realms/pms/users/"
-				+ userid_json.getJSONObject(0).get("id") + "/reset-password";
-		HttpHeaders headers_updatepwd = new HttpHeaders();
-		headers_updatepwd.setContentType(MediaType.APPLICATION_JSON);
-		headers_updatepwd.add("Authorization", "Bearer " + token_admin);
+		String urlUpdatepwd = "http://localhost:8180/auth/admin/realms/pms/users/"
+				+ useridJson.getJSONObject(0).get("id") + "/reset-password";
+		HttpHeaders headersUpdatepwd = new HttpHeaders();
+		headersUpdatepwd.setContentType(MediaType.APPLICATION_JSON);
+		headersUpdatepwd.add("Authorization", "Bearer " + tokenAdmin);
 
 		JSONObject updatepwdParam = new JSONObject();
 		updatepwdParam.put("type", "password");
@@ -286,14 +284,10 @@ public class KeyCloakService {
 //			JSONArray updatepwdArray = new JSONArray();
 //			updatepwdArray.put(updatepwdParam);
 
-		System.out.println(updatepwdParam);
-		HttpEntity<String> request_updatepwd = new HttpEntity<String>(updatepwdParam.toString(), headers_updatepwd);
-		ResponseEntity resp_updatepwd = restTemplate.exchange(url_updatepwd, HttpMethod.PUT, request_updatepwd,
+		HttpEntity<String> requestUpdatepwd = new HttpEntity<String>(updatepwdParam.toString(), headersUpdatepwd);
+		ResponseEntity respUpdatepwd = restTemplate.exchange(urlUpdatepwd, HttpMethod.PUT, requestUpdatepwd,
 				String.class);
-		System.out.println(resp_updatepwd.getBody());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		System.out.println(respUpdatepwd.getBody());
 
 	}
 

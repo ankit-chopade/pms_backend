@@ -33,7 +33,7 @@ import com.pms.schedule.repository.UserRepository;
 import com.pms.schedule.utils.CustomException;
 
 @ExtendWith(MockitoExtension.class)
-public class ScheduleServiceImplTest {
+class ScheduleServiceImplTest {
 
 	@InjectMocks
 	private ScheduleServiceImpl service;

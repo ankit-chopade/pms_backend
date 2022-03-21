@@ -22,11 +22,11 @@ import com.pms.management.entites.UserEntity;
 import com.pms.management.repository.ManagementRepository;
 import com.pms.management.utils.CustomException;
 import com.pms.management.utils.KeyCloakService;
-//import com.pms.management.utils.KeyCloakService;
 import com.pms.management.utils.MailService;
 import com.pms.management.utils.PmsManagementUtil;
 
 import net.bytebuddy.utility.RandomString;
+
 @Service
 public class MangamentServiceImpl implements ManagementService {
 
@@ -41,15 +41,14 @@ public class MangamentServiceImpl implements ManagementService {
 
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder;
-	
-   @Autowired
-	RestTemplate restTemplate;
-   
-   @Autowired
-   private KeyCloakService keyCloakService;
-    
-   private String user_role;
 
+	@Autowired
+	RestTemplate restTemplate;
+
+	@Autowired
+	private KeyCloakService keyCloakService;
+
+	private String user_role;
 
 	/**
 	 * Patient self Registration
@@ -71,7 +70,6 @@ public class MangamentServiceImpl implements ManagementService {
 			/**
 			 * Saving user in Keyclock Server with Properties username(emailid) and password
 			 */
-//			this.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
 			keyCloakService.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
 			mailService.sendMail(saveUser);
 			return userConverter.toDto(saveUser);
@@ -87,15 +85,18 @@ public class MangamentServiceImpl implements ManagementService {
 			throw new CustomException(HttpStatus.NOT_FOUND, "Email id already exist");
 		}
 		try {
-			
-			
+
 			UserEntity userEntity = userConverter.toEntity(userDto);
 			/*
-			 *Assigning employee id based on role ; 
-			 * */
-			if (userEntity.getRoleId() == 2) { this.user_role = "AD";}				
-			else if (userEntity.getRoleId() == 3 ){ this.user_role = "DR";}
-			else { this.user_role = "NR";}
+			 * Assigning employee id based on role ;
+			 */
+			if (userEntity.getRoleId() == 2) {
+				this.user_role = "AD";
+			} else if (userEntity.getRoleId() == 3) {
+				this.user_role = "DR";
+			} else {
+				this.user_role = "NR";
+			}
 			userEntity.setEmployeeId(this.generateEmployeeId(user_role));
 			String default_password = "Password@123";
 			userDto.setPassword(default_password);
@@ -106,8 +107,7 @@ public class MangamentServiceImpl implements ManagementService {
 			/**
 			 * Register in KeyClock
 			 */
-//			this.addUserInKeyclock(userDto,default_password);
-			keyCloakService.addUserInKeyclock(userDto,default_password);
+			keyCloakService.addUserInKeyclock(userDto, default_password);
 
 			UserEntity saveUser = repository.save(userEntity);
 			mailService.sendMailToNewUser(saveUser, default_password);
@@ -117,13 +117,14 @@ public class MangamentServiceImpl implements ManagementService {
 		}
 	}
 
-
 	@Override
 	public List<UserViewDto> getPatients() {
 		List<UserEntity> patients = repository.findAll();
 		List<UserEntity> entities = patients.stream().filter(p -> p.getRoleId() == 5).collect(Collectors.toList());
-		List<UserViewDto> filteredUsers = entities.stream().map(u->{
-			UserViewDto data = new UserViewDto(u.getUserId(),u.getTitle(),u.getFirstName(),u.getLastName(),u.getEmailId(),u.getDob(),u.getRoleId(),u.getEmployeeId(),u.getContactNo(),u.getPassword(),u.getActiveStatus(),u.getCreatedDate());
+		List<UserViewDto> filteredUsers = entities.stream().map(u -> {
+			UserViewDto data = new UserViewDto(u.getUserId(), u.getTitle(), u.getFirstName(), u.getLastName(),
+					u.getEmailId(), u.getDob(), u.getRoleId(), u.getEmployeeId(), u.getContactNo(), u.getPassword(),
+					u.getActiveStatus(), u.getCreatedDate());
 			return data;
 		}).collect(Collectors.toList());
 		return filteredUsers;
@@ -132,9 +133,12 @@ public class MangamentServiceImpl implements ManagementService {
 	@Override
 	public List<UserViewDto> getHospitalUsers() {
 
-		List<UserEntity> patients = repository.findAll().stream().filter(p -> p.getRoleId() == 3 || p.getRoleId() == 4).collect(Collectors.toList());
-		List<UserViewDto> filteredUsers = patients.stream().map(u->{
-			UserViewDto data = new UserViewDto(u.getUserId(),u.getTitle(),u.getFirstName(),u.getLastName(),u.getEmailId(),u.getDob(),u.getRoleId(),u.getEmployeeId(),u.getContactNo(),u.getPassword(),u.getActiveStatus(),u.getCreatedDate());
+		List<UserEntity> patients = repository.findAll().stream().filter(p -> p.getRoleId() == 3 || p.getRoleId() == 4)
+				.collect(Collectors.toList());
+		List<UserViewDto> filteredUsers = patients.stream().map(u -> {
+			UserViewDto data = new UserViewDto(u.getUserId(), u.getTitle(), u.getFirstName(), u.getLastName(),
+					u.getEmailId(), u.getDob(), u.getRoleId(), u.getEmployeeId(), u.getContactNo(), u.getPassword(),
+					u.getActiveStatus(), u.getCreatedDate());
 			return data;
 		}).collect(Collectors.toList());
 		return filteredUsers;
@@ -142,9 +146,10 @@ public class MangamentServiceImpl implements ManagementService {
 
 	@Override
 	public UserDto updateStatus(UserDto user) {
-		if (repository.findByUserId(user.getUserId()).isPresent()) {
+		Optional<UserEntity> optional = repository.findByUserId(user.getUserId());
+		if (optional.isPresent()) {
 
-			UserEntity entity = repository.findByUserId(user.getUserId()).get();
+			UserEntity entity = optional.get();
 			entity.setActiveStatus(user.getActive());
 
 			this.sendMailForUpdateStatus(entity);
@@ -153,23 +158,23 @@ public class MangamentServiceImpl implements ManagementService {
 
 		return null;
 	}
-   
+
 	@Override
 	public UserDto updateUserDetails(UserDto user) {
-		if (repository.findByUserId(user.getUserId()).isPresent()) {
+		Optional<UserEntity> optional = repository.findByUserId(user.getUserId());
+		if (optional.isPresent()) {
 
-			UserEntity entity = repository.findByUserId(user.getUserId()).get();
+			UserEntity entity = optional.get();
 			entity.setTitle(user.getTitle());
 			entity.setFirstName(user.getFirstName());
 			entity.setLastName(user.getLastName());
 
-			//this.sendMailForUpdateStatus(entity);
 			return userConverter.toDto(repository.save(entity));
 		}
 
 		return null;
 	}
-	
+
 	@Override
 	public UserDetailsViewDto findByEmailId(String emailId) throws CustomException {
 		Optional<UserEntity> optional = repository.findByEmailId(emailId);
@@ -194,7 +199,6 @@ public class MangamentServiceImpl implements ManagementService {
 				user.setPassword(pwdEncoder.encode(dto.getNewPassword()));
 				user.setUpdatedDate(new Date());
 				UserEntity saveUser = repository.save(user);
-//				this.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
 				keyCloakService.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
 				return new UserDetailsViewDto(userConverter.toDto(saveUser));
 			} else {
@@ -213,22 +217,25 @@ public class MangamentServiceImpl implements ManagementService {
 			throw new CustomException(HttpStatus.NOT_FOUND, "User detail does not exits");
 		}
 	}
-   
-	private String generateEmployeeId(String role){
+
+	private String generateEmployeeId(String role) {
 		int min = 1000;
-        int max = 9999;
-		int randomNumber = (min + (int)(Math.random() * ((max - min))));
-	    return role + randomNumber;
+		int max = 9999;
+		int randomNumber = (min + (int) (Math.random() * (max - min)));
+		return role + randomNumber;
 	}
-	
+
 	private void generateOneTimePassword(UserEntity user) {
-		UserEntity userEntity = repository.findByEmailId(user.getEmailId()).get();
-		String otp = RandomString.make(8);
-		String encodedOTP = pwdEncoder.encode(otp);
-		userEntity.setPassword(encodedOTP);
-		userEntity.setOtpRequestedTime(new Date());
-		repository.save(userEntity);
-		mailService.sendMailToActiveUser(userEntity, otp);
+		Optional<UserEntity> optional = repository.findByEmailId(user.getEmailId());
+		if(optional.isPresent()) {
+			UserEntity userEntity = optional.get();
+			String otp = RandomString.make(8);
+			String encodedOTP = pwdEncoder.encode(otp);
+			userEntity.setPassword(encodedOTP);
+			userEntity.setOtpRequestedTime(new Date());
+			repository.save(userEntity);
+			mailService.sendMailToActiveUser(userEntity, otp);
+		}
 	}
 
 	private void sendMailForUpdateStatus(UserEntity user) {
@@ -251,14 +258,15 @@ public class MangamentServiceImpl implements ManagementService {
 		;
 		mailService.sendMail(recipient, subject, message);
 	}
-	
+
 	/**
 	 * Data for Admin Dashboard
 	 */
 	public List<IdAndNameDto> monthWiseData() {
 		List<Object[]> list = repository.getMonthWiseRegistrationCount();
 		return list.stream().map(obj -> {
-			return new IdAndNameDto(PmsManagementUtil.convertObjectIntoLong(obj[0]),PmsManagementUtil.convertObjectIntoString(obj[1]));
+			return new IdAndNameDto(PmsManagementUtil.convertObjectIntoLong(obj[0]),
+					PmsManagementUtil.convertObjectIntoString(obj[1]));
 		}).collect(Collectors.toList());
 	}
 }

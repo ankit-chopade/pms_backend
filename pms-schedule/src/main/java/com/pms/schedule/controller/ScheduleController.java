@@ -1,7 +1,5 @@
 package com.pms.schedule.controller;
 
-import javax.annotation.security.RolesAllowed;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pms.schedule.constants.PmsScheduleConstants;
 import com.pms.schedule.constants.PmsScheduleUrlConstants;
-import com.pms.schedule.dto.EditHistoryDto;
 import com.pms.schedule.dto.EditHistorySaveDto;
 import com.pms.schedule.dto.IdDto;
 import com.pms.schedule.dto.PatientAppointmentDto;
-import com.pms.schedule.entity.EditHistoryEntity;
-import com.pms.schedule.entity.PatientAppointmentEntity;
 import com.pms.schedule.service.ScheduleService;
 import com.pms.schedule.utils.ApiResponse;
 import com.pms.schedule.utils.CustomException;

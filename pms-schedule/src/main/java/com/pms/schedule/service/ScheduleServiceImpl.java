@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.pms.schedule.constants.PmsScheduleConstants;
@@ -56,8 +55,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public List<UserEntity> getPhysician() {
 		final Integer roleId = 3;
-		List<UserEntity> list = userrepo.findByRoleId(roleId);
-		return list;
+		return userrepo.findByRoleId(roleId);
 	}
 
 	@Override
@@ -77,8 +75,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public List<PatientAppointmentDto> getPhysicianAppintments(Long Id) throws CustomException {
-		List<PatientAppointmentEntity> appointemnts = patientAppointmentRepository.findByPhysicianId(Id);
+	public List<PatientAppointmentDto> getPhysicianAppintments(Long id) throws CustomException {
+		List<PatientAppointmentEntity> appointemnts = patientAppointmentRepository.findByPhysicianId(id);
 		return patientAppointmentConverter.toDto(appointemnts);
 	}
 
@@ -86,8 +84,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public PatientAppointmentDto editPatientAppointment(PatientAppointmentDto patientAppointment)
 			throws CustomException {
 		PatientAppointmentEntity appointment = patientAppointmentRepository.findByAppointmentId(patientAppointment.getAppointmentId());
-		System.out.println(appointment);
-		System.out.println(patientAppointment.getAppointmentId());
+
 		appointment.setDescription(patientAppointment.getDescription());
 		appointment.setEndTime(patientAppointment.getEndTime());
 		appointment.setId(patientAppointment.getId());
@@ -105,9 +102,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Transactional
 	@Override
-	public Long deletePhysicianAppointment(Long Id) throws CustomException {
-		Long deltetedAppointment = patientAppointmentRepository.deleteByAppointmentId(Id);
-		return deltetedAppointment;
+	public Long deletePhysicianAppointment(Long id) throws CustomException {
+		return patientAppointmentRepository.deleteByAppointmentId(id);
 	}
 
 	@Override
@@ -127,21 +123,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public List<EditHistoryDto> getEditHistory(Long Id) throws CustomException {
-		List<EditHistoryEntity> histories = editHistoryRepository.findByPatientId(Id);
+	public List<EditHistoryDto> getEditHistory(Long id) throws CustomException {
+		List<EditHistoryEntity> histories = editHistoryRepository.findByPatientId(id);
 		List<EditHistoryDto> editHistoryDtos = new ArrayList<>();
 
 		histories.forEach(h -> {
-			Optional<UserEntity> users_physician = userrepo.findByUserId(h.getPhysicianId());
-//			if (!users_physician.isPresent())
-//				throw new UsernameNotFoundException("No record Found");
+			Optional<UserEntity> usersPhysician = userrepo.findByUserId(h.getPhysicianId());
 
-			String physicianName = users_physician.get().getFirstName() + " " + users_physician.get().getLastName();
+			String physicianName = usersPhysician.get().getFirstName() + " " + usersPhysician.get().getLastName();
 
-			Optional<UserEntity> users_editedBy = userrepo.findByUserId(h.getEditedBy());
-//			if (!users_editedBy.isPresent())
-//				throw new CustomException(HttpStatus.NOT_FOUND, "No record Found");
-			String editedByName = users_editedBy.get().getFirstName() + " " + users_editedBy.get().getLastName();
+			Optional<UserEntity> usersEditedBy = userrepo.findByUserId(h.getEditedBy());
+			String editedByName = usersEditedBy.get().getFirstName() + " " + usersEditedBy.get().getLastName();
 
 			EditHistoryDto dto = new EditHistoryDto(h);
 			
@@ -155,16 +147,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	private void sendMail(PatientAppointmentEntity patientAppointment) throws CustomException {
 		// sending mail to Patient
-		Optional<UserEntity> users_patient = userrepo.findByUserId(patientAppointment.getPatientId());
-		Optional<UserEntity> users_physician = userrepo.findByUserId(patientAppointment.getPhysicianId());
+		Optional<UserEntity> usersPatient = userrepo.findByUserId(patientAppointment.getPatientId());
+		Optional<UserEntity> usersPhysician = userrepo.findByUserId(patientAppointment.getPhysicianId());
 
-		if (!users_patient.isPresent())
+		if (!usersPatient.isPresent())
 			throw new CustomException(HttpStatus.NOT_FOUND, "No record Found");
-		UserEntity patient = users_patient.get();
+		UserEntity patient = usersPatient.get();
 
-		if (!users_physician.isPresent())
+		if (!usersPhysician.isPresent())
 			throw new CustomException(HttpStatus.NOT_FOUND, "No record Found");
-		UserEntity physician = users_physician.get();
+		UserEntity physician = usersPhysician.get();
 
 		String recipient = patient.getEmailId();
 		String subject = "Appointment is successfully created";
@@ -176,12 +168,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 				+ physician.getFirstName() + " " + physician.getLastName() + "</br>" + "Start Time :"
 				+ patientAppointment.getStartTime() + "<br>" + "End Time :" + patientAppointment.getEndTime() + "<br>"
 				+ "Description :" + patientAppointment.getDescription() + "</div>" + "<HTML><head><body>";
-		;
+	
 
 		// sending mail to Physician
-		String recipient_physician = physician.getEmailId();
-		String subject_physicain = "Appointment is successfully created";
-		String message_physicain = "<HTML><head><body>"
+		String recipientPhysician = physician.getEmailId();
+		String subjectPhysicain = "Appointment is successfully created";
+		String messagePhysicain = "<HTML><head><body>"
 				+ "<div style=' border:black ; padding :10px ; border-style:outset ;'>"
 				+ "<h2>You Appointment is successfully created</h2><hr>" + "<h3> Hello " + physician.getTitle() + " "
 				+ physician.getFirstName() + " " + physician.getLastName() + "</h3> </br>"
@@ -190,10 +182,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 				+ patient.getFirstName() + " " + patient.getLastName() + "<br>" + "Start Time :"
 				+ patientAppointment.getStartTime() + "<br>" + "End Time :" + patientAppointment.getEndTime() + "<br>"
 				+ "Description :" + patientAppointment.getDescription() + "</div>" + "<HTML><head><body>";
-		;
+		
 		mailService.sendMail(recipient, subject, message);
 
-		mailService.sendMail(recipient_physician, subject_physicain, message_physicain);
+		mailService.sendMail(recipientPhysician, subjectPhysicain, messagePhysicain);
 	}
 
 	@Override
@@ -203,8 +195,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public List<PatientAppointmentDto> getPatientAppintments(Long Id) throws CustomException {
-		List<PatientAppointmentEntity> appointemnts = patientAppointmentRepository.findByPatientId(Id);
+	public List<PatientAppointmentDto> getPatientAppintments(Long id) throws CustomException {
+		List<PatientAppointmentEntity> appointemnts = patientAppointmentRepository.findByPatientId(id);
 		
 		return patientAppointmentConverter.toDto(appointemnts);
 	}

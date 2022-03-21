@@ -35,7 +35,6 @@ public class TokenService {
 
 		AccessTokenResponse keycloakAccessToken = getAccessTokenResponse(request, url);
 
-		System.out.println(keycloakAccessToken.getToken());
 		return keycloakAccessToken.getToken();
 
 	}

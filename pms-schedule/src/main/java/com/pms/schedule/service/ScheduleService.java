@@ -12,13 +12,13 @@ import com.pms.schedule.utils.CustomException;
 public interface ScheduleService {
 	public List<UserEntity> getPhysician();
 	public PatientAppointmentDto savePatientAppointment(PatientAppointmentDto patientAppointment) throws CustomException;
-	public List<PatientAppointmentDto> getPhysicianAppintments(Long Id) throws CustomException;
+	public List<PatientAppointmentDto> getPhysicianAppintments(Long id) throws CustomException;
 	public PatientAppointmentDto editPatientAppointment(PatientAppointmentDto patientAppointment) throws CustomException;
-	public Long deletePhysicianAppointment(Long Id) throws CustomException;
+	public Long deletePhysicianAppointment(Long id) throws CustomException;
 	public EditHistorySaveDto saveEditHistory(EditHistorySaveDto editHistory) throws CustomException;
-	public List<EditHistoryDto> getEditHistory(Long Id) throws CustomException;
+	public List<EditHistoryDto> getEditHistory(Long id) throws CustomException;
 	public List<UserEntity> getPatient();
-	public List<PatientAppointmentDto> getPatientAppintments(Long Id) throws CustomException;
+	public List<PatientAppointmentDto> getPatientAppintments(Long id) throws CustomException;
 
 
 

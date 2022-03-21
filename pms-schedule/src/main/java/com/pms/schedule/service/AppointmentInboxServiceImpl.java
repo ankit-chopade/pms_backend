@@ -8,11 +8,8 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.pms.schedule.dto.NurseAppointmentInboxDto;
 import com.pms.schedule.dto.PatientAppointmentInboxDto;
@@ -25,8 +22,6 @@ public class AppointmentInboxServiceImpl implements AppointmentInboxService {
 
 	@Autowired
 	PatientAppointmentRepository appointmentRepository;
-
-	private Logger log = LoggerFactory.getLogger(AppointmentInboxServiceImpl.class);
 
 	// Nurse
 
@@ -43,16 +38,13 @@ public class AppointmentInboxServiceImpl implements AppointmentInboxService {
 
 		List<Object[]> list = appointmentRepository.getAppointmentsByDate(date);
 
-		List<NurseAppointmentInboxDto> dto = list.stream().map(obj -> {
+		return list.stream().map(obj -> 
 
-			NurseAppointmentInboxDto data = new NurseAppointmentInboxDto(PmsScheduleUtil.convertObjectIntoLong(obj[0]),
+			new NurseAppointmentInboxDto(PmsScheduleUtil.convertObjectIntoLong(obj[0]),
 					PmsScheduleUtil.convertObjectIntoString(obj[1]), PmsScheduleUtil.convertObjectIntoString(obj[2]),
 					PmsScheduleUtil.convertObjectIntoString(obj[3]), PmsScheduleUtil.convertObjectIntoLong(obj[4]),
-					PmsScheduleUtil.convertObjectIntoString(obj[5]), PmsScheduleUtil.convertObjectIntoString(obj[6]));
-			return data;
-		}).collect(Collectors.toList());
-
-		return dto;
+					PmsScheduleUtil.convertObjectIntoString(obj[5]), PmsScheduleUtil.convertObjectIntoString(obj[6]))
+		).collect(Collectors.toList());
 	}
 
 	@Override
@@ -67,16 +59,13 @@ public class AppointmentInboxServiceImpl implements AppointmentInboxService {
 		}
 		List<Object[]> list = appointmentRepository.getAppointmentsByDateAndPatientId(date, patientId);
 
-		List<PatientAppointmentInboxDto> dto = list.stream().map(obj -> {
+		return list.stream().map(obj -> 
 
-			PatientAppointmentInboxDto data = new PatientAppointmentInboxDto(
+			new PatientAppointmentInboxDto(
 					PmsScheduleUtil.convertObjectIntoLong(obj[0]), PmsScheduleUtil.convertObjectIntoString(obj[1]),
 					PmsScheduleUtil.convertObjectIntoString(obj[2]), PmsScheduleUtil.convertObjectIntoString(obj[3]),
-					PmsScheduleUtil.convertObjectIntoLong(obj[4]), PmsScheduleUtil.convertObjectIntoString(obj[5]));
-			return data;
-		}).collect(Collectors.toList());
-
-		return dto;
+					PmsScheduleUtil.convertObjectIntoLong(obj[4]), PmsScheduleUtil.convertObjectIntoString(obj[5]))
+		).collect(Collectors.toList());
 	}
 
 	@Override
@@ -90,23 +79,19 @@ public class AppointmentInboxServiceImpl implements AppointmentInboxService {
 			e.printStackTrace();
 		}
 		List<Object[]> list = appointmentRepository.getAppointmentsByDateAndPhysicianId(date, physicianId);
-		List<PhysicianAppointmentInboxDto> dto = list.stream().map(obj -> {
+		return list.stream().map(obj -> 
 
-			PhysicianAppointmentInboxDto data = new PhysicianAppointmentInboxDto(
+			new PhysicianAppointmentInboxDto(
 					PmsScheduleUtil.convertObjectIntoLong(obj[0]), PmsScheduleUtil.convertObjectIntoString(obj[1]),
 					PmsScheduleUtil.convertObjectIntoString(obj[2]), PmsScheduleUtil.convertObjectIntoString(obj[3]),
-					PmsScheduleUtil.convertObjectIntoLong(obj[4]), PmsScheduleUtil.convertObjectIntoString(obj[5]));
-			return data;
-		}).collect(Collectors.toList());
-
-		return dto;
+					PmsScheduleUtil.convertObjectIntoLong(obj[4]), PmsScheduleUtil.convertObjectIntoString(obj[5]))
+		).collect(Collectors.toList());
 	}
 
 	@Transactional
 	@Override
 	public Long deleteAppointment(Long appointmentId) {
-		Long deltetedAppointment = appointmentRepository.deleteByAppointmentId(appointmentId);
-		return deltetedAppointment;
+		return appointmentRepository.deleteByAppointmentId(appointmentId);
 	}
 
 }

@@ -12,13 +12,13 @@ import com.pms.schedule.entity.PatientAppointmentEntity;
 @Repository
 public interface PatientAppointmentRepository extends JpaRepository<PatientAppointmentEntity, Long> {
 	
-	public List<PatientAppointmentEntity> findByPhysicianId(Long Id);
+	public List<PatientAppointmentEntity> findByPhysicianId(Long id);
 
-	public PatientAppointmentEntity findByAppointmentId(Long Id);
+	public PatientAppointmentEntity findByAppointmentId(Long id);
 
-	public Long deleteByAppointmentId(Long Id);
+	public Long deleteByAppointmentId(Long id);
 
-	public List<PatientAppointmentEntity> findByPatientId(Long Id);
+	public List<PatientAppointmentEntity> findByPatientId(Long id);
 	
 	// Inbox Methods
 		@Query(value="select pau.appointment_id, pau.subject, pau.description, pau.start_time, pau.patient_id, concat(pau.first_name,' ',pau.last_name) as physician_name, concat(u.first_name,' ',u.last_name) as patient_name " +

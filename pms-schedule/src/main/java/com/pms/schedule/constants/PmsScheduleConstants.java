@@ -1,6 +1,10 @@
 package com.pms.schedule.constants;
 
 public class PmsScheduleConstants {
+	
+	private PmsScheduleConstants() {
+		super();
+	}
 
 	public static final Integer ACTIVE_STATUS = 1;
 

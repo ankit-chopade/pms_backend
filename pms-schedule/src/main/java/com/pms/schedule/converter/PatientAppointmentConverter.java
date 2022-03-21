@@ -19,7 +19,6 @@ public class PatientAppointmentConverter implements BaseConverter<PatientAppoint
 
 	@Override
 	public PatientAppointmentDto toDto(PatientAppointmentEntity entity) {
-		// TODO Auto-generated method stub
 		PatientAppointmentDto dto = new PatientAppointmentDto();
 		BeanUtils.copyProperties(entity, dto);
 		return dto;
