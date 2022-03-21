@@ -14,5 +14,10 @@ public class PmsScheduleUrlConstants {
 	public static final String URL_GET_PHYSICIANS = "/getPhysician";
 	public static final String URL_GET_PATIENTS = "/getPatient";
 	public static final String URL_PATIENT_APPOINTMENT= "/patient-appointment";
+	public static final String URL_INBOX_NURSE= "/getAppointmentToPatientByDate";
+	public static final String URL_INBOX_PATIENT= "/getAppointmentToPatientByDateAndPatientId";
+	public static final String URL_INBOX_PHYSICIAN= "/getAppointmentToPatientByDateAndPhysicianId";
+	public static final String URL_INBOX_DELETE_APPOINTMENT= "delete/appointment";
+
 
 }

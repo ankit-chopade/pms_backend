@@ -1,8 +1,5 @@
 package com.pms.management.utils;
 
-import java.io.UnsupportedEncodingException;
-
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +50,7 @@ public class MailService {
 				+ "your registration has been successfully completed.</p>" + "<h3>your username : " + user.getEmailId()
 				+ " </h3>" + "<h3>your default password : " + default_password + " </h3>"
 				+ "this is one time login password please change your password." + "</div>" + "<HTML><head><body>";
-		;
+		
 		this.sendMail(recipient, subject, message);
 	}
    public void sendMailToActiveUser(UserEntity user ,String otp) {

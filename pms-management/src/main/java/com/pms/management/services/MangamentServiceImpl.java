@@ -3,23 +3,12 @@ package com.pms.management.services;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import com.pms.management.constants.ManagementConstants;
@@ -32,7 +21,7 @@ import com.pms.management.dto.UserViewDto;
 import com.pms.management.entites.UserEntity;
 import com.pms.management.repository.ManagementRepository;
 import com.pms.management.utils.CustomException;
-
+import com.pms.management.utils.KeyCloakService;
 //import com.pms.management.utils.KeyCloakService;
 import com.pms.management.utils.MailService;
 import com.pms.management.utils.PmsManagementUtil;
@@ -56,8 +45,8 @@ public class MangamentServiceImpl implements ManagementService {
    @Autowired
 	RestTemplate restTemplate;
    
-//   @Autowired
-//   private KeyCloakService keyCloakService;
+   @Autowired
+   private KeyCloakService keyCloakService;
     
    private String user_role;
 
@@ -83,7 +72,7 @@ public class MangamentServiceImpl implements ManagementService {
 			 * Saving user in Keyclock Server with Properties username(emailid) and password
 			 */
 //			this.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
-//			keyCloakService.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
+			keyCloakService.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
 			mailService.sendMail(saveUser);
 			return userConverter.toDto(saveUser);
 		} catch (Exception ex) {
@@ -206,7 +195,7 @@ public class MangamentServiceImpl implements ManagementService {
 				user.setUpdatedDate(new Date());
 				UserEntity saveUser = repository.save(user);
 //				this.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
-//				keyCloakService.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
+				keyCloakService.updateUserPasswordInKeyclock(dto.getEmailId(), dto.getNewPassword());
 				return new UserDetailsViewDto(userConverter.toDto(saveUser));
 			} else {
 				throw new CustomException(HttpStatus.NOT_FOUND, "Invalid password");

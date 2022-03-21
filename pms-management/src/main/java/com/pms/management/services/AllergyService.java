@@ -9,8 +9,6 @@ public interface AllergyService {
 	
 	public AllergyDto save(AllergyDto dto);
 
-//	public AllergyDto getAllergybyId(Long allergyId) throws CustomException;
-
 	public List<AllergyDto> getAllergyDetails();
 
 	public AllergyDto getbyAllergyCode(String allergyCode);

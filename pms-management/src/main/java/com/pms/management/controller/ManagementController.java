@@ -22,54 +22,49 @@ import com.pms.management.services.ManagementService;
 import com.pms.management.utils.ApiResponse;
 import com.pms.management.utils.CustomException;
 import com.pms.management.utils.ResponseUtil;
-//import com.pms.management.utils.TokenService;
+import com.pms.management.utils.TokenService;
 
 @RestController
 @CrossOrigin(origins = ManagementConstants.PMS_CROSS_ORIGIN)
 @RequestMapping(ManagementUrlConstants.URL_ROOT)
 public class ManagementController {
-   
+
 	@Autowired
 	private ManagementService service;
-	
-//	@Autowired
-//	private TokenService tokenService;
 
+	@Autowired
+	private TokenService tokenService;
 
 	@PostMapping(ManagementUrlConstants.URL_REGISTRATION)
 	public ResponseEntity<ApiResponse> saveUser(@RequestBody UserDto user) throws CustomException {
-		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_USER_REGISTERED, this.service.saveUser(user));
+		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_USER_REGISTERED,
+				this.service.saveUser(user));
 	}
 
 	@PostMapping(ManagementUrlConstants.URL_LOGIN)
 	public ResponseEntity<ApiResponse> loginUser(@RequestBody LoginDto loginDto) throws CustomException {
-		return ResponseUtil.getResponse(HttpStatus.OK,ManagementConstants.PMS_TOKEN_GENERATED,
-				new UserTokenDto(service.findByEmailId(loginDto.getEmailId()),"abc"));
-//						tokenService.generateTokens(loginDto.getEmailId(), loginDto.getPassword())));
+		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_TOKEN_GENERATED,
+				new UserTokenDto(service.findByEmailId(loginDto.getEmailId()),
+						tokenService.generateTokens(loginDto.getEmailId(), loginDto.getPassword())));
 	}
-//
-//	@PostMapping(ManagementUrlConstants.URL_LOGIN)
-//	public ResponseEntity<ApiResponse> loginUser(@RequestBody LoginDto loginDto) throws CustomException {
-//		return ResponseUtil.getResponse(HttpStatus.OK,ManagementConstants.PMS_TOKEN_GENERATED,
-//				new UserTokenDto(service.findByEmailId(loginDto.getEmailId()),
-//						tokenService.generateTokens(loginDto.getEmailId(), loginDto.getPassword())));
-//	}
 
 	@PostMapping(ManagementUrlConstants.URL_CHANGE_PASSWORD)
 	public ResponseEntity<ApiResponse> updatePassword(@RequestBody ChangePasswordDto dto) throws CustomException {
-		return ResponseUtil.getResponse(HttpStatus.OK,ManagementConstants.PMS_CHANGE_PASSWORD, service.updatePassword(dto));
+		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_CHANGE_PASSWORD,
+				service.updatePassword(dto));
 	}
-	
+
 	@PostMapping(ManagementUrlConstants.URL_ADD_USER)
 	public ResponseEntity<ApiResponse> addUser(@RequestBody UserDto user) throws CustomException {
 		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_USER_REGISTERED,
 				this.service.addUser(user));
 	}
-	
+
 //	@RolesAllowed({"patient","physician"})
 	@GetMapping(ManagementUrlConstants.URL_PATIENT_USERS)
 	public ResponseEntity<ApiResponse> getpatients() {
-		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_RECORDS_FETCHED, this.service.getPatients());
+		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_RECORDS_FETCHED,
+				this.service.getPatients());
 	}
 
 	@GetMapping(ManagementUrlConstants.URL_HOSPITAL_USERS)
@@ -89,15 +84,15 @@ public class ManagementController {
 		return ResponseUtil.getResponse(HttpStatus.OK, ManagementConstants.PMS_STATUS_UPDATED,
 				this.service.updateUserDetails(user));
 	}
-	
+
 	@GetMapping(ManagementUrlConstants.URL_USERDATA)
-	public ResponseEntity<ApiResponse> getAllergybyId(@RequestParam Long userId) throws CustomException{
-	return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful",this.service.findByUserId(userId));
+	public ResponseEntity<ApiResponse> getAllergybyId(@RequestParam Long userId) throws CustomException {
+		return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful", this.service.findByUserId(userId));
 	}
-	
+
 	@GetMapping(ManagementUrlConstants.URL_MONTHLY_WISE_DATA)
-	public ResponseEntity<ApiResponse> getMonthlyRegisteredData() throws CustomException{
-	return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful",this.service.monthWiseData());
+	public ResponseEntity<ApiResponse> getMonthlyRegisteredData() throws CustomException {
+		return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful", this.service.monthWiseData());
 	}
-	
+
 }

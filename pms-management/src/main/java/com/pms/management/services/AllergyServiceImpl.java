@@ -38,16 +38,6 @@ public class AllergyServiceImpl implements AllergyService{
 	}
 
 
-//	@Override
-//	public AllergyDto getAllergybyId(Long id) {
-//		Optional<AllergyEntity> optional = allergyrepo.findById(id);
-//		AllergyEntity entity= null;
-//		   if(optional.isPresent()){
-//			    entity =   optional.get();
-//			   return converter.toDto(entity);
-//		   }
-//	}
-
 	@Override
 	public AllergyDto getbyAllergyCode(String allergyCode) {
 		
