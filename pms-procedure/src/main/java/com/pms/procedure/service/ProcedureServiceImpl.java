@@ -27,7 +27,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 
 	@Override
 	public List<ProcedureDto> getAllDetails() {
-		List<ProcedureEntity> procedureList = repository.findByActiveStatus(PmsProcedureConstants.ACTIVE);
+		List<ProcedureEntity> procedureList = repository.findByActiveStatusOrderByCreatedDateDesc(PmsProcedureConstants.ACTIVE);
 		return converter.toDto(procedureList);
 	}
 

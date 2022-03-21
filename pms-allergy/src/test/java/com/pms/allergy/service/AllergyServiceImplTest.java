@@ -46,7 +46,7 @@ class AllergyServiceImplTest {
 	void testGetAllDetails() {
 		List<AllergyEntity> entityList = new ArrayList<>();
 		List<AllergyDto> dtoList = new ArrayList<>();
-		when(repository.findByActiveStatus(PmsAllergyConstants.ACTIVE)).thenReturn(entityList);
+		when(repository.findByActiveStatusOrderByCreatedDateDesc(PmsAllergyConstants.ACTIVE)).thenReturn(entityList);
 		when(converter.toDto(entityList)).thenReturn(dtoList);
 		assertNotNull(service.getAllDetails());
 	}

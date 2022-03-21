@@ -11,7 +11,7 @@ import com.pms.diagnosis.entity.DiagnosisEntity;
 @Repository
 public interface DiagnosisRepository extends JpaRepository<DiagnosisEntity, Long> {
 
-	List<DiagnosisEntity> findByActiveStatus(Integer activeStatus);
+	List<DiagnosisEntity> findByActiveStatusOrderByCreatedDateDesc(Integer activeStatus);
 
 	Optional<DiagnosisEntity> findByDiagnosisCodeAndActiveStatus(String diagnosisCode, Integer activeStatus);
 

@@ -1,4 +1,4 @@
-package com.pms.management.config;
+package com.pms.diagnosis.config;
 
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
@@ -57,27 +57,7 @@ public class KeyclockConfig extends KeycloakWebSecurityConfigurerAdapter {
 		http.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 		.authorizeRequests()
-//		.antMatchers("/management/**").hasAnyRole("patient","physician","nurse","admin")
+//		.antMatchers("/allergy/**").hasAnyRole("patient","physician","nurse","admin")
 		.anyRequest().permitAll();
-//		.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security",
-//		"/swagger-ui.html", "/webjars/**", "/registration", "/management/login","/change-password","/forgot-password")
-//		.permitAll();
 	}
-	
-//	@Override
-//	public void configure(HttpSecurity http) throws Exception {
-//	http.cors();
-//	http.csrf().disable().authorizeRequests()
-//	.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security",
-//	"/swagger-ui.html", "/webjars/**", "/registration", "/login","/change-password","/forgot-password")
-//	.permitAll()
-//	.anyRequest().authenticated().and().exceptionHandling()
-//	.authenticationEntryPoint(authenticationEntryPoint).and().sessionManagement()
-//	.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//	// register filter for 2nd request onwords
-//	.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//
-//
-//	}
 }

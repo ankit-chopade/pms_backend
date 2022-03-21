@@ -27,7 +27,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
 	@Override
 	public List<DiagnosisDto> getAllDetails() {
-		List<DiagnosisEntity> diagnosisList = repository.findByActiveStatus(PmsDiagnosisConstants.ACTIVE);
+		List<DiagnosisEntity> diagnosisList = repository.findByActiveStatusOrderByCreatedDateDesc(PmsDiagnosisConstants.ACTIVE);
 		return converter.toDto(diagnosisList);
 	}
 

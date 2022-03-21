@@ -27,7 +27,7 @@ public class AllergyServiceImpl implements AllergyService{
 	
 	@Override
 	public List<AllergyDto> getAllDetails() {
-		List<AllergyEntity> allergyList = repository.findByActiveStatus(PmsAllergyConstants.ACTIVE);
+		List<AllergyEntity> allergyList = repository.findByActiveStatusOrderByCreatedDateDesc(PmsAllergyConstants.ACTIVE);
 		return converter.toDto(allergyList);
 	}
 	

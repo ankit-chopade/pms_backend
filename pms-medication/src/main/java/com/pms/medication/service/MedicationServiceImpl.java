@@ -26,7 +26,7 @@ public class MedicationServiceImpl implements MedicationService {
 
 	@Override
 	public List<MedicationDto> getAllDetails() {
-		List<MedicationEntity> medicationList = repository.findByActiveStatus(PmsMedicationConstants.ACTIVE);
+		List<MedicationEntity> medicationList = repository.findByActiveStatusOrderByCreatedDateDesc(PmsMedicationConstants.ACTIVE);
 		return converter.toDto(medicationList);
 	}
 

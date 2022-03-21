@@ -107,7 +107,7 @@ public class MangamentServiceImpl implements ManagementService {
 			 * Register in KeyClock
 			 */
 //			this.addUserInKeyclock(userDto,default_password);
-//			keyCloakService.addUserInKeyclock(userDto,default_password);
+			keyCloakService.addUserInKeyclock(userDto,default_password);
 
 			UserEntity saveUser = repository.save(userEntity);
 			mailService.sendMailToNewUser(saveUser, default_password);

@@ -11,7 +11,7 @@ import com.pms.medication.entity.MedicationEntity;
 @Repository
 public interface MedicationRepository extends JpaRepository<MedicationEntity, Long> {
 
-	List<MedicationEntity> findByActiveStatus(Integer activeStatus);
+	List<MedicationEntity> findByActiveStatusOrderByCreatedDateDesc(Integer activeStatus);
 
 	Optional<MedicationEntity> findByDrugIdAndActiveStatus(String drugId, Integer activeStatus);
 

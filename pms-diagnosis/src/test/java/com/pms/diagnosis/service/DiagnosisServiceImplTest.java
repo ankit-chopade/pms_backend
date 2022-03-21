@@ -45,7 +45,7 @@ class DiagnosisServiceImplTest {
 	void testGetAllDetails() {
 		List<DiagnosisEntity> entityList = new ArrayList<>();
 		List<DiagnosisDto> dtoList = new ArrayList<>();
-		when(repository.findByActiveStatus(JunitConstants.INTEGER_TYPE)).thenReturn(entityList);
+		when(repository.findByActiveStatusOrderByCreatedDateDesc(JunitConstants.INTEGER_TYPE)).thenReturn(entityList);
 		when(converter.toDto(entityList)).thenReturn(dtoList);
 		assertNotNull(service.getAllDetails());
 	}

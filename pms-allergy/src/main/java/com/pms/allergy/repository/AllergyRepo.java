@@ -14,7 +14,7 @@ public interface AllergyRepo extends JpaRepository<AllergyEntity, Long>{
 	
 	AllergyEntity findByAllergyCode(String allergyCode);
 	
-	List<AllergyEntity> findByActiveStatus(Integer activeStatus);
+	List<AllergyEntity> findByActiveStatusOrderByCreatedDateDesc(Integer activeStatus);
 
 	Optional<AllergyEntity> findByAllergyCodeAndActiveStatus(String allergyCode, Integer status);
 	

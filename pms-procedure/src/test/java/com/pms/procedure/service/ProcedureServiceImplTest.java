@@ -45,7 +45,7 @@ class ProcedureServiceImplTest {
 	void testGetAllDetails() {
 		List<ProcedureEntity> entityList = new ArrayList<>();
 		List<ProcedureDto> dtoList = new ArrayList<>();
-		when(repository.findByActiveStatus(JunitConstants.INTEGER_TYPE)).thenReturn(entityList);
+		when(repository.findByActiveStatusOrderByCreatedDateDesc(JunitConstants.INTEGER_TYPE)).thenReturn(entityList);
 		when(converter.toDto(entityList)).thenReturn(dtoList);
 		assertNotNull(service.getAllDetails());
 	}

@@ -21,7 +21,7 @@ public class MenuServiceImpl implements MenuService {
 	
 	@Override
 	public ResponseEntity<ApiResponse> getMenusByRoleId(Integer roleId) {
-		Optional<List<MenuEntity>> optional = menuRepo.findByRoleId(roleId);
+		Optional<List<MenuEntity>> optional = menuRepo.findByRoleIdOrderByMenuId(roleId);
 		List<MenuEntity> menus = null;
 		if (optional.isPresent()) {
 			menus = optional.get();

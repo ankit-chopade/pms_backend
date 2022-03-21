@@ -9,7 +9,7 @@ import com.pms.procedure.entity.ProcedureEntity;
 
 public interface ProcedureRepository extends JpaRepository<ProcedureEntity, Long> {
 	
-	public List<ProcedureEntity> findByActiveStatus(Integer activeStatus);
+	public List<ProcedureEntity> findByActiveStatusOrderByCreatedDateDesc(Integer activeStatus);
 
 	public Optional<ProcedureEntity> findByProcedureCodeAndActiveStatus(String procedureCode, Integer status);
 	
