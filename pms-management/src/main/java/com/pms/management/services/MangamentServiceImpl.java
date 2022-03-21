@@ -123,7 +123,7 @@ public class MangamentServiceImpl implements ManagementService {
 		List<UserEntity> patients = repository.findAll();
 		List<UserEntity> entities = patients.stream().filter(p -> p.getRoleId() == 5).collect(Collectors.toList());
 		List<UserViewDto> filteredUsers = entities.stream().map(u->{
-			UserViewDto data = new UserViewDto(u.getUserId(),u.getTitle(),u.getFirstName(),u.getLastName(),u.getEmailId(),u.getDob(),u.getRoleId(),u.getEmployeeId(),u.getContactNo(),u.getPassword(),u.getActiveStatus());
+			UserViewDto data = new UserViewDto(u.getUserId(),u.getTitle(),u.getFirstName(),u.getLastName(),u.getEmailId(),u.getDob(),u.getRoleId(),u.getEmployeeId(),u.getContactNo(),u.getPassword(),u.getActiveStatus(),u.getCreatedDate());
 			return data;
 		}).collect(Collectors.toList());
 		return filteredUsers;
@@ -134,7 +134,7 @@ public class MangamentServiceImpl implements ManagementService {
 
 		List<UserEntity> patients = repository.findAll().stream().filter(p -> p.getRoleId() == 3 || p.getRoleId() == 4).collect(Collectors.toList());
 		List<UserViewDto> filteredUsers = patients.stream().map(u->{
-			UserViewDto data = new UserViewDto(u.getUserId(),u.getTitle(),u.getFirstName(),u.getLastName(),u.getEmailId(),u.getDob(),u.getRoleId(),u.getEmployeeId(),u.getContactNo(),u.getPassword(),u.getActiveStatus());
+			UserViewDto data = new UserViewDto(u.getUserId(),u.getTitle(),u.getFirstName(),u.getLastName(),u.getEmailId(),u.getDob(),u.getRoleId(),u.getEmployeeId(),u.getContactNo(),u.getPassword(),u.getActiveStatus(),u.getCreatedDate());
 			return data;
 		}).collect(Collectors.toList());
 		return filteredUsers;

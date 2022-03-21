@@ -40,7 +40,6 @@ public class UserViewDto {
 	
 	private Integer activeStatus;
 	
-
-	
+	private Date createdDate;
 
 }

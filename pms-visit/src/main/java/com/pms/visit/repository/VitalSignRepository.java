@@ -17,18 +17,18 @@ public interface VitalSignRepository extends JpaRepository<VitalSignEntity, Long
 	public Optional<VitalSignEntity> findByAppointmentId(Long id);
 	
 	@Query(value=" select v.blood_pressure from pmsschema.vital_signs v where v.appointment_id in ( "
-			+ " select a.appointment_id from pmsschema.patientappointment a where "
+			+ " select a.appointment_id from pmsschema.patient_appointment a where "
 			+ " a.patient_id = :patientId order by a.start_time desc LIMIT 5) ", nativeQuery = true)
 	public List<String> findBloodPressureByPatientId(@Param("patientId") Long patientId);
 	
 	@Query(value=" select v.respiration_rate from pmsschema.vital_signs v where v.appointment_id in ( "
-			+ " select a.appointment_id from pmsschema.patientappointment a where "
+			+ " select a.appointment_id from pmsschema.patient_appointment a where "
 			+ " a.patient_id = :patientId order by a.start_time desc LIMIT 5) ", nativeQuery = true)
 	public List<String> findRespirationRateByPatientId(@Param("patientId") Long patientId);
 	
 	@Query(value="select v.height, v.respiration_rate, v.weight, v.body_temperature from pmsschema.vital_signs v "
 			+ " where v.appointment_id = ( "
-			+ " select a.appointment_id from pmsschema.patientappointment a where a.patient_id = :patientId "
+			+ " select a.appointment_id from pmsschema.patient_appointment a where a.patient_id = :patientId "
 			+ " order by a.start_time desc LIMIT 1 ) ", nativeQuery = true)
 	public String findLatestVitalSignsByPatientId(@Param("patientId") Long patientId);
 	
