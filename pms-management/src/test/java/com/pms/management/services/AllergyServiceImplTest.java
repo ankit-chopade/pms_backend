@@ -18,9 +18,9 @@ import com.pms.management.converter.AllergyConverter;
 import com.pms.management.dto.AllergyDto;
 import com.pms.management.entites.AllergyEntity;
 import com.pms.management.repository.AllergyRepo;
-
 @ExtendWith(MockitoExtension.class)
 class AllergyServiceImplTest {
+	
 	@InjectMocks
 	AllergyServiceImpl service;
 
@@ -32,10 +32,14 @@ class AllergyServiceImplTest {
 
 	@Mock
 	AllergyEntity entity;
-
+	@Mock
+	List<AllergyEntity> entityList;
+	
 	@Mock
 	AllergyDto dto;
-	
+	@Mock
+	List<AllergyDto> dtoList;
+
 	@Test
 	void testSave() {
 		when(converter.toEntity(dto)).thenReturn(entity);
@@ -53,12 +57,18 @@ class AllergyServiceImplTest {
 		assertNotNull(service.getAllergyDetails());
 	}
 
-
 	@Test
 	void testGetbyAllergyCode() {
 		when(repository.findByAllergyCode(JunitConstants.STRING_TYPE)).thenReturn(entity);
 		when(converter.toDto(entity)).thenReturn(dto);
 		assertNotNull(service.getbyAllergyCode(JunitConstants.STRING_TYPE));
+	}
+
+	@Test
+	void testGetByAllergyIdIn() {
+		when(repository.findByAllergyIdIn(JunitConstants.LIST_LONG_TYPE)).thenReturn(entityList);
+		when(converter.toDto(entityList)).thenReturn(dtoList);
+		assertNotNull(service.getByAllergyIdIn(JunitConstants.LIST_LONG_TYPE));
 	}
 
 }

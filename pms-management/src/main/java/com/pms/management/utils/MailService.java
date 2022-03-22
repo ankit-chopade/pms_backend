@@ -65,6 +65,19 @@ public class MailService {
 		
 		this.sendMail(recipient, subject, message);
 	}
+   public void sendMailToForgotPasswordUser(UserEntity user,String default_password) {
+		String recipient = user.getEmailId();
+		String subject = "PMS Registration.";
+		String message = "<HTML><head><body>" + "<div style=' border:black ; padding :10px ; border-style:outset ;'>"
+				+ "<h2>Welcome to the PMS Application.</h2><hr>" + "<h3> Hello " + user.getTitle() + " "
+				+ user.getFirstName() + " " + user.getLastName() + "</h3> </br>"
+				+ "<p> Welcome to the PMS Application : </br>"
+				+ "your password has been successfully reset.</p>" + "<h3>your username : " + user.getEmailId()
+				+ " </h3>" + "<h3>your default password : " + default_password + " </h3>"
+				+ "this is one time login password please change your password." + "</div>" + "<HTML><head><body>";
+		
+		this.sendMail(recipient, subject, message);
+	}
 
 	
 	

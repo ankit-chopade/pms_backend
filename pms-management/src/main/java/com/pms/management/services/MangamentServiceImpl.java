@@ -85,7 +85,6 @@ public class MangamentServiceImpl implements ManagementService {
 			throw new CustomException(HttpStatus.NOT_FOUND, "Email id already exist");
 		}
 		try {
-
 			UserEntity userEntity = userConverter.toEntity(userDto);
 			/*
 			 * Assigning employee id based on role ;
@@ -229,12 +228,12 @@ public class MangamentServiceImpl implements ManagementService {
 		Optional<UserEntity> optional = repository.findByEmailId(user.getEmailId());
 		if(optional.isPresent()) {
 			UserEntity userEntity = optional.get();
-			String otp = RandomString.make(8);
-			String encodedOTP = pwdEncoder.encode(otp);
+			String default_password="Password@123";
+			String encodedOTP = pwdEncoder.encode(default_password);
 			userEntity.setPassword(encodedOTP);
 			userEntity.setOtpRequestedTime(new Date());
 			repository.save(userEntity);
-			mailService.sendMailToActiveUser(userEntity, otp);
+			mailService.sendMailToActiveUser(userEntity, default_password);
 		}
 	}
 
@@ -269,4 +268,22 @@ public class MangamentServiceImpl implements ManagementService {
 					PmsManagementUtil.convertObjectIntoString(obj[1]));
 		}).collect(Collectors.toList());
 	}
+
+	@Override
+	public UserDto forgotPassword(String emailId) throws CustomException {
+		Optional<UserEntity> optional = repository.findByEmailId(emailId);
+		if(optional.isPresent()) {
+			UserEntity userEntity = optional.get();
+			String default_password = "Password@123";
+			userEntity.setPassword(pwdEncoder.encode(default_password));
+			UserEntity saveUser = repository.save(userEntity);
+			mailService.sendMailToForgotPasswordUser(saveUser, default_password);
+			return userConverter.toDto(saveUser);
+		}
+		else {
+			throw new CustomException(HttpStatus.NOT_FOUND, "User detail does not exits");
+		}
+	}
+	
+	
 }

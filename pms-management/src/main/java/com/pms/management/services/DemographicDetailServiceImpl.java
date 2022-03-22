@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.pms.management.constants.DemographicDetailsConstant;
 import com.pms.management.constants.ManagementConstants;
-import com.pms.management.converter.AllergyConverter;
 import com.pms.management.converter.DemographicDetailConverter;
 import com.pms.management.dto.DemographicDetailDto;
 import com.pms.management.entites.DemographicDetailEntity;
 import com.pms.management.entites.EmergencyContactEntity;
 import com.pms.management.entites.PatientAllergyEntity;
-import com.pms.management.repository.AllergyRepo;
 import com.pms.management.repository.DemographicDetailRepository;
 import com.pms.management.utils.CustomException;
 
@@ -25,15 +24,7 @@ public class DemographicDetailServiceImpl implements DemographicDetailService {
 	private DemographicDetailRepository patientRepo;
 
 	@Autowired
-	private AllergyRepo allergyRepo;
-
-	@Autowired
 	private DemographicDetailConverter converter;
-
-	@Autowired
-	private AllergyConverter allergyConverter;
-
-	List<PatientAllergyEntity> allergy;
 
 	public DemographicDetailDto save(DemographicDetailDto dto) {
 		DemographicDetailEntity entity = converter.toEntity(dto);
@@ -72,7 +63,7 @@ public class DemographicDetailServiceImpl implements DemographicDetailService {
 			patient = optional.get();
 			return converter.toDto(patient);
 		} else {
-			throw new CustomException(HttpStatus.NOT_FOUND, "data not found");
+			throw new CustomException(HttpStatus.NOT_FOUND,  DemographicDetailsConstant.DEMOGRAPHIC_DETAIL_NOT_FOUND);
 		}
 
 	}

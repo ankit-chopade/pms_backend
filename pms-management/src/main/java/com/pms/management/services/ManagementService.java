@@ -31,5 +31,7 @@ public interface ManagementService {
 	public List<UserViewDto> getHospitalUsers();
 	
 	public List<IdAndNameDto> monthWiseData();
+	
+	public UserDto forgotPassword(String emailId) throws CustomException;
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pms.management.constants.ManagementConstants;
 import com.pms.management.constants.ManagementUrlConstants;
 import com.pms.management.dto.ChangePasswordDto;
+import com.pms.management.dto.EmailIdDto;
 import com.pms.management.dto.LoginDto;
 import com.pms.management.dto.UserDto;
 import com.pms.management.dto.UserTokenDto;
@@ -93,6 +94,11 @@ public class ManagementController {
 	@GetMapping(ManagementUrlConstants.URL_MONTHLY_WISE_DATA)
 	public ResponseEntity<ApiResponse> getMonthlyRegisteredData() throws CustomException {
 		return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful", this.service.monthWiseData());
+	}
+	
+	@PostMapping(ManagementUrlConstants.URL_FORGOT_PASSWORD)
+	public ResponseEntity<ApiResponse> forgotPassword(@RequestBody EmailIdDto dto) throws CustomException {
+		return ResponseUtil.getResponse(HttpStatus.OK, "Data fetch Successful", this.service.forgotPassword(dto.getEmailId()));
 	}
 
 }

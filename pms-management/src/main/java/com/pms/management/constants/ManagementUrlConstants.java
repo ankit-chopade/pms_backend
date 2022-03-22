@@ -27,6 +27,10 @@ public class ManagementUrlConstants {
 	public static final String URL_PATIENT = "/patients";
 	
 	public static final String URL_USERDATA="/userById";
+	
 	public static final String URL_MONTHLY_WISE_DATA="/monthlydata";
+	
+	public static final String URL_FORGOT_PASSWORD="/forgot-password";
+
 
 }
