@@ -212,6 +212,7 @@ class MangamentServiceImplTest {
 
 	@Test
 	void testFindByEmailId() throws CustomException {
+		when(entity.getActiveStatus()).thenReturn(JunitConstants.INTEGER_TYPE);
 		when(repo.findByEmailId(JunitConstants.STRING_TYPE)).thenReturn(Optional.of(entity));
 		when(converter.toDto(entity)).thenReturn((userDto));
 		assertNotNull(service.findByEmailId(JunitConstants.STRING_TYPE));

@@ -67,7 +67,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 			entity.setCreatedDate(new Date());
 			entity.setCreatedBy(1l);
 			PatientAppointmentEntity savedEntity = patientAppointmentRepository.save(entity);
-			sendMail(entity);
+//			sendMail(entity);
 			return patientAppointmentConverter.toDto(savedEntity);
 		} catch (Exception ex) {
 			throw new CustomException(ErrorResponse.RECORDNOTFOUND);
@@ -145,48 +145,48 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return editHistoryDtos;
 	}
 
-	private void sendMail(PatientAppointmentEntity patientAppointment) throws CustomException {
-		// sending mail to Patient
-		Optional<UserEntity> usersPatient = userrepo.findByUserId(patientAppointment.getPatientId());
-		Optional<UserEntity> usersPhysician = userrepo.findByUserId(patientAppointment.getPhysicianId());
+//	private void sendMail(PatientAppointmentEntity patientAppointment) throws CustomException {
+//		// sending mail to Patient
+//		Optional<UserEntity> usersPatient = userrepo.findByUserId(patientAppointment.getPatientId());
+//		Optional<UserEntity> usersPhysician = userrepo.findByUserId(patientAppointment.getPhysicianId());
+//
+//		if (!usersPatient.isPresent())
+//			throw new CustomException(HttpStatus.NOT_FOUND, "No record Found");
+//		UserEntity patient = usersPatient.get();
+//
+//		if (!usersPhysician.isPresent())
+//			throw new CustomException(HttpStatus.NOT_FOUND, "No record Found");
+//		UserEntity physician = usersPhysician.get();
+//
+//		String recipient = patient.getEmailId();
+//		String subject = "Appointment is successfully created";
+//		String message = "<HTML><head><body>" + "<div style=' border:black ; padding :10px ; border-style:outset ;'>"
+//				+ "<h2>You Appointment is successfully created</h2><hr>" + "<h3> Hello " + patient.getTitle() + " "
+//				+ patient.getFirstName() + " " + patient.getLastName() + "</h3> </br>"
+//				+ "<p> Please find below appointment details : </br>" + "<br>Subject :"
+//				+ patientAppointment.getSubject() + "<br>" + "<br>Physician Name :" + physician.getTitle() + " "
+//				+ physician.getFirstName() + " " + physician.getLastName() + "</br>" + "Start Time :"
+//				+ patientAppointment.getStartTime() + "<br>" + "End Time :" + patientAppointment.getEndTime() + "<br>"
+//				+ "Description :" + patientAppointment.getDescription() + "</div>" + "<HTML><head><body>";
+//	
+//
+//		// sending mail to Physician
+//		String recipientPhysician = physician.getEmailId();
+//		String subjectPhysicain = "Appointment is successfully created";
+//		String messagePhysicain = "<HTML><head><body>"
+//				+ "<div style=' border:black ; padding :10px ; border-style:outset ;'>"
+//				+ "<h2>You Appointment is successfully created</h2><hr>" + "<h3> Hello " + physician.getTitle() + " "
+//				+ physician.getFirstName() + " " + physician.getLastName() + "</h3> </br>"
+//				+ "<p> Please find below appointment details : </br>" + "<br> Subject :"
+//				+ patientAppointment.getSubject() + "</br>" + "<br>Patient Name :" + patient.getTitle() + " "
+//				+ patient.getFirstName() + " " + patient.getLastName() + "<br>" + "Start Time :"
+//				+ patientAppointment.getStartTime() + "<br>" + "End Time :" + patientAppointment.getEndTime() + "<br>"
+//				+ "Description :" + patientAppointment.getDescription() + "</div>" + "<HTML><head><body>";
+//		
+//		mailService.sendMail(recipient, subject, message);
 
-		if (!usersPatient.isPresent())
-			throw new CustomException(HttpStatus.NOT_FOUND, "No record Found");
-		UserEntity patient = usersPatient.get();
-
-		if (!usersPhysician.isPresent())
-			throw new CustomException(HttpStatus.NOT_FOUND, "No record Found");
-		UserEntity physician = usersPhysician.get();
-
-		String recipient = patient.getEmailId();
-		String subject = "Appointment is successfully created";
-		String message = "<HTML><head><body>" + "<div style=' border:black ; padding :10px ; border-style:outset ;'>"
-				+ "<h2>You Appointment is successfully created</h2><hr>" + "<h3> Hello " + patient.getTitle() + " "
-				+ patient.getFirstName() + " " + patient.getLastName() + "</h3> </br>"
-				+ "<p> Please find below appointment details : </br>" + "<br>Subject :"
-				+ patientAppointment.getSubject() + "<br>" + "<br>Physician Name :" + physician.getTitle() + " "
-				+ physician.getFirstName() + " " + physician.getLastName() + "</br>" + "Start Time :"
-				+ patientAppointment.getStartTime() + "<br>" + "End Time :" + patientAppointment.getEndTime() + "<br>"
-				+ "Description :" + patientAppointment.getDescription() + "</div>" + "<HTML><head><body>";
-	
-
-		// sending mail to Physician
-		String recipientPhysician = physician.getEmailId();
-		String subjectPhysicain = "Appointment is successfully created";
-		String messagePhysicain = "<HTML><head><body>"
-				+ "<div style=' border:black ; padding :10px ; border-style:outset ;'>"
-				+ "<h2>You Appointment is successfully created</h2><hr>" + "<h3> Hello " + physician.getTitle() + " "
-				+ physician.getFirstName() + " " + physician.getLastName() + "</h3> </br>"
-				+ "<p> Please find below appointment details : </br>" + "<br> Subject :"
-				+ patientAppointment.getSubject() + "</br>" + "<br>Patient Name :" + patient.getTitle() + " "
-				+ patient.getFirstName() + " " + patient.getLastName() + "<br>" + "Start Time :"
-				+ patientAppointment.getStartTime() + "<br>" + "End Time :" + patientAppointment.getEndTime() + "<br>"
-				+ "Description :" + patientAppointment.getDescription() + "</div>" + "<HTML><head><body>";
-		
-		mailService.sendMail(recipient, subject, message);
-
-		mailService.sendMail(recipientPhysician, subjectPhysicain, messagePhysicain);
-	}
+//		mailService.sendMail(recipientPhysician, subjectPhysicain, messagePhysicain);
+//	}
 
 	@Override
 	public List<UserEntity> getPatient() {

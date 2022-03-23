@@ -71,7 +71,7 @@ public class MangamentServiceImpl implements ManagementService {
 			 * Saving user in Keyclock Server with Properties username(emailid) and password
 			 */
 			keyCloakService.saveUserInKeyclock(userDto.getEmailId(), userDto.getPassword());
-			mailService.sendMail(saveUser);
+//			mailService.sendMail(saveUser);
 			return userConverter.toDto(saveUser);
 		} catch (Exception ex) {
 			throw new CustomException(HttpStatus.NOT_FOUND, "Issue while creating user");
@@ -109,7 +109,7 @@ public class MangamentServiceImpl implements ManagementService {
 			keyCloakService.addUserInKeyclock(userDto, default_password);
 
 			UserEntity saveUser = repository.save(userEntity);
-			mailService.sendMailToNewUser(saveUser, default_password);
+//			mailService.sendMailToNewUser(saveUser, default_password);
 			return userConverter.toDto(saveUser);
 		} catch (Exception ex) {
 			throw new CustomException(HttpStatus.NOT_FOUND, "Issue while creating user");
@@ -179,7 +179,12 @@ public class MangamentServiceImpl implements ManagementService {
 		Optional<UserEntity> optional = repository.findByEmailId(emailId);
 		if (optional.isPresent()) {
 			UserEntity user = optional.get();
-			return new UserDetailsViewDto(userConverter.toDto(user));
+			if(user.getActiveStatus()!=1) {
+				throw new CustomException(HttpStatus.NOT_FOUND, "Unauthorised User");
+			}
+			else {
+				return new UserDetailsViewDto(userConverter.toDto(user));
+			}
 		} else {
 			throw new CustomException(HttpStatus.NOT_FOUND, "Email id does not exist");
 		}
@@ -233,7 +238,7 @@ public class MangamentServiceImpl implements ManagementService {
 			userEntity.setPassword(encodedOTP);
 			userEntity.setOtpRequestedTime(new Date());
 			repository.save(userEntity);
-			mailService.sendMailToActiveUser(userEntity, default_password);
+//			mailService.sendMailToActiveUser(userEntity, default_password);
 		}
 	}
 
@@ -255,7 +260,7 @@ public class MangamentServiceImpl implements ManagementService {
 				+ user.getLastName() + " your profile status is updated : </p>" + "<h3> <b>" + status + " </b></h3>"
 				+ "</div>" + "<HTML><head><body>";
 		;
-		mailService.sendMail(recipient, subject, message);
+//		mailService.sendMail(recipient, subject, message);
 	}
 
 	/**
@@ -277,7 +282,7 @@ public class MangamentServiceImpl implements ManagementService {
 			String default_password = "Password@123";
 			userEntity.setPassword(pwdEncoder.encode(default_password));
 			UserEntity saveUser = repository.save(userEntity);
-			mailService.sendMailToForgotPasswordUser(saveUser, default_password);
+//			mailService.sendMailToForgotPasswordUser(saveUser, default_password);
 			return userConverter.toDto(saveUser);
 		}
 		else {

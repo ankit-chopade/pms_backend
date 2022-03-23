@@ -100,4 +100,13 @@ class ProcedureServiceImplTest {
 				() -> service.deleteProcedure(JunitConstants.LONG_TYPE));
 		assertEquals(PmsProcedureMsgConstants.PROCEDURE_CODE_ALREADY_EXISTS, customException.getMessage());
 	}
+	@Test
+	void testGetAllNonDepricatedDetails() {
+		List<ProcedureEntity> list = new ArrayList<>();
+		List<ProcedureDto> listDto = new ArrayList<>();
+		when(repository.findByActiveStatusAndProcedureIsDepricated(JunitConstants.INTEGER_TYPE,
+				JunitConstants.INTEGER_TYPE)).thenReturn(list);
+		when(converter.toDto(list)).thenReturn(listDto);
+		assertNotNull(service.getAllNonDepricatedDetails());
+	}
 }

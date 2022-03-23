@@ -92,12 +92,24 @@ class DiagnosisServiceImplTest {
 		assertNotNull(service.deleteDiagnosis(JunitConstants.LONG_TYPE));
 
 	}
-	
+
 	@Test
 	void testDeleteDiagnosis_customException() throws CustomException {
 		when(repository.findByDiagnosisIdAndActiveStatus(JunitConstants.LONG_TYPE, JunitConstants.INTEGER_TYPE))
 				.thenReturn(Optional.ofNullable(null));
-		CustomException customException = assertThrows(CustomException.class, () -> service.deleteDiagnosis(JunitConstants.LONG_TYPE));
+		CustomException customException = assertThrows(CustomException.class,
+				() -> service.deleteDiagnosis(JunitConstants.LONG_TYPE));
 		assertEquals(PmsDiagnosisMsgConstants.DIAGNOSIS_DOES_NOT_EXISTS, customException.getMessage());
 	}
+
+	@Test
+	void testGetAllNonDepricatedDetails() {
+		List<DiagnosisEntity> list = new ArrayList<>();
+		List<DiagnosisDto> listDto = new ArrayList<>();
+		when(repository.findByActiveStatusAndDiagnosisIsDepricated(JunitConstants.INTEGER_TYPE,
+				JunitConstants.INTEGER_TYPE)).thenReturn(list);
+		when(converter.toDto(list)).thenReturn(listDto);
+		assertNotNull(service.getAllNonDepricatedDetails());
+	}
+
 }

@@ -114,14 +114,8 @@ class ScheduleServiceImplTest {
 	void testSavePatientAppointment() throws CustomException {
 		when(patientAppointmentConverter.toEntity(patientAppointmentDto)).thenReturn(patientAppointmentEntity);
 		when(patientAppointmentRepository.save(patientAppointmentEntity)).thenReturn(patientAppointmentEntity);
-		
-		when(userRepository.findByUserId(patientAppointmentEntity.getPatientId())).thenReturn(Optional.of(userEntity));
-		when(userRepository.findByUserId(patientAppointmentEntity.getPhysicianId())).thenReturn(Optional.of(userEntity));
-//		when(patientAppointmentConverter.toDto(patientAppointmentEntity)).thenReturn(patientAppointmentDto);
-		
-		CustomException customException = assertThrows(CustomException.class,() -> service.savePatientAppointment(patientAppointmentDto));
-		assertEquals(JunitConstants.MESSAGE_TYPE, customException.getMessage());
-		
+		when(patientAppointmentConverter.toDto(patientAppointmentEntity)).thenReturn(patientAppointmentDto);
+		assertNotNull(service.savePatientAppointment(patientAppointmentDto));		
 	}
 
 	@Test
